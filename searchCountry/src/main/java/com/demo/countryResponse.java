@@ -9,11 +9,11 @@ import java.util.List;
 
 public class countryResponse {
 
-    @JsonProperty("com.demo.query")
+
     private query query;
-    @JsonProperty("com.demo.data")
+
     private data data;
-    @JsonProperty("310")
+
     private getLeagues leagues;
 
     @Override

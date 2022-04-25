@@ -16,7 +16,7 @@ public class fetchLeagues {
 
     @Override
     public String toString() {
-        return "{Team Name:" + name +"}"+ " {team_id :" + team_id + "} " +  " Short code : " + short_code + " Country_Obj : " + country
+        return "{Team Name:" + name +"}"+ " {team_id :" + team_id + "} " +  " Short code : " + short_code + " logo: " + logo + " Country_Obj : " + country
                 ;
     }
 

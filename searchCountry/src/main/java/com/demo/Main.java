@@ -109,11 +109,11 @@ public class Main {
             for (int i = 0; i < responseHeader.size(); i++){
                 System.out.println(responseHeader.name(i) + ":" + responseHeader.value(i));
             }
-
             ObjectMapper objectMapper = new ObjectMapper();
             ResponseBody responseBody = client.newCall(request).execute().body();
             countryResponse leagues = objectMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
             });
+
             String inputJSON = response.body().string();
             JSONObject jsonObject = new JSONObject(inputJSON);
             JSONArray jsonArray = jsonObject.getJSONArray("data");
