@@ -1,6 +1,6 @@
 package com.demo.query;
 
-import com.demo.st.fetchLeagueResponse;
+import com.demo.st.team.fetchLeagueResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,11 +17,11 @@ public class query {
         return "API_KEY: " + apikey + " Country_id: " + country_id;
     }
 
-    public com.demo.st.fetchLeagueResponse getFetchLeagueResponse() {
+    public com.demo.st.team.fetchLeagueResponse getFetchLeagueResponse() {
         return fetchLeagueResponse;
     }
 
-    public void setFetchLeagueResponse(com.demo.st.fetchLeagueResponse fetchLeagueResponse) {
+    public void setFetchLeagueResponse(com.demo.st.team.fetchLeagueResponse fetchLeagueResponse) {
         this.fetchLeagueResponse = fetchLeagueResponse;
     }
 

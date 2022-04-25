@@ -1,4 +1,4 @@
-package com.demo.st;
+package com.demo.st.country;
 
 import com.demo.parsedata.data;
 import com.demo.query.query;
@@ -10,15 +10,11 @@ public class countryResponse {
 
 
     private query query;
-
-    private data data;
-
     private getLeagues leagues;
 
     @Override
     public String toString() {
         return   " query: " +  query + " league_data:  " +  leagues;
-
     }
 
     public getLeagues getLeague() {
@@ -36,14 +32,5 @@ public class countryResponse {
     public void setQuery(query query) {
         this.query = query;
     }
-
-    public data getObject() {
-        return (data) data;
-    }
-
-    public void setObject(data data) {
-        this.data = data;
-    }
-
 
 }

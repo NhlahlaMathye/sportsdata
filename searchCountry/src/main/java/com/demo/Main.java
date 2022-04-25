@@ -1,11 +1,11 @@
 package com.demo;
 
-import com.demo.st.countryResponse;
+import com.demo.st.country.countryResponse;
 import com.demo.parsedata.data;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
-import com.demo.st.fetchLeagueResponse;
+import com.demo.st.team.fetchLeagueResponse;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,14 +17,20 @@ import java.util.logging.Logger;
 
 public class Main {
 
+    //Set the response body of api request
     private static ResponseBody responseBody;
+
+    //Set the response of api request
     private static Response response;
+
+    //LOGGER
     final static Logger logger = Logger.getLogger(Main.class.getSimpleName());
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         Boolean catch_Info = true;
+        String input = "";
 
         do {
             System.out.print("Do you want to search specific teams? (Y/N) {L-for specific League} : ");
@@ -33,26 +39,36 @@ public class Main {
             if (repo.equalsIgnoreCase("N"))
             {
                 Default_Country();
-            }else if(repo.equalsIgnoreCase("Y"))
-            {
-                System.out.print("Enter the country_id name of your choice : ");
-                int count_id = Integer.parseInt(sc.next());
-                specific_country(count_id);
             }
-            else if(repo.equalsIgnoreCase("L")){
-                System.out.print("Enter the league_id of your choice : ");
+            if(repo.equalsIgnoreCase("Y"))
+            {
+                System.out.print("Enter ID of country name of your choice : ");
+                if(sc.hasNextInt())
+                {
+                    int count_id = sc.nextInt();
+                    specific_country(count_id);
+                }else{
+                    System.out.println("Enter a valid ID");
+                    catch_Info = true;
+                }
+
+            }
+            if(repo.equalsIgnoreCase("L")){
+                System.out.print("Enter ID of the team of your choice : ");
                 int league = Integer.parseInt(sc.next());
                 specific_league(league);
             }
-            System.out.print("Do you want to search again Y/N : ");
-            String asking = sc.next();
-                if(asking.equalsIgnoreCase("N")){
+            else {
+                System.out.print("Do you want to search again Y/N : ");
+                String asking = sc.next();
+                if (asking.equalsIgnoreCase("N")) {
                     catch_Info = false;
                     break;
-                }else if (asking.equalsIgnoreCase("Y")){
+                } else if (asking.equalsIgnoreCase("Y")) {
                     catch_Info = true;
                 }
-        } while (catch_Info == true);
+            }
+        } while (catch_Info = true);
 
     }
 
@@ -167,7 +183,6 @@ public class Main {
                 }
         return null;
     }
-
 
     public static void parseObj(JSONObject json, String key){
         String output = String.valueOf(json.get(key));
