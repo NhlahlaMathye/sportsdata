@@ -1,7 +1,7 @@
 package com.demo;
 
-import com.demo.countryResponse;
-import com.demo.data;
+import com.demo.st.countryResponse;
+import com.demo.st.data;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;

@@ -1,6 +1,6 @@
 package com.demo.st;
 
-import com.demo.query;
+import com.demo.query.query;
 
 public class fetchLeagueResponse {
 
