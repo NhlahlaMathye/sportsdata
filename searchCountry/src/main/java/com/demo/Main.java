@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import com.demo.st.fetchLeagueResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 public class Main {
 
@@ -105,10 +107,21 @@ public class Main {
             countryResponse leagues = objectMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
             });
             String inputJSON = response.body().string();
-            JSONObject inputObject = new JSONObject(inputJSON);
+            JSONObject jsonObject = new JSONObject(inputJSON);
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            ArrayList<Object> list_data = new ArrayList<Object>();
+            if(jsonArray != null){
+                for(int i = 0; i<jsonArray.length();i++){
 
-            data newData = new data();
-            newData.setGetKey(inputObject, "data");
+                    list_data.add(jsonArray.get(i));
+                }
+            }
+            for (int i = 0; i < list_data.size(); i++){
+                System.out.println("TEAM INFORMATION");
+                System.out.println(list_data.get(i));
+            }
+//            data newData = new data();
+//            newData.setGetKey(inputObject, "data");
 
             System.out.println(leagues);
 
