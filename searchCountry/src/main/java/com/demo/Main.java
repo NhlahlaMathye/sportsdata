@@ -29,13 +29,16 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        Boolean catch_Info = true;
+
         String input = "";
 
+
+        Boolean catch_Info = false;
+
         do {
+
             System.out.print("Do you want to search specific teams? (Y/N) {L-for specific League} : ");
             String repo = sc.next();
-
             if (repo.equalsIgnoreCase("N"))
             {
                 Default_Country();
@@ -52,23 +55,26 @@ public class Main {
                     catch_Info = true;
                 }
 
+            }else{
+                catch_Info = true;
+
             }
             if(repo.equalsIgnoreCase("L")){
                 System.out.print("Enter ID of the team of your choice : ");
                 int league = Integer.parseInt(sc.next());
                 specific_league(league);
             }
-            else {
-                System.out.print("Do you want to search again Y/N : ");
-                String asking = sc.next();
-                if (asking.equalsIgnoreCase("N")) {
-                    catch_Info = false;
-                    break;
-                } else if (asking.equalsIgnoreCase("Y")) {
-                    catch_Info = true;
-                }
+            System.out.print("Do you want to search again Y/N : ");
+            String asking = sc.next();
+            if (asking.equalsIgnoreCase("Y")) {
+                catch_Info = true;
+
+            } else{
+                catch_Info = false;
             }
+
         } while (catch_Info = true);
+
 
     }
 
