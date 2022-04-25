@@ -54,7 +54,7 @@ public class Main {
     public static void Default_Country(){
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id=48")
+                .url("https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id=47")
                 .get()
                 .addHeader("apikey", "c070c210-bbe4-11ec-a108-99c509a5d562")
                 .addHeader("sportsdataapi","app.sportdataapi.com")
@@ -72,12 +72,20 @@ public class Main {
             countryResponse leagues = objectMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
             });
             String inputJSON = response.body().string();
-            JSONObject inputObject = new JSONObject(inputJSON);
+            JSONObject jsonObject = new JSONObject(inputJSON);
+            JSONArray jsonArray = jsonObject.getJSONArray("data");
+            ArrayList<Object> list_data = new ArrayList<Object>();
+            if(jsonArray != null){
+                for(int i = 0; i<jsonArray.length();i++){
 
-            data newData = new data();
-
-            ;
-            System.out.println(newData.setGetKey(inputObject, "data") + "\n") ;
+                    list_data.add(jsonArray.get(i));
+                }
+            }
+            for (int i = 0; i < list_data.size(); i++){
+                System.out.println("TEAM INFORMATION");
+                System.out.println(list_data.get(i));
+            }
+            //System.out.println(newData.setGetKey(inputObject, "data") + "\n") ;
             System.out.println(leagues);
 
         } catch (IOException e) {
