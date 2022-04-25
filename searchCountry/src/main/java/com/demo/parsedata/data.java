@@ -1,4 +1,4 @@
-package com.demo.st;
+package com.demo.parsedata;
 
 import com.demo.Main;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -1,7 +1,7 @@
 package com.demo;
 
 import com.demo.st.countryResponse;
-import com.demo.st.data;
+import com.demo.parsedata.data;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
@@ -13,7 +13,13 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Logger;
+
 public class Main {
+
+    private static ResponseBody responseBody;
+    private static Response response;
+    final static Logger logger = Logger.getLogger(Main.class.getSimpleName());
 
     public static void main(String[] args) {
 
@@ -27,7 +33,6 @@ public class Main {
             if (repo.equalsIgnoreCase("N"))
             {
                 Default_Country();
-
             }else if(repo.equalsIgnoreCase("Y"))
             {
                 System.out.print("Enter the country_id name of your choice : ");
@@ -52,24 +57,13 @@ public class Main {
     }
 
     public static void Default_Country(){
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id=47")
-                .get()
-                .addHeader("apikey", "c070c210-bbe4-11ec-a108-99c509a5d562")
-                .addHeader("sportsdataapi","app.sportdataapi.com")
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
-            Headers responseHeader = response.headers();
-            for (int i = 0; i < responseHeader.size(); i++){
-                System.out.println(responseHeader.name(i) + ":" + responseHeader.value(i));
-            }
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            ResponseBody responseBody = client.newCall(request).execute().body();
-            countryResponse leagues = objectMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
+        String url = "https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id=47";
+        ApiRequest(url);
+
+        try {
+            ObjectMapper defaultMapper = new ObjectMapper();
+            countryResponse leagues = defaultMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
             });
             String inputJSON = response.body().string();
             JSONObject jsonObject = new JSONObject(inputJSON);
@@ -95,23 +89,14 @@ public class Main {
 
     public static void specific_country(int id){
 
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id="+id)
-                .get()
-                .addHeader("apikey", "c070c210-bbe4-11ec-a108-99c509a5d562")
-                .addHeader("sportsdataapi","app.sportdataapi.com")
-                .build();
+        String url = "https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id="+id;
+        ApiRequest(url);
+
         try {
-            Response response = client.newCall(request).execute();
+
             if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
-            Headers responseHeader = response.headers();
-            for (int i = 0; i < responseHeader.size(); i++){
-                System.out.println(responseHeader.name(i) + ":" + responseHeader.value(i));
-            }
-            ObjectMapper objectMapper = new ObjectMapper();
-            ResponseBody responseBody = client.newCall(request).execute().body();
-            countryResponse leagues = objectMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
+            ObjectMapper countryMapper = new ObjectMapper();
+            countryResponse leagues = countryMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
             });
 
             String inputJSON = response.body().string();
@@ -128,49 +113,59 @@ public class Main {
                 System.out.println("TEAM INFORMATION");
                 System.out.println(list_data.get(i));
             }
-//            data newData = new data();
-//            newData.setGetKey(inputObject, "data");
 
             System.out.println(leagues);
 
         } catch (IOException e) {
+            logger.info("IOException message: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     public static void specific_league(int id){
 
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://app.sportdataapi.com/api/v1/soccer/teams/"+id+"?apikey=c070c210-bbe4-11ec-a108-99c509a5d562")
+        String url = "https://app.sportdataapi.com/api/v1/soccer/teams/"+id+"?apikey=c070c210-bbe4-11ec-a108-99c509a5d562";
+        ApiRequest(url);
+
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            fetchLeagueResponse leagueResponse = mapper.readValue(responseBody.string(), new TypeReference<fetchLeagueResponse>() {});
+
+            String inputJSON = response.body().string();
+            JSONObject inputOBJ = new JSONObject(inputJSON);
+            data newData = new data();
+            System.out.println(newData.setGetKey(inputOBJ, "data"));
+            System.out.println(leagueResponse);
+
+        }  catch (IOException e) {
+            logger.info("IOException message : " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String ApiRequest(String url){
+
+        final Request request = new Request.Builder()
+                .url(url)
                 .get()
                 .addHeader("apikey", "c070c210-bbe4-11ec-a108-99c509a5d562")
                 .addHeader("sportsdataapi","app.sportdataapi.com")
                 .build();
-        try {
-            Response response = client.newCall(request).execute();
-            if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
-            Headers responseHeader = response.headers();
-            for (int x = 0; x < responseHeader.size(); x++){
-                System.out.println(responseHeader.name(x) + ":" + responseHeader.value(x));
-            }
-            ObjectMapper objectMapper = new ObjectMapper();
-            ResponseBody responseBody = client.newCall(request).execute().body();
-            fetchLeagueResponse leagues = objectMapper.readValue(responseBody.string(), new TypeReference<fetchLeagueResponse>() {
-            });
 
-            String inputJSON = response.body().string();
-            JSONObject inputObject = new JSONObject(inputJSON);
+                OkHttpClient client = new OkHttpClient();
 
-            data newData = new data();
-            newData.setGetKey(inputObject, "data");
+                try {
 
-            System.out.println(leagues);
+                     response = client.newCall(request).execute();
+                    if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
+                    responseBody = client.newCall(request).execute().body();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+                } catch (IOException e) {
+                    logger.info("Request Exception : " + e.getMessage());
+                    e.printStackTrace();
+                }
+        return null;
     }
 
 
