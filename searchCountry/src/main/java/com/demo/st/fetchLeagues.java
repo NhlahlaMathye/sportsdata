@@ -9,18 +9,23 @@ public class fetchLeagues {
 
     private String short_code;
     private int team_id;
-    private String Tname;
     private File logo;
-    private int country_id;
     private String name;
-    private String country_code;
-    private String continent;
+    private Country country;
 
 
     @Override
     public String toString() {
-        return "{Team Name:" + name +"}"+ " {team_id :" + team_id + "}" + " {Country_ID:" + country_id + "}" + "Short code :" + short_code +
-                " country_code: " + country_code + " country_name: " + Tname + " logo: " + logo + " continent: " + continent;
+        return "{Team Name:" + name +"}"+ " {team_id :" + team_id + "}" +  "Short code :" + short_code + " Country_Obj : " + country
+                ;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public int getLeague_id() {
@@ -47,14 +52,6 @@ public class fetchLeagues {
         this.team_id = team_id;
     }
 
-    public String getTname() {
-        return Tname;
-    }
-
-    public void setTname(String tname) {
-        Tname = tname;
-    }
-
     public File getLogo() {
         return logo;
     }
@@ -63,29 +60,6 @@ public class fetchLeagues {
         this.logo = logo;
     }
 
-    public String getCountry_code() {
-        return country_code;
-    }
-
-    public void setCountry_code(String country_code) {
-        this.country_code = country_code;
-    }
-
-    public String getContinent() {
-        return continent;
-    }
-
-    public void setContinent(String continent) {
-        this.continent = continent;
-    }
-
-    public int getCountry_id() {
-        return country_id;
-    }
-
-    public void setCountry_id(int country_id) {
-        this.country_id = country_id;
-    }
 
     public String getName() {
         return name;
