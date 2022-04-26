@@ -14,7 +14,7 @@ public class countryResponse {
 
     @Override
     public String toString() {
-        return   " query: " +  query + " league_data:  " +  leagues;
+        return   " query: " +  query;
     }
 
     public getLeagues getLeague() {

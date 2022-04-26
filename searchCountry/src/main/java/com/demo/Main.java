@@ -80,7 +80,7 @@ public class Main {
 
     public static void Default_Country(){
 
-        String url = "https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id=47";
+        String url = "https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id=48";
         ApiRequest(url);
 
         try {
