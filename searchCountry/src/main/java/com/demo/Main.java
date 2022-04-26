@@ -29,9 +29,7 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        String input = "";
         Boolean catch_Info = false;
-
 
         do {
             System.out.print("Do you want to search specific teams? (Y/N) {L-for specific League} : ");
@@ -48,7 +46,6 @@ public class Main {
                     int count_id = sc.nextInt();
                     specific_country(count_id);
                     catch_Info = true;
-
                 }else{
                     System.out.println("Enter a valid country ID");
                     catch_Info = false;
@@ -69,7 +66,7 @@ public class Main {
                     sc.next();
                 }
            }
-            System.out.print("Do you want to search again Y/N : ");
+            System.out.print("Do you want to search again? (Y/N) : ");
             String asking = sc.next();
             if (asking.equalsIgnoreCase("Y")) {
                 catch_Info = false;
@@ -78,9 +75,6 @@ public class Main {
                 catch_Info = true;
             }
         } while (catch_Info == false);
-
-
-
 
     }
 
