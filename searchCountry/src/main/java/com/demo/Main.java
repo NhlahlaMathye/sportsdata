@@ -29,51 +29,57 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-
         String input = "";
-
-
         Boolean catch_Info = false;
 
-        do {
 
+        do {
             System.out.print("Do you want to search specific teams? (Y/N) {L-for specific League} : ");
             String repo = sc.next();
             if (repo.equalsIgnoreCase("N"))
             {
                 Default_Country();
             }
-            if(repo.equalsIgnoreCase("Y"))
+            else if(repo.equalsIgnoreCase("Y"))
             {
                 System.out.print("Enter ID of country name of your choice : ");
                 if(sc.hasNextInt())
                 {
                     int count_id = sc.nextInt();
                     specific_country(count_id);
-                }else{
-                    System.out.println("Enter a valid ID");
                     catch_Info = true;
+
+                }else{
+                    System.out.println("Enter a valid country ID");
+                    catch_Info = false;
+                    sc.next();
                 }
-
-            }else{
-                catch_Info = true;
-
             }
-            if(repo.equalsIgnoreCase("L")){
+           else if(repo.equalsIgnoreCase("L")){
                 System.out.print("Enter ID of the team of your choice : ");
-                int league = Integer.parseInt(sc.next());
+                if(sc.hasNextInt()){
+
+                int league = sc.nextInt();
                 specific_league(league);
+                catch_Info = true;
             }
+                else{
+                    System.out.println("Enter a valid team ID");
+                    catch_Info = false;
+                    sc.next();
+                }
+           }
             System.out.print("Do you want to search again Y/N : ");
             String asking = sc.next();
             if (asking.equalsIgnoreCase("Y")) {
-                catch_Info = true;
-
-            } else{
                 catch_Info = false;
-            }
 
-        } while (catch_Info = true);
+            } else {
+                catch_Info = true;
+            }
+        } while (catch_Info == false);
+
+
 
 
     }
