@@ -26,6 +26,7 @@ public class Main {
     //LOGGER
     final static Logger logger = Logger.getLogger(Main.class.getSimpleName());
 
+    //Main method
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -78,6 +79,7 @@ public class Main {
 
     }
 
+    //This method print out data of the default country
     public static void Default_Country(){
 
         String url = "https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id=48";
@@ -109,6 +111,7 @@ public class Main {
         }
     }
 
+    //This method requires id the printout data of a specific country
     public static void specific_country(int id){
 
         String url = "https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id="+id;
@@ -144,6 +147,7 @@ public class Main {
         }
     }
 
+    //This method requires id of a team to print out the data of the team
     public static void specific_league(int id){
 
         String url = "https://app.sportdataapi.com/api/v1/soccer/teams/"+id+"?apikey=c070c210-bbe4-11ec-a108-99c509a5d562";
