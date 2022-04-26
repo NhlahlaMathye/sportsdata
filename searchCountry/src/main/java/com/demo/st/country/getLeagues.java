@@ -4,11 +4,9 @@ import com.demo.st.Country;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
@@ -25,8 +23,8 @@ public class getLeagues {
     @Override
     public String toString()
     {
-        return  " name: " + name + " shot_code" + short_code + " team_id: " + team_id + "common_name: "+ common_name
-                + " country : " + country;
+        return  "Team Information { name:" + name + " shot_code:" + short_code + " team_id:" + team_id + " common_name:"+ common_name
+                + "} Country_OBJECT { " + country + "} \n";
     }
 
     public Country getCountry() {

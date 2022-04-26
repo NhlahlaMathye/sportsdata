@@ -2,7 +2,9 @@ package com.demo;
 
 import com.demo.st.country.countryResponse;
 import com.demo.parsedata.data;
+import com.demo.st.country.getLeagues;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import com.demo.st.team.fetchLeagueResponse;
@@ -12,6 +14,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -19,10 +22,8 @@ public class Main {
 
     //Set the response body of api request
     private static ResponseBody responseBody;
-
     //Set the response of api request
     private static Response response;
-
     //LOGGER
     final static Logger logger = Logger.getLogger(Main.class.getSimpleName());
 
@@ -33,7 +34,7 @@ public class Main {
         Boolean catch_Info = false;
 
         do {
-            System.out.print("Do you want to search specific teams? (Y/N) {L-for specific League} : ");
+            System.out.print("Do you want to search specific teams? (Y/N) {L-for specific team} : ");
             String repo = sc.next();
             if (repo.equalsIgnoreCase("N"))
             {
@@ -41,7 +42,7 @@ public class Main {
             }
             else if(repo.equalsIgnoreCase("Y"))
             {
-                System.out.print("Enter ID of country name of your choice : ");
+                System.out.print("Enter country name of your choice : ");
                 if(sc.hasNextInt())
                 {
                     int count_id = sc.nextInt();
@@ -54,7 +55,7 @@ public class Main {
                 }
             }
            else if(repo.equalsIgnoreCase("L")){
-                System.out.print("Enter ID of the team of your choice : ");
+                System.out.print("Enter the team of your choice : ");
                 if(sc.hasNextInt()){
 
                 int league = sc.nextInt();
@@ -81,29 +82,16 @@ public class Main {
 
     //This method print out data of the default country
     public static void Default_Country(){
-
-        String url = "https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id=48";
+        String country = "Germany";
+        String url = "https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_name=Germany";
         ApiRequest(url);
 
         try {
             ObjectMapper defaultMapper = new ObjectMapper();
+            defaultMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             countryResponse leagues = defaultMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
             });
-            String inputJSON = response.body().string();
-            JSONObject jsonObject = new JSONObject(inputJSON);
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
-            ArrayList<Object> list_data = new ArrayList<Object>();
-            if(jsonArray != null){
-                for(int i = 0; i<jsonArray.length();i++){
 
-                    list_data.add(jsonArray.get(i));
-                }
-            }
-            for (int i = 0; i < list_data.size(); i++){
-                System.out.println("TEAM INFORMATION");
-                System.out.println(list_data.get(i));
-            }
-            //System.out.println(newData.setGetKey(inputObject, "data") + "\n") ;
             System.out.println(leagues);
 
         } catch (IOException e) {
@@ -113,32 +101,13 @@ public class Main {
 
     //This method requires id the printout data of a specific country
     public static void specific_country(int id){
-
         String url = "https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id="+id;
         ApiRequest(url);
-
         try {
-
             if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
             countryResponse leagues = countryMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
             });
-
-            String inputJSON = response.body().string();
-            JSONObject jsonObject = new JSONObject(inputJSON);
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
-            ArrayList<Object> list_data = new ArrayList<Object>();
-            if(jsonArray != null){
-                for(int i = 0; i<jsonArray.length();i++){
-
-                    list_data.add(jsonArray.get(i));
-                }
-            }
-            for (int i = 0; i < list_data.size(); i++){
-                System.out.println("TEAM INFORMATION");
-                System.out.println(list_data.get(i));
-            }
-
             System.out.println(leagues);
 
         } catch (IOException e) {
@@ -151,6 +120,7 @@ public class Main {
     public static void specific_league(int id){
 
         String url = "https://app.sportdataapi.com/api/v1/soccer/teams/"+id+"?apikey=c070c210-bbe4-11ec-a108-99c509a5d562";
+
         ApiRequest(url);
 
         try {
@@ -177,6 +147,7 @@ public class Main {
                 .get()
                 .addHeader("apikey", "c070c210-bbe4-11ec-a108-99c509a5d562")
                 .addHeader("sportsdataapi","app.sportdataapi.com")
+                .addHeader("country_name", "country")
                 .build();
 
                 OkHttpClient client = new OkHttpClient();
