@@ -24,7 +24,7 @@ public class getLeagues {
     public String toString()
     {
         return  "Team Information { name:" + name + " shot_code:" + short_code + " team_id:" + team_id + " common_name:"+ common_name
-                + "} Country_OBJECT { " + country + "} \n";
+                + "} Country_Details { " + country + "} \n";
     }
 
     public Country getCountry() {

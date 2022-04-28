@@ -9,16 +9,16 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class countryResponse {
+public class allCountries {
 
     private query query;
-    private List<getLeagues> data;
+    private List<Country> data;
     private int i;
 
 
     @Override
     public String toString() {
-        return   " "  + " " + data;
+        return   " "  + " " + data+"\n";
     }
 
 
@@ -30,11 +30,11 @@ public class countryResponse {
         this.query = query;
     }
 
-    public List<getLeagues> getData() {
+    public List<Country> getData() {
         return data;
     }
 
-    public void setData(List<getLeagues> data) {
+    public void setData(List<Country> data) {
         this.data = data;
     }
 

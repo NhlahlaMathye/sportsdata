@@ -18,7 +18,7 @@ public class query {
     @Override
     public String toString()
     {
-        return "API_KEY: " + apikey + " Country_ID: " + country_name;
+        return "API_KEY: " + apikey + " country_id: " + countryResponse;
     }
 
     public String getCountry_name() {
