@@ -38,7 +38,7 @@ public class Main {
         Boolean catch_Info = false;
 
         do {
-            System.out.print("Do you want to search specific teams? (Y/N)");
+            System.out.print("Do you want to search specific teams? (Y/N): ");
             String repo = sc.next();
             if (repo.equalsIgnoreCase("N"))
             {
