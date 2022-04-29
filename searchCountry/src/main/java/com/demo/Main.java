@@ -74,7 +74,6 @@ public class Main {
 
     //This method requires id the printout data of a specific country
     public static void specific_country(int country_id){
-        Scanner scb = new Scanner(System.in);
         String url = "https://app.sportdataapi.com/api/v1/soccer/teams/?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id="+country_id;
         ApiRequest(url);
         try {
@@ -90,7 +89,6 @@ public class Main {
             e.printStackTrace();
         }
     }
-
 
     public static String ApiRequest(String url){
 
@@ -151,7 +149,6 @@ public class Main {
         }
 
     }
-
 
     public static void parseObj(JSONObject json, String key){
         String output = String.valueOf(json.get(key));
