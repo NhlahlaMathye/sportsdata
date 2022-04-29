@@ -23,8 +23,7 @@ public class getLeagues {
     @Override
     public String toString()
     {
-        return  " Team Information {\n name:" + name + "\n shot_code:" + short_code + "\n team_id:" + team_id + "\n common_name:"+ common_name
-                + "}\n Country_Details { " + country + "} \n";
+        return  "\n {Team Information" + " Team_name:" + name + " shot_code:" + short_code + " team_id:" + team_id + " " + country + "}";
     }
 
     public Country getCountry() {

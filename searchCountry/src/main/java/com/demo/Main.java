@@ -38,28 +38,30 @@ public class Main {
         Boolean catch_Info = false;
 
         do {
-            System.out.print("Do you want to search specific teams? (Y/N): ");
+            System.out.print("Do you want to search a specific Country ? (Y/N). If(N)default country will be England. : ");
             String repo = sc.next();
             if (repo.equalsIgnoreCase("N"))
             {
                 String default_country = "England";
                 searchCountry(default_country);
+
+                //int teaam_id = specific_country();
             }
             else if(repo.equalsIgnoreCase("Y"))
             {
                 System.out.print("Enter country name of your choice : ");
                 if(sc.hasNext()) {
-
                     String country_name = sc.next();
                     searchCountry(country_name);
                     catch_Info = true;
                 }else{
-                    System.out.println("Enter a valid country name");
+                    System.out.println("Enter The Team you wants");
                     catch_Info = false;
                     sc.next();
                 }
             }
-            System.out.print("Do you want to search again? (Y/N) : ");
+
+            System.out.print("Do you want to search again? (Y- To continue searching) / (N- To cancel)  : ");
             String asking = sc.next();
             if (asking.equalsIgnoreCase("Y")) {
                 catch_Info = false;
@@ -73,7 +75,8 @@ public class Main {
 
 
     //This method requires id the printout data of a specific country
-    public static void specific_country(int country_id){
+    public static int specific_country(int country_id){
+        Scanner ut = new Scanner(System.in);
         String url = "https://app.sportdataapi.com/api/v1/soccer/teams/?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id="+country_id;
         ApiRequest(url);
         try {
@@ -84,23 +87,32 @@ public class Main {
 
             System.out.println(leagues);
 
+            System.out.print("Enter team name to search teams / (N) to cancel search: ");
+                String team_name = ut.nextLine();
+                for (int c = 0; c < leagues.getData().size(); c++) {
+                    String team_indent = leagues.getData().get(c).getName();
+                    //System.out.println(team_name.toString());
+                    if (team_indent.equalsIgnoreCase(team_name)) {
+                        //int team_id = (int) leagues.getData().get(c).getTeam_id();
+                        System.out.println("Team Info::Tame_name:" + team_indent + " Short_code:" + leagues.getData().get(c).getShort_code()
+                                + " Team_id:" + leagues.getData().get(c).getTeam_id());
+                        break;
+                    }
+                }
         } catch (IOException e) {
             logger.info("IOException message: " + e.getMessage());
             e.printStackTrace();
         }
+        return country_id;
     }
+
 
     public static String ApiRequest(String url){
 
-        MediaType json_media =  MediaType.parse("application/json; charset=urf-8");
 
-        RequestBody formBody = new FormBody.Builder()
-                .add("country", "Germany")
-                .build();
 
         final Request request = new Request.Builder()
                 .url(url)
-                .post(formBody)
                 .get()
                 .build();
                 OkHttpClient client = new OkHttpClient();
@@ -118,29 +130,26 @@ public class Main {
 
     public static void searchCountry(String country_name)
     {
+
         String countries_url = "https://app.sportdataapi.com/api/v1/soccer/countries?apikey=c070c210-bbe4-11ec-a108-99c509a5d562";
         ApiRequest(countries_url);
-
         try {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             allCountries countries = countryMapper.readValue(responseBody.string(), new TypeReference<allCountries>() {
             });
-
             for (int i = 0 ; i < countries.getData().size();i++)
             {
                 String name_indent = countries.getData().get(i).getName();
-                //System.out.println(countries.getData().get(i).getName());
                 if(name_indent.equalsIgnoreCase(country_name)){
-                    //System.out.println("Country found");
-                    //System.out.println("Country ID:"+countries.getData().get(i).getCountry_id());
                     int count_id = (int) countries.getData().get(i).getCountry_id();
                     specific_country(count_id);
+                    int result =specific_country(count_id);
                 }
             }
-
-            } catch (JsonMappingException ex) {
+        }
+        catch (JsonMappingException ex) {
             ex.printStackTrace();
         } catch (JsonProcessingException ex) {
             ex.printStackTrace();
@@ -149,6 +158,9 @@ public class Main {
         }
 
     }
+
+
+
 
     public static void parseObj(JSONObject json, String key){
         String output = String.valueOf(json.get(key));

@@ -13,12 +13,12 @@ public class allCountries {
 
     private query query;
     private List<Country> data;
-    private int i;
+
 
 
     @Override
     public String toString() {
-        return   " "  + " " + data+"\n";
+        return   "\n "  + " " + data+"";
     }
 
 

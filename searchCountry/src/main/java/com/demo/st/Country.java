@@ -13,7 +13,7 @@ public class Country {
 
     @Override
     public String toString(){
-        return "Country_ID: " + country_id + " Country Name: " + name + " Country_code:  " + country_code + " Continent: " + continent;
+        return "\n country_id:" + country_id;
     }
     // Getter Methods
     public float getCountry_id() {

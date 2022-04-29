@@ -2,15 +2,17 @@ package com.demo.st.team;
 
 import com.demo.query.query;
 
+import java.util.List;
+
 public class fetchLeagueResponse {
 
     private query query;
-    private fetchLeagues data;
+    private List<fetchLeagues> data;
 
 
     @Override
     public String toString() {
-        return  "query: " + query + " data: " + data ;
+        return  "\n query: " + query + " data: " + data ;
     }
 
     public query getQuery() {
@@ -21,11 +23,11 @@ public class fetchLeagueResponse {
         this.query = query;
     }
 
-    public fetchLeagues getData() {
+    public List<fetchLeagues> getData() {
         return data;
     }
 
-    public void setData(fetchLeagues data) {
+    public void setData(List<fetchLeagues> data) {
         this.data = data;
     }
 }

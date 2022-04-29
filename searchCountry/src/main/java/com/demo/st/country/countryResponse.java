@@ -13,8 +13,6 @@ public class countryResponse {
 
     private query query;
     private List<getLeagues> data;
-    private int i;
-
 
     @Override
     public String toString() {
