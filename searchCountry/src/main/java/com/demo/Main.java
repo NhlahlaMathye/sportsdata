@@ -69,45 +69,6 @@ public class Main {
 
     }
 
-    public static void searchTeams(String team)
-    {
-        Scanner ut = new Scanner(System.in);
-        String countries = "https://app.sportdataapi.com/api/v1/soccer/teams?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id=48";
-        ApiRequest(countries);
-        try {
-            if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
-            ObjectMapper countryMapper = new ObjectMapper();
-            countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            countryResponse leagues = countryMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
-            });
-
-            //System.out.println(leagues.getData().get(0));;
-            for (int i = 0; i < leagues.getData().size(); i++){
-
-                String name = leagues.getData().get(i).getName();
-                //System.out.println(name);
-                if (name.equalsIgnoreCase(team))
-                {
-                    System.out.println(team);
-                }
-            }
-
-//            for (int i = 0; i < countrieso.getData().size(); i++) {
-//                String name_indent = countrieso.getData().get(i).getName();
-//                if (name_indent.equalsIgnoreCase(team)) {
-//                    int count_id = (int) countrieso.getData().get(i).getCountry_id();
-//                    specific_country(count_id);
-//                    int result = specific_country(count_id);
-//                }
-
-            } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     //This method requires id the printout data of a specific country
     public static void specific_country(int country_id){
@@ -175,24 +136,6 @@ public class Main {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public static void continentSearch(String continent){
-
-        String searchUrl = "https://app.sportdataapi.com/api/v1/soccer/countries?apikey="+ apiKey +"&continent="+continent;
-        ApiRequest(searchUrl);
-       try {
-            if(!response.isSuccessful()) throw new IOException("Unexpected code :" + response);
-            ObjectMapper continentMapper = new ObjectMapper();
-            continentMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            Country country = continentMapper.readValue(responseBody.string(), new TypeReference<Country>() {});
-
-            System.out.println(country);
-
-        } catch (IOException e) {
-           e.printStackTrace();
-       }
-
     }
 
 
