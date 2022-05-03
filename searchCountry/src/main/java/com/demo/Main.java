@@ -65,7 +65,7 @@ public class Main {
 
     //This method requires id the printout data of a specific country
     public static void specific_country(int country_id){
-        Scanner ut = new Scanner(System.in);
+
         String url = "https://app.sportdataapi.com/api/v1/soccer/teams/?apikey="+apiKey+"&country_id="+country_id;
         ApiRequest(url);
         try {
