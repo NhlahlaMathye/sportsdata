@@ -1,6 +1,6 @@
 package com.demo;
 
-import com.demo.st.Country;
+
 import com.demo.st.country.allCountries;
 import com.demo.st.country.countryResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,13 +27,13 @@ public class Main {
     //LOGGER
     final static Logger logger = Logger.getLogger(Main.class.getSimpleName());
 
-    private static String apiKey = "c070c210-bbe4-11ec-a108-99c509a5d562";
+    private static final String apiKey = "c070c210-bbe4-11ec-a108-99c509a5d562";
 
     //Main method
     public static void main(String[] args) throws IOException, InputMismatchException {
 
         Scanner sc = new Scanner(System.in);
-        Boolean catch_Info = false;
+        Boolean catch_Info;
 
         System.out.println("Welcome to the Sports Data App");
         do {
@@ -51,7 +51,7 @@ public class Main {
                 catch_Info = true;
             }
             else if(input_user == 2){
-                System.out.print("From which you country would you like to receive teams : ");
+                System.out.print("From which country would you like to receive teams : ");
                 String country = sc.next();
                 searchCountry(country);
                 catch_Info = true;
@@ -60,7 +60,7 @@ public class Main {
                 break;
             }
             catch_Info = false;
-        } while (catch_Info == false);
+        } while (!catch_Info );
     }
 
     //This method requires id the printout data of a specific country
@@ -120,12 +120,13 @@ public class Main {
                 int count_id = countries.getData().get(i).getCountry_id();
                 if (name_indent.equalsIgnoreCase(country_name)) {
                     specific_country(count_id);
+                }else {
+                    System.out.println("Country not Found");
+                    break;
                 }
             }
         }
-        catch (JsonMappingException ex) {
-            ex.printStackTrace();
-        } catch (JsonProcessingException ex) {
+     catch (JsonProcessingException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
