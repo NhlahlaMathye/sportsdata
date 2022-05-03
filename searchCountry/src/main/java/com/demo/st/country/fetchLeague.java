@@ -1,8 +1,6 @@
 package com.demo.st.country;
 
 import com.demo.st.Country;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.File;
@@ -10,7 +8,7 @@ import java.io.File;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class getLeagues {
+public class fetchLeague {
 
     private String name;
     private int team_id;
@@ -23,7 +21,7 @@ public class getLeagues {
     @Override
     public String toString()
     {
-        return  "\n {Team Information" + " Team_name:" + name + " shot_code:" + short_code + " team_id:" + team_id + " " + country + "}";
+        return  "\n " + "\n Team_name:" + name + "\n shot_code:" + short_code + "\n team_id:" + team_id + "" + country + "";
     }
 
     public Country getCountry() {

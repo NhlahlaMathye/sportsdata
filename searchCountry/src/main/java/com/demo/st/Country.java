@@ -6,17 +6,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Country {
 
-    private float country_id;
+    private int country_id;
     private String name;
     private String country_code;
     private String continent;
 
     @Override
     public String toString(){
-        return "\n country_id:" + country_id;
+        return "\n "+ name;
     }
     // Getter Methods
-    public float getCountry_id() {
+    public int getCountry_id() {
         return country_id;
     }
     public String getName() {
@@ -29,7 +29,7 @@ public class Country {
         return continent;
     }
     // Setter Methods
-    public void setCountry_id(float country_id) {
+    public void setCountry_id(int country_id) {
         this.country_id = country_id;
     }
 

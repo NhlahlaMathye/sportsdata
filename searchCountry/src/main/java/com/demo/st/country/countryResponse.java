@@ -1,8 +1,6 @@
 package com.demo.st.country;
 
-import com.demo.parsedata.data;
 import com.demo.query.query;
-import com.demo.st.Country;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
 public class countryResponse {
 
     private query query;
-    private List<getLeagues> data;
+    private List<fetchLeague> data;
 
     @Override
     public String toString() {
@@ -28,11 +26,11 @@ public class countryResponse {
         this.query = query;
     }
 
-    public List<getLeagues> getData() {
+    public List<fetchLeague> getData() {
         return data;
     }
 
-    public void setData(List<getLeagues> data) {
+    public void setData(List<fetchLeague> data) {
         this.data = data;
     }
 

@@ -18,7 +18,7 @@ public class allCountries {
 
     @Override
     public String toString() {
-        return   "\n "  + " " + data+"";
+        return   "\n "  + " " + data+" ";
     }
 
 
