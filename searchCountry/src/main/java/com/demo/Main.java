@@ -12,10 +12,7 @@ import okhttp3.*;
 
 import org.json.JSONObject;
 
-
 import java.io.IOException;
-
-import java.lang.reflect.Type;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -29,6 +26,7 @@ public class Main {
     private static Response response;
     //LOGGER
     final static Logger logger = Logger.getLogger(Main.class.getSimpleName());
+
     private static String apiKey = "c070c210-bbe4-11ec-a108-99c509a5d562";
 
     //Main method
@@ -38,14 +36,13 @@ public class Main {
         Boolean catch_Info = false;
 
         System.out.println("Welcome to the Sports Data App");
-
         do {
             System.out.println("Enter number for the information you would like to receive" +
                     "\n 1. Default Country Teams" +
                     "\n 2. Search Teams By Country Name" +
                     "" +
                     "\n" +
-                    "\n Enter number zero(0) to exit program.");
+                    "\n Enter number zero(0) to exit the program.");
             int input_user = sc.nextInt();
             if(input_user == 1)
             {
@@ -63,16 +60,13 @@ public class Main {
                 break;
             }
             catch_Info = false;
-
         } while (catch_Info == false);
-
     }
-
 
     //This method requires id the printout data of a specific country
     public static void specific_country(int country_id){
         Scanner ut = new Scanner(System.in);
-        String url = "https://app.sportdataapi.com/api/v1/soccer/teams/?apikey=c070c210-bbe4-11ec-a108-99c509a5d562&country_id="+country_id;
+        String url = "https://app.sportdataapi.com/api/v1/soccer/teams/?apikey="+apiKey+"&country_id="+country_id;
         ApiRequest(url);
         try {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
@@ -124,11 +118,9 @@ public class Main {
             for (int i = 0; i < countries.getData().size(); i++) {
                 String name_indent = countries.getData().get(i).getName();
                 int count_id = countries.getData().get(i).getCountry_id();
-
                 if (name_indent.equalsIgnoreCase(country_name)) {
                     specific_country(count_id);
                 }
-
             }
         }
         catch (JsonMappingException ex) {
@@ -139,7 +131,6 @@ public class Main {
             ex.printStackTrace();
         }
     }
-
 
     public static void parseObj(JSONObject json, String key){
         String output = String.valueOf(json.get(key));
