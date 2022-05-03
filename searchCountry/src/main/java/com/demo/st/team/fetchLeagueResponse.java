@@ -7,12 +7,12 @@ import java.util.List;
 public class fetchLeagueResponse {
 
     private query query;
-    private List<fetchLeagues> data;
+    private RequestLeagueData data;
 
 
     @Override
     public String toString() {
-        return  "\n query: " + query + " data: " + data ;
+        return  "\n Leagues : " + data ;
     }
 
     public query getQuery() {
@@ -23,11 +23,11 @@ public class fetchLeagueResponse {
         this.query = query;
     }
 
-    public List<fetchLeagues> getData() {
+    public RequestLeagueData getData() {
         return data;
     }
 
-    public void setData(List<fetchLeagues> data) {
+    public void setData(RequestLeagueData data) {
         this.data = data;
     }
 }

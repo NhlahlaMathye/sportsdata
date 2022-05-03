@@ -1,24 +1,20 @@
 package com.demo.st.country;
 
-import com.demo.parsedata.data;
 import com.demo.query.query;
-import com.demo.st.Country;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class allCountries {
+public class CountriesResponse {
 
     private query query;
-    private List<Country> data;
-
-
+    private List<RequestTeams> data;
 
     @Override
     public String toString() {
-        return   "\n "  + " " + data+" ";
+        return   " "  + " " + data;
     }
 
 
@@ -30,11 +26,11 @@ public class allCountries {
         this.query = query;
     }
 
-    public List<Country> getData() {
+    public List<RequestTeams> getData() {
         return data;
     }
 
-    public void setData(List<Country> data) {
+    public void setData(List<RequestTeams> data) {
         this.data = data;
     }
 

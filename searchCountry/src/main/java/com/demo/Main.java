@@ -1,8 +1,9 @@
 package com.demo;
 
 
-import com.demo.st.country.allCountries;
-import com.demo.st.country.countryResponse;
+import com.demo.st.country.RequestAllCountries;
+import com.demo.st.country.CountriesResponse;
+import com.demo.st.team.fetchLeagueResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -40,7 +41,7 @@ public class Main {
             System.out.println("Enter number for the information you would like to receive" +
                     "\n 1. Default Country Teams" +
                     "\n 2. Search Teams By Country Name" +
-                    "" +
+                    "\n 3. Leagues" +
                     "\n" +
                     "\n Enter number zero(0) to exit the program.");
             int input_user = sc.nextInt();
@@ -54,6 +55,13 @@ public class Main {
                 System.out.print("From which country would you like to receive teams : ");
                 String country = sc.next();
                 searchCountry(country);
+                catch_Info = true;
+            }
+            else if(input_user == 3)
+            {
+                System.out.print("Enter country for leagues you want to receive : ");
+                String league_co = sc.next();
+                searchLeagues(league_co);
                 catch_Info = true;
             }
             else if (input_user == 0){
@@ -71,15 +79,35 @@ public class Main {
         try {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
-            countryResponse leagues = countryMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
+            CountriesResponse leagues = countryMapper.readValue(responseBody.string(), new TypeReference<CountriesResponse>() {
             });
-                if (leagues.getData() == null){
-                    System.out.println("Country not found");
-                }else {
-                    System.out.println(leagues);
-                }
+
+            System.out.println(leagues);
         } catch (IOException e) {
             logger.info("IOException message: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void specific_league(int country_id){
+
+        String specific_leagues = "https://app.sportdataapi.com/api/v1/soccer/leagues?apikey="+apiKey+"&country_id="+country_id;
+        String responseBodyString = ApiRequest(specific_leagues);
+
+        try {
+            if(!response.isSuccessful()) throw new IOException("Error code : " + response);
+            ObjectMapper mapLeagues = new ObjectMapper();
+            fetchLeagueResponse response1 = mapLeagues.readValue(responseBodyString, new TypeReference<fetchLeagueResponse>() {
+            });
+
+            System.out.println(response1);
+
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -97,6 +125,13 @@ public class Main {
                      response = client.newCall(request).execute();
                     if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
                     responseBody = client.newCall(request).execute().body();
+
+                    String responseString = responseBody.string();
+
+                    logger.info("Api response" + responseString);
+
+                    return responseString;
+
                 } catch (IOException e) {
                     logger.info("Request Exception : " + e.getMessage());
                     e.printStackTrace();
@@ -104,15 +139,46 @@ public class Main {
                 return null;
     }
 
+    public static  void searchLeagues(String country_name)
+    {
+        String league_url = "https://app.sportdataapi.com/api/v1/soccer/countries?apikey="+apiKey;
+
+        final String responseBodyString = ApiRequest(league_url);
+
+
+        try {
+
+            if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
+            ObjectMapper leagueMap = new ObjectMapper();
+            leagueMap.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+            RequestAllCountries liga = leagueMap.readValue(responseBodyString, new TypeReference<RequestAllCountries>() {});
+            //System.out.println(liga);
+
+
+            for (int l = 0; l < liga.getData().size(); l++)
+            {
+                String name_in = liga.getData().get(l).getName();
+                int country_id = liga.getData().get(l).getCountry_id();
+                if(name_in.equalsIgnoreCase(country_name))
+                {
+                    specific_league(country_id);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void searchCountry(String country_name)
     {
         String countries_url = "https://app.sportdataapi.com/api/v1/soccer/countries?apikey="+apiKey;
-        ApiRequest(countries_url);
+        String responseBodyString =  ApiRequest(countries_url);
         try {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            allCountries countries = countryMapper.readValue(responseBody.string(), new TypeReference<allCountries>() {
+            RequestAllCountries countries = countryMapper.readValue(responseBodyString, new TypeReference<RequestAllCountries>() {
             });
 
             for (int i = 0; i < countries.getData().size(); i++) {
@@ -120,9 +186,6 @@ public class Main {
                 int count_id = countries.getData().get(i).getCountry_id();
                 if (name_indent.equalsIgnoreCase(country_name)) {
                     specific_country(count_id);
-                }else {
-                    System.out.println("Country not Found");
-                    break;
                 }
             }
         }

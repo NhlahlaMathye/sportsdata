@@ -8,7 +8,7 @@ import java.io.File;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class fetchLeague {
+public class RequestTeams {
 
     private String name;
     private int team_id;

@@ -1,6 +1,6 @@
 package com.demo.query;
 
-import com.demo.st.country.countryResponse;
+import com.demo.st.country.CountriesResponse;
 import com.demo.st.team.fetchLeagueResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -12,7 +12,7 @@ public class query {
     private int country_id;
     private String country_name;
     private fetchLeagueResponse fetchLeagueResponse;
-    private countryResponse countryResponse;
+    private CountriesResponse countryResponse;
 
 
     @Override
@@ -29,11 +29,11 @@ public class query {
         this.country_name = country_name;
     }
 
-    public countryResponse getCountryResponse() {
+    public CountriesResponse getCountryResponse() {
         return countryResponse;
     }
 
-    public void setCountryResponse(countryResponse countryResponse) {
+    public void setCountryResponse(CountriesResponse countryResponse) {
         this.countryResponse = countryResponse;
     }
 
