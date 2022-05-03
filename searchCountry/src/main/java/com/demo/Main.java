@@ -40,7 +40,7 @@ public class Main {
         System.out.println("Welcome to the Sports Data App");
 
         do {
-            System.out.println("Enter number for the information you would to receive" +
+            System.out.println("Enter number for the information you would like to receive" +
                     "\n 1. Default Country Teams" +
                     "\n 2. Search Teams By Country Name" +
                     "" +
@@ -54,11 +54,10 @@ public class Main {
                 catch_Info = true;
             }
             else if(input_user == 2){
-
-                    System.out.print("From which you country would you like to receive teams : ");
-                    String country = sc.next();
-                    searchCountry(country);
-                    catch_Info = true;
+                System.out.print("From which you country would you like to receive teams : ");
+                String country = sc.next();
+                searchCountry(country);
+                catch_Info = true;
             }
             else if (input_user == 0){
                 break;
@@ -80,9 +79,11 @@ public class Main {
             ObjectMapper countryMapper = new ObjectMapper();
             countryResponse leagues = countryMapper.readValue(responseBody.string(), new TypeReference<countryResponse>() {
             });
-
-            System.out.println(leagues);
-
+                if (leagues.getData() == null){
+                    System.out.println("Country not found");
+                }else {
+                    System.out.println(leagues);
+                }
         } catch (IOException e) {
             logger.info("IOException message: " + e.getMessage());
             e.printStackTrace();
@@ -122,11 +123,12 @@ public class Main {
 
             for (int i = 0; i < countries.getData().size(); i++) {
                 String name_indent = countries.getData().get(i).getName();
-                int count_id;
+                int count_id = countries.getData().get(i).getCountry_id();
+
                 if (name_indent.equalsIgnoreCase(country_name)) {
-                    count_id = (int) countries.getData().get(i).getCountry_id();
                     specific_country(count_id);
-               }
+                }
+
             }
         }
         catch (JsonMappingException ex) {
