@@ -117,7 +117,7 @@ public class Main {
             mapLeagues.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             fetchLeagueResponse liga_response = mapLeagues.readValue(responseBodyString, fetchLeagueResponse.class);
 
-            System.out.println(liga_response);
+            System.out.println(liga_response.getData());
 
         } catch (JsonMappingException e) {
             e.printStackTrace();
