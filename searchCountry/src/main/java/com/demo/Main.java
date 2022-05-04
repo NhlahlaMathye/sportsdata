@@ -46,7 +46,7 @@ public class Main {
                     "\n 3. View Leagues" +
                     "\n 4. View Countries" +
                     "\n 5. View Players By Their Nationalities" +
-                    "" +
+                    "\n" +
                     "\n Enter number zero(0) to exit the program.");
             int input_user = sc.nextInt();
             if(input_user == 1)
@@ -75,7 +75,7 @@ public class Main {
             }
             else if(input_user == 5)
             {
-                System.out.print("From countries would you like to view players : ");
+                System.out.print("From which country would you like to view players : ");
                 String country_play = sc.next();
                 searchPlayers(country_play);
                 catch_Info = true;
