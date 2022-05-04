@@ -1,18 +1,19 @@
 package com.demo.st.team;
-
 import com.demo.query.query;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class fetchLeagueResponse {
 
     private query query;
-    private RequestLeagueData data;
-
+    private List<RequestLeague> data;
 
     @Override
     public String toString() {
-        return  "\n Leagues : " + data ;
+        return  "\n Data: " + query + " \n " + data + " \n ";
     }
 
     public query getQuery() {
@@ -23,11 +24,11 @@ public class fetchLeagueResponse {
         this.query = query;
     }
 
-    public RequestLeagueData getData() {
+    public List<RequestLeague> getData() {
         return data;
     }
 
-    public void setData(RequestLeagueData data) {
+    public void setData(List<RequestLeague> data) {
         this.data = data;
     }
 }

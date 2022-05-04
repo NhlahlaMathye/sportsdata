@@ -3,16 +3,17 @@ package com.demo;
 
 import com.demo.st.country.RequestAllCountries;
 import com.demo.st.country.CountriesResponse;
+import com.demo.st.team.RequestLeague;
 import com.demo.st.team.fetchLeagueResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public class Main {
     //LOGGER
     final static Logger logger = Logger.getLogger(Main.class.getSimpleName());
 
-    private static final String apiKey = "c070c210-bbe4-11ec-a108-99c509a5d562";
+    private static final String apiKey = "eabdaa10-cb20-11ec-8eeb-536de17b6548";
 
     //Main method
     public static void main(String[] args) throws IOException, InputMismatchException {
@@ -36,9 +37,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Boolean catch_Info;
 
-        System.out.println("Welcome to the Sports Data App");
+        System.out.println("\n Welcome to the Sports Data App \n");
         do {
-            System.out.println("Enter number for the information you would like to receive" +
+            System.out.println("Select number for the information you would like to receive." +
                     "\n 1. Default Country Teams" +
                     "\n 2. Search Teams By Country Name" +
                     "\n 3. Leagues" +
@@ -59,9 +60,9 @@ public class Main {
             }
             else if(input_user == 3)
             {
-                System.out.print("Enter country for leagues you want to receive : ");
-                String league_co = sc.next();
-                searchLeagues(league_co);
+                System.out.println("Here are all the available Leagues ");
+                //String league_co = sc.next();
+                search_leagues();
                 catch_Info = true;
             }
             else if (input_user == 0){
@@ -75,11 +76,11 @@ public class Main {
     public static void specific_country(int country_id){
 
         String url = "https://app.sportdataapi.com/api/v1/soccer/teams/?apikey="+apiKey+"&country_id="+country_id;
-        ApiRequest(url);
+        String responseBodyString = ApiRequest(url);
         try {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
-            CountriesResponse leagues = countryMapper.readValue(responseBody.string(), new TypeReference<CountriesResponse>() {
+            CountriesResponse leagues = countryMapper.readValue(responseBodyString, new TypeReference<CountriesResponse>() {
             });
 
             System.out.println(leagues);
@@ -90,6 +91,28 @@ public class Main {
 
     }
 
+    public static void search_leagues()
+    {
+        String leagues = "https://app.sportdataapi.com/api/v1/soccer/leagues?apikey="+apiKey;
+        String responseBodyString = ApiRequest(leagues);
+
+        try {
+            if(!response.isSuccessful()) throw new IOException("Error code : " + response);
+            ObjectMapper mapLeagues = new ObjectMapper();
+            mapLeagues.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+            fetchLeagueResponse liga_response = mapLeagues.readValue(responseBodyString, fetchLeagueResponse.class);
+
+            System.out.println(liga_response);
+
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void specific_league(int country_id){
 
         String specific_leagues = "https://app.sportdataapi.com/api/v1/soccer/leagues?apikey="+apiKey+"&country_id="+country_id;
@@ -98,10 +121,10 @@ public class Main {
         try {
             if(!response.isSuccessful()) throw new IOException("Error code : " + response);
             ObjectMapper mapLeagues = new ObjectMapper();
-            fetchLeagueResponse response1 = mapLeagues.readValue(responseBodyString, new TypeReference<fetchLeagueResponse>() {
-            });
+            fetchLeagueResponse liga_response = mapLeagues.readValue(responseBodyString, fetchLeagueResponse.class);
 
-            System.out.println(response1);
+            System.out.println(liga_response);
+
 
         } catch (JsonMappingException e) {
             e.printStackTrace();
@@ -128,7 +151,7 @@ public class Main {
 
                     String responseString = responseBody.string();
 
-                    logger.info("Api response" + responseString);
+                    //logger.info("Api response" + responseString);
 
                     return responseString;
 
@@ -145,15 +168,12 @@ public class Main {
 
         final String responseBodyString = ApiRequest(league_url);
 
-
         try {
 
             if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper leagueMap = new ObjectMapper();
             leagueMap.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             RequestAllCountries liga = leagueMap.readValue(responseBodyString, new TypeReference<RequestAllCountries>() {});
-            //System.out.println(liga);
-
 
             for (int l = 0; l < liga.getData().size(); l++)
             {

@@ -1,24 +1,33 @@
 package com.demo.st.team;
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RequestLeagueData {
 
-    private RequestLeague data;
+        private int object;
+        private List<RequestLeague> data;
 
     @Override
     public String toString()
     {
-        return "\n League data : " + data;
+        return " League data : " + data + " \n ";
     }
 
-    public RequestLeague getData() {
+    public int getObject() {
+        return object;
+    }
+
+    public void setObject(int object) {
+        this.object = object;
+    }
+
+    public List<RequestLeague>  getData() {
         return data;
     }
 
-    public void setData(RequestLeague data) {
+    public void setData(List<RequestLeague> data) {
         this.data = data;
     }
 }
