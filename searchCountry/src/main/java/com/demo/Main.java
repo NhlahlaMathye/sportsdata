@@ -42,8 +42,10 @@ public class Main {
             System.out.println("Select number for the information you would like to receive." +
                     "\n 1. Default Country Teams" +
                     "\n 2. Search Teams By Country Name" +
-                    "\n 3. Leagues" +
+                    "\n 3. View Leagues" +
+                    "\n 4. View Countries" +
                     "\n" +
+                    "" +
                     "\n Enter number zero(0) to exit the program.");
             int input_user = sc.nextInt();
             if(input_user == 1)
@@ -60,9 +62,14 @@ public class Main {
             }
             else if(input_user == 3)
             {
-                System.out.println("Here are all the available Leagues ");
+                System.out.println("Here are all the available Leagues.");
                 //String league_co = sc.next();
                 search_leagues();
+                catch_Info = true;
+            }
+            else if (input_user == 4){
+                System.out.println("Here are all the available Countries.");
+                search_countries();
                 catch_Info = true;
             }
             else if (input_user == 0){
@@ -110,6 +117,26 @@ public class Main {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void search_countries()
+    {
+        String country_url = "https://app.sportdataapi.com/api/v1/soccer/countries?apikey="+apiKey;
+        String responseBodyString =  ApiRequest(country_url);
+        try {
+            if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
+            ObjectMapper countryMapper = new ObjectMapper();
+            countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+            RequestAllCountries countries = countryMapper.readValue(responseBodyString, new TypeReference<RequestAllCountries>() {
+            });
+
+            System.out.println(countries);
+        }
+        catch (JsonProcessingException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
