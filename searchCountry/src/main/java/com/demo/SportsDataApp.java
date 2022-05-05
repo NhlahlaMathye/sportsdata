@@ -7,8 +7,7 @@ import com.demo.st.team.RequestTeamsResponse;
 import com.demo.st.players.ResponsePlayers;
 import com.demo.st.team.RequestLeague;
 import com.demo.st.team.RequestLeagueResponse;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
+ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 
@@ -131,8 +130,6 @@ public class SportsDataApp {
 
                 System.out.println("League Name: " + leagueName + ", League ID: " + leagueID);
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -201,7 +198,7 @@ public class SportsDataApp {
                 int country_id = allCountries.getData().get(l).getCountry_id();
                 if(name_in.equalsIgnoreCase(country_name))
                 {
-                    specific_league(country_id);
+                    SportsDataApp.specific_league(country_id);
                 }
             }
 
@@ -273,7 +270,7 @@ public class SportsDataApp {
                 String name_indent = countryP.getData().get(i).getName();
                 int count_id = countryP.getData().get(i).getCountry_id();
                 if (name_indent.equalsIgnoreCase(country_name)) {
-                    specific_player(count_id);
+                    SportsDataApp.specific_player(count_id);
                 }
             }
         }
