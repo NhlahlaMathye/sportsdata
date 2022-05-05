@@ -40,10 +40,10 @@ public class SportsDataApp {
         do {
             System.out.println("Select number for the information you would like to receive." +
                     "\n" +
-                    "\n 1. View countries by their continents" +
-                    "\n 2. View teams" +
-                    "\n 3. View leagues" +
-                    "\n 4. View players by their nationalities" +
+                    "\n 1. Countries" +
+                    "\n 2. Teams " +
+                    "\n 3. Leagues" +
+                    "\n 4. Players" +
                     "\n" +
                     "\n Enter number zero(0) to exit the program.");
             int input_user = sc.nextInt();
