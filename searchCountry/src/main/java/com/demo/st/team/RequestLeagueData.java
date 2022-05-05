@@ -7,7 +7,7 @@ import java.util.List;
 public class RequestLeagueData {
 
         private int object;
-        private List<RequestLeague> data;
+        private RequestLeague data;
 
     @Override
     public String toString()
@@ -23,11 +23,11 @@ public class RequestLeagueData {
         this.object = object;
     }
 
-    public List<RequestLeague>  getData() {
+    public RequestLeague  getData() {
         return data;
     }
 
-    public void setData(List<RequestLeague> data) {
+    public void setData(RequestLeague data) {
         this.data = data;
     }
 }
