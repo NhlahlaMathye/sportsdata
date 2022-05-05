@@ -10,7 +10,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 
@@ -64,8 +63,8 @@ public class Main {
             else if(input_user == 3)
             {
                 System.out.println("Here are all the available Leagues.");
-                //String league_co = sc.next();
-                search_leagues();
+                String league_co = sc.next();
+                searchLeagues(league_co);
                 catch_Info = true;
             }
             else if (input_user == 4){
@@ -159,7 +158,6 @@ public class Main {
             fetchLeagueResponse liga_response = mapLeagues.readValue(responseBodyString, fetchLeagueResponse.class);
 
             System.out.println(liga_response);
-
 
         } catch (JsonMappingException e) {
             e.printStackTrace();

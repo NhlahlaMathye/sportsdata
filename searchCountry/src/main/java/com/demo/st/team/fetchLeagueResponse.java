@@ -9,7 +9,7 @@ import java.util.List;
 public class fetchLeagueResponse {
 
     private query query;
-    private List<RequestLeague> data;
+    private RequestLeague data;
 
     @Override
     public String toString() {
@@ -24,11 +24,11 @@ public class fetchLeagueResponse {
         this.query = query;
     }
 
-    public List<RequestLeague> getData() {
+    public RequestLeague getData() {
         return data;
     }
 
-    public void setData(List<RequestLeague> data) {
+    public void setData(RequestLeague data) {
         this.data = data;
     }
 }
