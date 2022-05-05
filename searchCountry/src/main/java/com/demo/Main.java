@@ -61,7 +61,7 @@ public class Main {
             }
             else if(input_user == 3)
             {
-                System.out.println("Here are all the available Leagues.");
+                System.out.println("Enter name of country for leagues you want to receive.");
                 String league_co = sc.next();
                 searchLeagues(league_co);
                 catch_Info = true;
