@@ -18,8 +18,8 @@ public class RequestPlayers {
     @Override
     public String toString()
     {
-        return "\n Name:" + firstname + " Lastname:" + lastname + " Birthday:" + birthday + " Age:" + age +
-        " Weight:" + weight + " Height:" + height + " " + country + " \n";
+        return "\n Name:" + firstname + ", Lastname:" + lastname + ", Birthday:" + birthday + ", Age:" + age +
+        ", Weight:" + weight + ", Height:" + height + ", " + country + " \n";
     }
 
     public int getPlayer_id() {

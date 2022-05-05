@@ -49,9 +49,9 @@ public class SportsDataApp {
             if(input_user == 1)
             {
                 System.out.print("From which continent would you like to view countries: ");
-                String continent_ = sc.next();
+                String continent_ = sc.nextLine();
+                continent_+=sc.nextLine();
                 searchCountryByContinent(continent_);
-                catch_Info = true;
             }
             else if(input_user == 2){
                 System.out.println(" How would you like to view teams?" +
@@ -64,29 +64,28 @@ public class SportsDataApp {
                     System.out.println("Teams are from South Africa");
                     String default_country = "South Africa";
                     searchCountry(default_country);
-                    catch_Info = true;
 
                 }
                 else if(check_view == 2) {
                     System.out.print("From which country would you like to receive teams : ");
-                    String country = sc.next();
+                    String country = sc.nextLine();
+                    country+=sc.nextLine();
                     searchCountry(country);
-                    catch_Info = true;
                 }
             }
             else if(input_user == 3)
             {
                 System.out.print("Enter name of country for leagues you want to receive: ");
-                String league_co = sc.next();
+                String league_co = sc.nextLine();
+                league_co+=sc.nextLine();
                 searchLeagues(league_co);
-                catch_Info = true;
             }
             else if(input_user == 4)
             {
                 System.out.print("From which country would you like to view players : ");
-                String country_play = sc.next();
+                String country_play = sc.nextLine();
+                country_play+=sc.nextLine();
                 searchPlayers(country_play);
-                catch_Info = true;
             }
             else if (input_user == 0){
                 break;
