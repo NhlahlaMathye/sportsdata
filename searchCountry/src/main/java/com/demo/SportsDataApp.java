@@ -27,7 +27,7 @@ public class SportsDataApp {
     private static Response response;
     //LOGGER
     final static Logger logger = Logger.getLogger(SportsDataApp.class.getSimpleName());
-    private static final String API_KEY = "16ef4b80-cc74-11ec-a04e-db1d936d4c4e";
+    private static final String API_KEY = "4d6265e0-cc82-11ec-b961-03b703adda4e";
     private static final String BASE_URL = "https://app.sportdataapi.com/api/v1/soccer";
 
     //Main method
@@ -59,19 +59,21 @@ public class SportsDataApp {
                         "\n" +
                         "\n 1. Default country" +
                         "\n 2. Search by country");
-                int check_view = Integer.parseInt(sc.next());
+                int check_view = sc.nextInt();
                 if (check_view == 1)
                 {
                     System.out.println("Teams are from South Africa");
                     String default_country = "South Africa";
                     searchCountry(default_country);
                     catch_Info = true;
+
                 }
-                else if(check_view == 2)
-                System.out.print("From which country would you like to receive teams : ");
-                String country = sc.next();
-                searchCountry(country);
-                catch_Info = true;
+                else if(check_view == 2) {
+                    System.out.print("From which country would you like to receive teams : ");
+                    String country = sc.next();
+                    searchCountry(country);
+                    catch_Info = true;
+                }
             }
             else if(input_user == 3)
             {
@@ -161,7 +163,7 @@ public class SportsDataApp {
 
         final Request request = new Request.Builder()
                 .url(BASE_URL + url)
-                .header("apikey","16ef4b80-cc74-11ec-a04e-db1d936d4c4e")
+                .header("apikey","4d6265e0-cc82-11ec-b961-03b703adda4e")
                 .get()
                 .build();
                 OkHttpClient client = new OkHttpClient();
