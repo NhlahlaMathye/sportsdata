@@ -1,7 +1,5 @@
 package com.demo.query;
 
-import com.demo.st.country.CountriesResponse;
-import com.demo.st.team.fetchLeagueResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

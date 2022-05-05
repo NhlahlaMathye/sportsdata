@@ -4,8 +4,7 @@ package com.demo;
 import com.demo.st.country.RequestAllCountries;
 import com.demo.st.country.CountriesResponse;
 import com.demo.st.players.ResponsePlayers;
-import com.demo.st.team.RequestLeague;
-import com.demo.st.team.fetchLeagueResponse;
+import com.demo.st.team.RequestLeagueResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -114,7 +113,7 @@ public class Main {
             if(!response.isSuccessful()) throw new IOException("Error code : " + response);
             ObjectMapper mapLeagues = new ObjectMapper();
             mapLeagues.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            fetchLeagueResponse liga_response = mapLeagues.readValue(responseBodyString, fetchLeagueResponse.class);
+            RequestLeagueResponse liga_response = mapLeagues.readValue(responseBodyString, RequestLeagueResponse.class);
 
             System.out.println(liga_response.getData());
 
@@ -155,7 +154,7 @@ public class Main {
         try {
             if(!response.isSuccessful()) throw new IOException("Error code : " + response);
             ObjectMapper mapLeagues = new ObjectMapper();
-            fetchLeagueResponse liga_response = mapLeagues.readValue(responseBodyString, fetchLeagueResponse.class);
+            RequestLeagueResponse liga_response = mapLeagues.readValue(responseBodyString, RequestLeagueResponse.class);
 
             System.out.println(liga_response);
 
