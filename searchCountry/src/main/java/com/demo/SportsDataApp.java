@@ -99,7 +99,7 @@ public class SportsDataApp {
     //This method requires id the printout data of a specific country
     public static void specific_teams(int country_id){
 
-        String url = "/teams/?apikey="+API_KEY+"&country_id="+country_id;
+        String url = "/teams/?apikey=&country_id="+country_id;
         String responseBodyString = ApiRequest(url);
         try {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
@@ -116,7 +116,7 @@ public class SportsDataApp {
 
     public static void specific_league(int country_id){
 
-        String specific_leagues = "/leagues?apikey="+API_KEY+"&country_id="+country_id;
+        String specific_leagues = "/leagues?apikey=&country_id="+country_id;
         String responseBodyString = ApiRequest(specific_leagues);
 
         try {
@@ -141,7 +141,7 @@ public class SportsDataApp {
 
     public static void specific_player(int coun_id){
 
-        String play_url ="/players?apikey="+ API_KEY+"&country_id="+coun_id;
+        String play_url ="/players?apikey=&country_id="+coun_id;
         String responseBodyStr = ApiRequest(play_url);
 
         try {
@@ -162,7 +162,7 @@ public class SportsDataApp {
 
         final Request request = new Request.Builder()
                 .url(BASE_URL + url)
-                .header("apikey","4d6265e0-cc82-11ec-b961-03b703adda4e")
+                .addHeader("apikey","4d6265e0-cc82-11ec-b961-03b703adda4e")
                 .get()
                 .build();
                 OkHttpClient client = new OkHttpClient();
@@ -185,7 +185,7 @@ public class SportsDataApp {
 
     public static  void searchLeagues(String country_name)
     {
-        String league_url = "/countries?apikey="+API_KEY;
+        String league_url = "/countries?apikey=";
         final String responseBodyString = ApiRequest(league_url);
 
         try {
@@ -212,7 +212,7 @@ public class SportsDataApp {
 
     public static void searchCountryByContinent(String continent_name)
     {
-        String countryContinent = "/countries?apikey="+API_KEY+"&continent="+continent_name;
+        String countryContinent = "/countries?apikey=&continent="+continent_name;
         String responseBodyString = ApiRequest(countryContinent);
 
         try {
@@ -238,7 +238,7 @@ public class SportsDataApp {
 
     public static void searchCountry(String country_name)
     {
-        String countries_url = "/countries?apikey="+API_KEY;
+        String countries_url = "/countries?apikey=";
         String responseBodyString =  ApiRequest(countries_url);
         try {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
@@ -261,7 +261,7 @@ public class SportsDataApp {
 
     public static void searchPlayers(String country_name)
     {
-        String countries_url = "/countries?apikey="+API_KEY;
+        String countries_url = "/countries?apikey=";
         String responseBodyString =  ApiRequest(countries_url);
         try {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
