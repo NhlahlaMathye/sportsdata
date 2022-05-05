@@ -161,6 +161,7 @@ public class SportsDataApp {
 
         final Request request = new Request.Builder()
                 .url(BASE_URL + url)
+                .header("apikey","16ef4b80-cc74-11ec-a04e-db1d936d4c4e")
                 .get()
                 .build();
                 OkHttpClient client = new OkHttpClient();
