@@ -1,6 +1,6 @@
 package com.demo.st.players;
 
-import com.demo.st.Country;
+import com.demo.st.country.Country;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

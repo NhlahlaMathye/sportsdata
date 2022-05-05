@@ -1,7 +1,6 @@
 package com.demo.st.country;
 
-import com.demo.query.query;
-import com.demo.st.Country;
+import com.demo.query.Query;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class RequestAllCountries {
 
-    private query query;
+    private Query query;
     private List<Country> data;
 
 
@@ -21,11 +20,11 @@ public class RequestAllCountries {
     }
 
 
-    public query getQuery() {
+    public Query getQuery() {
         return query;
     }
 
-    public void setQuery(query query) {
+    public void setQuery(Query query) {
         this.query = query;
     }
 

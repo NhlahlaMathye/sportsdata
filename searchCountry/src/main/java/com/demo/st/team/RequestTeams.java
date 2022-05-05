@@ -1,6 +1,6 @@
-package com.demo.st.country;
+package com.demo.st.team;
 
-import com.demo.st.Country;
+import com.demo.st.country.Country;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.File;

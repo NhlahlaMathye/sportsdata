@@ -54,7 +54,7 @@ public class data {
             }
         }else
         {
-            Main.parseObj(json,getKey);
+            //parseObj(json,getKey);
         }
         return nextKeys;
     }

@@ -1,4 +1,4 @@
-package com.demo.st;
+package com.demo.st.country;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
