@@ -104,8 +104,7 @@ public class SportsDataApp {
         try {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
-            RequestTeamsResponse leagues = countryMapper.readValue(responseBodyString, new TypeReference<RequestTeamsResponse>() {
-            });
+            RequestTeamsResponse leagues = countryMapper.readValue(responseBodyString, RequestTeamsResponse.class);
 
             System.out.println(leagues);
         } catch (IOException e) {
@@ -194,7 +193,7 @@ public class SportsDataApp {
             if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper leagueMap = new ObjectMapper();
             leagueMap.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            RequestAllCountries allCountries = leagueMap.readValue(responseBodyString, new TypeReference<RequestAllCountries>() {});
+            RequestAllCountries allCountries = leagueMap.readValue(responseBodyString, RequestAllCountries.class );
 
             for (int l = 0; l < allCountries.getData().size(); l++)
             {
@@ -245,8 +244,7 @@ public class SportsDataApp {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            RequestAllCountries countries = countryMapper.readValue(responseBodyString, new TypeReference<RequestAllCountries>() {
-            });
+            RequestAllCountries countries = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
 
             for (int i = 0; i < countries.getData().size(); i++) {
                 String name_indent = countries.getData().get(i).getName();
@@ -269,8 +267,7 @@ public class SportsDataApp {
             if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            RequestAllCountries countryP = countryMapper.readValue(responseBodyString, new TypeReference<RequestAllCountries>() {
-            });
+            RequestAllCountries countryP = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
 
             for (int i = 0; i < countryP.getData().size(); i++) {
                 String name_indent = countryP.getData().get(i).getName();
