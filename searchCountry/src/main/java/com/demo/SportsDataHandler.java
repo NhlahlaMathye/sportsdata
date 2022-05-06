@@ -23,7 +23,7 @@ public class SportsDataHandler {
     private static final String BASE_URL = "https://app.sportdataapi.com/api/v1/soccer";
     final static Logger logger = Logger.getLogger(SportsDataHandler.class.getSimpleName());
     //Set the response body of api request
-    private static ResponseBody responseBody;
+    static ResponseBody responseBody;
     //Set the response of api request
     static Response response;
 
