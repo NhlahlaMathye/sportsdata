@@ -33,7 +33,7 @@ public class SportsDataApp {
                     SportsDataUtils.searchCountryByContinent(continentName);
                     break;
                 case 2:
-                    System.out.println(" How would you like to view teams?" +
+                    System.out.println("Select How would you like to view teams?" +
                             "\n" +
                             "\n 1. Default country" +
                             "\n 2. Search by country");
