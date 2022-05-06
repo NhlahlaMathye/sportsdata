@@ -30,7 +30,7 @@ public class SportsDataApp {
                 System.out.print("From which continent would you like to view countries: ");
                 String continent_ = sc.nextLine();
                 continent_+=sc.nextLine();
-                SportsDataHandler.searchCountryByContinent(continent_);
+                SportsDataUtils.searchCountryByContinent(continent_);
             }
             else if(input_user == 2){
                 System.out.println(" How would you like to view teams?" +
@@ -42,14 +42,14 @@ public class SportsDataApp {
                 {
                     System.out.println("Teams are from South Africa");
                     String default_country = "South Africa";
-                    SportsDataHandler.searchCountry(default_country);
+                    SportsDataUtils.searchCountry(default_country);
 
                 }
                 else if(check_view == 2) {
                     System.out.print("From which country would you like to receive teams : ");
                     String country = sc.nextLine();
                     country+=sc.nextLine();
-                    SportsDataHandler.searchCountry(country);
+                    SportsDataUtils.searchCountry(country);
                 }
             }
             else if(input_user == 3)
@@ -57,14 +57,14 @@ public class SportsDataApp {
                 System.out.print("Enter name of country for leagues you want to receive: ");
                 String league_co = sc.nextLine();
                 league_co+=sc.nextLine();
-                SportsDataHandler.searchLeagues(league_co);
+                SportsDataUtils.searchLeagues(league_co);
             }
             else if(input_user == 4)
             {
                 System.out.print("From which country would you like to view players : ");
                 String country_play = sc.nextLine();
                 country_play+=sc.nextLine();
-                SportsDataHandler.searchPlayers(country_play);
+                SportsDataUtils.searchPlayers(country_play);
             }
             else if (input_user == 0){
                 break;

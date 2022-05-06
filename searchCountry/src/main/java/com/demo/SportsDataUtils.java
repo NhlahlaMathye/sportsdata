@@ -18,20 +18,17 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class SportsDataHandler {
+public class SportsDataUtils {
 
     private static final String BASE_URL = "https://app.sportdataapi.com/api/v1/soccer";
-    final static Logger logger = Logger.getLogger(SportsDataHandler.class.getSimpleName());
-    //Set the response body of api request
-    static ResponseBody responseBody;
-    //Set the response of api request
-    static Response response;
+    private static final String API_KEY = "4d6265e0-cc82-11ec-b961-03b703adda4e";
+    final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
 
-    public static String ApiRequest(String url){
+    public static String ApiRequest(String url, Response response, ResponseBody responseBody){
 
         final Request request = new Request.Builder()
                 .url(BASE_URL + url)
-                .addHeader("apikey","4d6265e0-cc82-11ec-b961-03b703adda4e")
+                .addHeader("apikey",API_KEY)
                 .get()
                 .build();
         OkHttpClient client = new OkHttpClient();
@@ -39,7 +36,7 @@ public class SportsDataHandler {
         try {
              response = client.newCall(request).execute();
             if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
-            responseBody = client.newCall(request).execute().body();
+             responseBody = client.newCall(request).execute().body();
 
             //logger.info("Api response" + responseString);
 
@@ -55,9 +52,9 @@ public class SportsDataHandler {
     public static void specific_teams(int country_id){
 
         String url = "/teams/?apikey=&country_id="+country_id;
-        String responseBodyString = SportsDataHandler.ApiRequest(url);
+        String responseBodyString = SportsDataUtils.ApiRequest(url, null, null);
+
         try {
-            if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
             RequestTeamsResponse leagues = countryMapper.readValue(responseBodyString, RequestTeamsResponse.class);
 
@@ -72,10 +69,9 @@ public class SportsDataHandler {
     public static void specific_league(int country_id){
 
         String specific_leagues = "/leagues?apikey=&country_id="+country_id;
-        String responseBodyString = SportsDataHandler.ApiRequest(specific_leagues);
+        String responseBodyString = SportsDataUtils.ApiRequest(specific_leagues, null, null);
 
         try {
-            if(!response.isSuccessful()) throw new IOException("Error code : " + response);
             ObjectMapper mapLeagues = new ObjectMapper();
             RequestLeagueResponse league_response = mapLeagues.readValue(responseBodyString, RequestLeagueResponse.class);
 
@@ -95,10 +91,9 @@ public class SportsDataHandler {
     public static void specific_player(int coun_id){
 
         String play_url ="/players?apikey=&country_id="+coun_id;
-        String responseBodyStr = SportsDataHandler.ApiRequest(play_url);
+        String responseBodyStr = SportsDataUtils.ApiRequest(play_url, null, null);
 
         try {
-            if(!response.isSuccessful()) throw new IOException("Error code : " + response);
             ObjectMapper mapLeagues = new ObjectMapper();
             mapLeagues.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             ResponsePlayers league_response = mapLeagues.readValue(responseBodyStr, ResponsePlayers.class);
@@ -114,11 +109,10 @@ public class SportsDataHandler {
     public static  void searchLeagues(String country_name)
     {
         String league_url = "/countries?apikey=";
-        final String responseBodyString = SportsDataHandler.ApiRequest(league_url);
+        final String responseBodyString = SportsDataUtils.ApiRequest(league_url, null, null);
 
         try {
 
-            if(!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper leagueMap = new ObjectMapper();
             leagueMap.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             RequestAllCountries allCountries = leagueMap.readValue(responseBodyString, RequestAllCountries.class );
@@ -141,10 +135,9 @@ public class SportsDataHandler {
     public static void searchCountryByContinent(String continent_name)
     {
         String countryContinent = "/countries?apikey=&continent="+continent_name;
-        String responseBodyString = SportsDataHandler.ApiRequest(countryContinent);
+        String responseBodyString = SportsDataUtils.ApiRequest(countryContinent, null, null);
 
         try {
-            if(!response.isSuccessful()) throw new IOException("Unexpected status code: " + response);
             ObjectMapper continentMapper = new ObjectMapper();
             CountriesByContinentResponse continent = continentMapper.readValue(responseBodyString, CountriesByContinentResponse.class);
 
@@ -167,9 +160,8 @@ public class SportsDataHandler {
     public static void searchCountry(String country_name)
     {
         String countries_url = "/countries?apikey=";
-        String responseBodyString =  SportsDataHandler.ApiRequest(countries_url);
+        String responseBodyString =  SportsDataUtils.ApiRequest(countries_url, null, null);
         try {
-            if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             RequestAllCountries countries = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
@@ -190,9 +182,8 @@ public class SportsDataHandler {
     public static void searchPlayers(String country_name)
     {
         String countries_url = "/countries?apikey=";
-        String responseBodyString =  SportsDataHandler.ApiRequest(countries_url);
+        String responseBodyString =  SportsDataUtils.ApiRequest(countries_url, null, null);
         try {
-            if (!response.isSuccessful()) throw new IOException("Unexpected Code : " + response);
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             RequestAllCountries countryP = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
@@ -209,4 +200,5 @@ public class SportsDataHandler {
             ex.printStackTrace();
         }
     }
+
 }
