@@ -1,5 +1,4 @@
 package com.demo;
-
 import com.demo.st.country.CountriesByContinentResponse;
 import com.demo.st.country.Country;
 import com.demo.st.country.RequestAllCountries;
@@ -22,6 +21,11 @@ public class SportsDataUtils {
 
     private static final String BASE_URL = "https://app.sportdataapi.com/api/v1/soccer";
     private static final String API_KEY = "4d6265e0-cc82-11ec-b961-03b703adda4e";
+    private static final String COUNTRY_URL = "/countries?apikey=";
+    private static final String PLAYERS_URL = "/players?apikey=&country_id=";
+    private static final String LEAGUES_URL = "/leagues?apikey=&country_id=";
+    private static final String TEAMS_URL = "/teams/?apikey=&country_id=" ;
+
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
 
     public static String ApiRequest(String url, Response response, ResponseBody responseBody){
@@ -51,8 +55,8 @@ public class SportsDataUtils {
 
     public static void specific_teams(int country_id){
 
-        String url = "/teams/?apikey=&country_id="+country_id;
-        String responseBodyString = SportsDataUtils.ApiRequest(url, null, null);
+        String urlTeams = TEAMS_URL + country_id;
+        String responseBodyString = SportsDataUtils.ApiRequest(urlTeams, null, null);
 
         try {
             ObjectMapper countryMapper = new ObjectMapper();
@@ -68,8 +72,8 @@ public class SportsDataUtils {
 
     public static void specific_league(int country_id){
 
-        String specific_leagues = "/leagues?apikey=&country_id="+country_id;
-        String responseBodyString = SportsDataUtils.ApiRequest(specific_leagues, null, null);
+        String specificLeagues = LEAGUES_URL + country_id;
+        String responseBodyString = SportsDataUtils.ApiRequest(specificLeagues, null, null);
 
         try {
             ObjectMapper mapLeagues = new ObjectMapper();
@@ -90,8 +94,8 @@ public class SportsDataUtils {
 
     public static void specific_player(int coun_id){
 
-        String play_url ="/players?apikey=&country_id="+coun_id;
-        String responseBodyStr = SportsDataUtils.ApiRequest(play_url, null, null);
+        String playerUrl =PLAYERS_URL + coun_id;
+        String responseBodyStr = SportsDataUtils.ApiRequest(playerUrl, null, null);
 
         try {
             ObjectMapper mapLeagues = new ObjectMapper();
@@ -108,8 +112,8 @@ public class SportsDataUtils {
 
     public static  void searchLeagues(String country_name)
     {
-        String league_url = "/countries?apikey=";
-        final String responseBodyString = SportsDataUtils.ApiRequest(league_url, null, null);
+        String leagueUrlSearch = COUNTRY_URL;
+        final String responseBodyString = SportsDataUtils.ApiRequest(leagueUrlSearch, null, null);
 
         try {
 
@@ -134,8 +138,8 @@ public class SportsDataUtils {
 
     public static void searchCountryByContinent(String continent_name)
     {
-        String countryContinent = "/countries?apikey=&continent="+continent_name;
-        String responseBodyString = SportsDataUtils.ApiRequest(countryContinent, null, null);
+        String countryContinentUrl = "/countries?apikey=&continent="+continent_name;
+        String responseBodyString = SportsDataUtils.ApiRequest(countryContinentUrl, null, null);
 
         try {
             ObjectMapper continentMapper = new ObjectMapper();
@@ -159,11 +163,10 @@ public class SportsDataUtils {
 
     public static void searchCountry(String country_name)
     {
-        String countries_url = "/countries?apikey=";
-        String responseBodyString =  SportsDataUtils.ApiRequest(countries_url, null, null);
+        String countriesUrl = COUNTRY_URL;
+        String responseBodyString =  SportsDataUtils.ApiRequest(countriesUrl, null, null);
         try {
             ObjectMapper countryMapper = new ObjectMapper();
-            countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             RequestAllCountries countries = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
 
             for (int i = 0; i < countries.getData().size(); i++) {
@@ -181,8 +184,8 @@ public class SportsDataUtils {
 
     public static void searchPlayers(String country_name)
     {
-        String countries_url = "/countries?apikey=";
-        String responseBodyString =  SportsDataUtils.ApiRequest(countries_url, null, null);
+        String countriesPlayersUrl = COUNTRY_URL;
+        String responseBodyString =  SportsDataUtils.ApiRequest(countriesPlayersUrl, null, null);
         try {
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
