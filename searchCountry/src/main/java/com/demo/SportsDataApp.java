@@ -7,12 +7,11 @@ import java.util.logging.Logger;
 public class SportsDataApp {
     //LOGGER
     final static Logger logger = Logger.getLogger(SportsDataApp.class.getSimpleName());
-
+    static boolean catchInfo ;
     //Main method
     public static void main(String[] args) throws  InputMismatchException {
 
         Scanner sc = new Scanner(System.in);
-        Boolean catchInfo ;
 
         System.out.println("\n Welcome to the Sports Data App \n");
 
@@ -26,7 +25,6 @@ public class SportsDataApp {
                     "\n" +
                     "\n Enter number zero(0) to exit the program.");
             int inputUser = sc.nextInt();
-
             switch (inputUser){
                 case 1:
                     System.out.print("From which continent would you like to view countries: ");
@@ -62,8 +60,7 @@ public class SportsDataApp {
                     break;
                 case 4:
                     System.out.print("From which country would you like to view players : ");
-                    String countryPlayer = sc.nextLine();
-                    countryPlayer += sc.nextLine();
+                    String countryPlayer = sc.next();
                     SportsDataUtils.searchPlayers(countryPlayer);
                     break;
                 default:

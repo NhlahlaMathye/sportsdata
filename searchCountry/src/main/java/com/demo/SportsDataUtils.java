@@ -57,16 +57,16 @@ public class SportsDataUtils {
         return null;
     }
 
-    public static void specific_teams(int country_id){
+    public static void specific_teams(int countryTeamId){
 
-        String urlTeams = TEAMS_URL + country_id;
-        String responseBodyString = SportsDataUtils.ApiRequest(urlTeams);
+        String urlTeams = TEAMS_URL + countryTeamId;
+        String responseBodyTeamString = SportsDataUtils.ApiRequest(urlTeams);
 
         try {
             ObjectMapper countryMapper = new ObjectMapper();
-            RequestTeamsResponse league_teams = countryMapper.readValue(responseBodyString, RequestTeamsResponse.class);
+            RequestTeamsResponse leagueTeams = countryMapper.readValue(responseBodyTeamString, RequestTeamsResponse.class);
 
-            System.out.println(league_teams);
+            System.out.println(leagueTeams);
         } catch (IOException e) {
             logger.info("IOException message: " + e.getMessage());
             e.printStackTrace();
@@ -74,16 +74,16 @@ public class SportsDataUtils {
 
     }
 
-    public static void specific_league(int country_id){
+    public static void specific_league(int countriesId){
 
-        String specificLeagues = LEAGUES_URL + country_id;
+        String specificLeagues = LEAGUES_URL + countriesId;
         String responseBodyString = SportsDataUtils.ApiRequest(specificLeagues);
 
         try {
             ObjectMapper mapLeagues = new ObjectMapper();
-            RequestLeagueResponse league_response = mapLeagues.readValue(responseBodyString, RequestLeagueResponse.class);
+            RequestLeagueResponse leagueResponse = mapLeagues.readValue(responseBodyString, RequestLeagueResponse.class);
 
-            for (Map.Entry<String, RequestLeague> responseMap : league_response.getData().entrySet()){
+            for (Map.Entry<String, RequestLeague> responseMap : leagueResponse.getData().entrySet()){
 
                 String leagueName = responseMap.getValue().getName();
                 String leagueID = responseMap.getValue().getLeague_id();
@@ -96,9 +96,9 @@ public class SportsDataUtils {
 
     }
 
-    public static void specific_player(int coun_id){
+    public static void specific_player(int countryID){
 
-        String playerUrl =PLAYERS_URL + coun_id;
+        String playerUrl =PLAYERS_URL + countryID;
         String responseBodyStr = SportsDataUtils.ApiRequest(playerUrl);
 
         try {
@@ -106,12 +106,7 @@ public class SportsDataUtils {
             mapLeagues.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             ResponsePlayers leaguePlayers = mapLeagues.readValue(responseBodyStr, ResponsePlayers.class);
 
-            if(responseBodyStr != null)
-            {
                 System.out.println(leaguePlayers);
-            }else{
-                System.out.println("No records found");
-            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,22 +114,22 @@ public class SportsDataUtils {
 
     }
 
-    public static  void searchLeagues(String country_name)
+    public static  void searchLeagues(String countryLeagueName)
     {
         String leagueUrlSearch = COUNTRY_URL;
-        final String responseBodyString = SportsDataUtils.ApiRequest(leagueUrlSearch);
+        final String responseBodyLeagueString = SportsDataUtils.ApiRequest(leagueUrlSearch);
 
         try {
 
             ObjectMapper leagueMap = new ObjectMapper();
             leagueMap.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            RequestAllCountries allCountries = leagueMap.readValue(responseBodyString, RequestAllCountries.class );
+            RequestAllCountries allCountries = leagueMap.readValue(responseBodyLeagueString, RequestAllCountries.class );
 
             for (int l = 0; l < allCountries.getData().size(); l++)
             {
-                String nameIn = allCountries.getData().get(l).getName();
+                String nameInLeague = allCountries.getData().get(l).getName();
                 int countryId = allCountries.getData().get(l).getCountry_id();
-                if(nameIn.equalsIgnoreCase(country_name))
+                if(nameInLeague.equalsIgnoreCase(countryLeagueName))
                 {
                     SportsDataUtils.specific_league(countryId);
                 }
@@ -145,14 +140,14 @@ public class SportsDataUtils {
         }
     }
 
-    public static void searchCountryByContinent(String continent_name)
+    public static void searchCountryByContinent(String continentName)
     {
-        String countryContinentUrl = CONTINENT_URL +continent_name;
-        String responseBodyString = SportsDataUtils.ApiRequest(countryContinentUrl);
+        String countryContinentUrl = CONTINENT_URL +continentName;
+        String responseBodyContinentString = SportsDataUtils.ApiRequest(countryContinentUrl);
 
         try {
             ObjectMapper continentMapper = new ObjectMapper();
-            CountriesByContinentResponse continent = continentMapper.readValue(responseBodyString, CountriesByContinentResponse.class);
+            CountriesByContinentResponse continent = continentMapper.readValue(responseBodyContinentString, CountriesByContinentResponse.class);
 
             for (Map.Entry<String, Country> countryEntry : continent.getData().entrySet())
             {
@@ -169,19 +164,19 @@ public class SportsDataUtils {
 
     }
 
-    public static void searchCountry(String country_name)
+    public static void searchCountry(String countryName)
     {
         String countriesUrl = COUNTRY_URL;
-        String responseBodyString =  SportsDataUtils.ApiRequest(countriesUrl);
+        String responseBodyCountryString =  SportsDataUtils.ApiRequest(countriesUrl);
         try {
             ObjectMapper countryMapper = new ObjectMapper();
-            RequestAllCountries countries = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
+            RequestAllCountries countries = countryMapper.readValue(responseBodyCountryString, RequestAllCountries.class);
 
             for (int i = 0; i < countries.getData().size(); i++) {
-                String nameIndent = countries.getData().get(i).getName();
-                int countryId = countries.getData().get(i).getCountry_id();
-                if (nameIndent.equalsIgnoreCase(country_name)) {
-                    SportsDataUtils.specific_teams(countryId);
+                String nameIndentCountry = countries.getData().get(i).getName();
+                int countryIds = countries.getData().get(i).getCountry_id();
+                if (nameIndentCountry.equalsIgnoreCase(countryName)) {
+                    SportsDataUtils.specific_teams(countryIds);
                 }
             }
         }
@@ -190,34 +185,32 @@ public class SportsDataUtils {
         }
     }
 
-    public static String searchPlayers(String country_name) {
+    public static String searchPlayers(String countryPlayerName) {
 
         String countriesPlayersUrl = COUNTRY_URL;
-        String responseBodyString = SportsDataUtils.ApiRequest(countriesPlayersUrl);
+        String responseBodyPlayerString = SportsDataUtils.ApiRequest(countriesPlayersUrl);
+        String message = "No records were found";
 
-        String message = null;
         try {
 
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            RequestAllCountries countryPlayers = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
+            RequestAllCountries countryPlayers = countryMapper.readValue(responseBodyPlayerString, RequestAllCountries.class);
 
-            if (countryPlayers != null) {
                 for (int i = 0; i < countryPlayers.getData().size(); i++) {
-                    String nameIndent = countryPlayers.getData().get(i).getName();
-                    if (nameIndent.equalsIgnoreCase(country_name)) {
-                        int countryId = countryPlayers.getData().get(i).getCountry_id();
+                    String nameCountry = countryPlayers.getData().get(i).getName();
+                    int countryId = countryPlayers.getData().get(i).getCountry_id();
+
+                    //logger.info("It comes here");
+                    if (nameCountry.equalsIgnoreCase(countryPlayerName)) {
+                        //logger.info("It gets here");
                         SportsDataUtils.specific_player(countryId);
                     }
                 }
-            } else {
-                message = "No records were found";
-                System.out.println(message);
-            }
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return country_name;
+        return countryPlayerName;
     }
-
 }
