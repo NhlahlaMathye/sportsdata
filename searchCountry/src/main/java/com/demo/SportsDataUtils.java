@@ -104,9 +104,14 @@ public class SportsDataUtils {
         try {
             ObjectMapper mapLeagues = new ObjectMapper();
             mapLeagues.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            ResponsePlayers league_players = mapLeagues.readValue(responseBodyStr, ResponsePlayers.class);
+            ResponsePlayers leaguePlayers = mapLeagues.readValue(responseBodyStr, ResponsePlayers.class);
 
-            System.out.println(league_players);
+            if(responseBodyStr != null)
+            {
+                System.out.println(leaguePlayers);
+            }else{
+                System.out.println("No records found");
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -207,6 +212,7 @@ public class SportsDataUtils {
                 }
             } else {
                 message = "No records were found";
+                System.out.println(message);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
