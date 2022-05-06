@@ -200,7 +200,9 @@ public class SportsDataUtils {
                 if (nameIndent.equalsIgnoreCase(country_name) ) {
                     int countryId = countryPlayers.getData().get(i).getCountry_id();
                     SportsDataUtils.specific_player(countryId);
-                }
+                }else
+                    System.out.println("No records");
+                    break;
             }
         }
         catch(IOException ex){

@@ -12,7 +12,7 @@ public class SportsDataApp {
     public static void main(String[] args) throws  InputMismatchException {
 
         Scanner sc = new Scanner(System.in);
-        Boolean catch_Info = true;
+        Boolean catch_Info ;
 
         System.out.println("\n Welcome to the Sports Data App \n");
 
@@ -68,13 +68,17 @@ public class SportsDataApp {
                     String country_play = sc.nextLine();
                     country_play += sc.nextLine();
                     SportsDataUtils.searchPlayers(country_play);
+                    break;
 
                 default:
                     break;
 
             }
+            if (input_user == 0)
+            {
+                break;
+            }
             catch_Info = false;
-
         } while (!catch_Info);
     }
 
