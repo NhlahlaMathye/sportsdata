@@ -60,7 +60,8 @@ public class SportsDataApp {
                     break;
                 case 4:
                     System.out.print("From which country would you like to view players : ");
-                    String countryPlayer = sc.next();
+                    String countryPlayer = sc.nextLine();
+                    countryPlayer += sc.nextLine();
                     SportsDataUtils.searchPlayers(countryPlayer);
                     break;
                 default:
