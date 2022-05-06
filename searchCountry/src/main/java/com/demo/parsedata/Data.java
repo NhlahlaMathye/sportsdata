@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class data {
+public class Data {
 
     private String getKey;
 
