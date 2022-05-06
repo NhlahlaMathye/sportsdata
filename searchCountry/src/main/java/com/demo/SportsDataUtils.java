@@ -116,8 +116,7 @@ public class SportsDataUtils {
 
     public static  void searchLeagues(String countryLeagueName)
     {
-        String leagueUrlSearch = COUNTRY_URL;
-        final String responseBodyLeagueString = SportsDataUtils.ApiRequest(leagueUrlSearch);
+        final String responseBodyLeagueString = SportsDataUtils.ApiRequest(COUNTRY_URL);
 
         try {
 
@@ -166,8 +165,7 @@ public class SportsDataUtils {
 
     public static void searchCountry(String countryName)
     {
-        String countriesUrl = COUNTRY_URL;
-        String responseBodyCountryString =  SportsDataUtils.ApiRequest(countriesUrl);
+        String responseBodyCountryString =  SportsDataUtils.ApiRequest(COUNTRY_URL);
         try {
             ObjectMapper countryMapper = new ObjectMapper();
             RequestAllCountries countries = countryMapper.readValue(responseBodyCountryString, RequestAllCountries.class);
@@ -185,11 +183,9 @@ public class SportsDataUtils {
         }
     }
 
-    public static String searchPlayers(String countryPlayerName) {
+    public static void searchPlayers(String countryPlayerName) {
 
-        String countriesPlayersUrl = COUNTRY_URL;
-        String responseBodyPlayerString = SportsDataUtils.ApiRequest(countriesPlayersUrl);
-        String message = "No records were found";
+        String responseBodyPlayerString = SportsDataUtils.ApiRequest(COUNTRY_URL);
 
         try {
 
@@ -200,7 +196,6 @@ public class SportsDataUtils {
                 for (int i = 0; i < countryPlayers.getData().size(); i++) {
                     String nameCountry = countryPlayers.getData().get(i).getName();
                     int countryId = countryPlayers.getData().get(i).getCountry_id();
-
                     //logger.info("It comes here");
                     if (nameCountry.equalsIgnoreCase(countryPlayerName)) {
                         //logger.info("It gets here");
@@ -211,6 +206,5 @@ public class SportsDataUtils {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return countryPlayerName;
     }
 }
