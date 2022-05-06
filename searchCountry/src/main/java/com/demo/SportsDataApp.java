@@ -30,9 +30,9 @@ public class SportsDataApp {
             switch (input_user){
                 case 1:
                     System.out.print("From which continent would you like to view countries: ");
-                    String continent_ = sc.nextLine();
-                    continent_+=sc.nextLine();
-                    SportsDataUtils.searchCountryByContinent(continent_);
+                    String continentName = sc.nextLine();
+                    continentName+=sc.nextLine();
+                    SportsDataUtils.searchCountryByContinent(continentName);
                     break;
 
                 case 2:
