@@ -29,7 +29,7 @@ public class SportsDataUtils {
 
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
 
-    public static String ApiRequest(String url, Response response, ResponseBody responseBody){
+    public static String ApiRequest(String url){
 
         final Request request = new Request.Builder()
                 .url(BASE_URL + url)
@@ -39,12 +39,12 @@ public class SportsDataUtils {
         OkHttpClient client = new OkHttpClient();
 
         try {
-             response = client.newCall(request).execute();
+            Response response = client.newCall(request).execute();
             if(!response.isSuccessful()){
 
                 return "request was not successful, Unexpected code: " + response;
             }
-             responseBody = client.newCall(request).execute().body();
+            ResponseBody responseBody = client.newCall(request).execute().body();
 
             //logger.info("Api response" + responseString);
 
@@ -60,7 +60,7 @@ public class SportsDataUtils {
     public static void specific_teams(int country_id){
 
         String urlTeams = TEAMS_URL + country_id;
-        String responseBodyString = SportsDataUtils.ApiRequest(urlTeams, null, null);
+        String responseBodyString = SportsDataUtils.ApiRequest(urlTeams);
 
         try {
             ObjectMapper countryMapper = new ObjectMapper();
@@ -77,7 +77,7 @@ public class SportsDataUtils {
     public static void specific_league(int country_id){
 
         String specificLeagues = LEAGUES_URL + country_id;
-        String responseBodyString = SportsDataUtils.ApiRequest(specificLeagues, null, null);
+        String responseBodyString = SportsDataUtils.ApiRequest(specificLeagues);
 
         try {
             ObjectMapper mapLeagues = new ObjectMapper();
@@ -99,7 +99,7 @@ public class SportsDataUtils {
     public static void specific_player(int coun_id){
 
         String playerUrl =PLAYERS_URL + coun_id;
-        String responseBodyStr = SportsDataUtils.ApiRequest(playerUrl, null, null);
+        String responseBodyStr = SportsDataUtils.ApiRequest(playerUrl);
 
         try {
             ObjectMapper mapLeagues = new ObjectMapper();
@@ -117,7 +117,7 @@ public class SportsDataUtils {
     public static  void searchLeagues(String country_name)
     {
         String leagueUrlSearch = COUNTRY_URL;
-        final String responseBodyString = SportsDataUtils.ApiRequest(leagueUrlSearch, null, null);
+        final String responseBodyString = SportsDataUtils.ApiRequest(leagueUrlSearch);
 
         try {
 
@@ -143,7 +143,7 @@ public class SportsDataUtils {
     public static void searchCountryByContinent(String continent_name)
     {
         String countryContinentUrl = CONTINENT_URL +continent_name;
-        String responseBodyString = SportsDataUtils.ApiRequest(countryContinentUrl, null, null);
+        String responseBodyString = SportsDataUtils.ApiRequest(countryContinentUrl);
 
         try {
             ObjectMapper continentMapper = new ObjectMapper();
@@ -167,7 +167,7 @@ public class SportsDataUtils {
     public static void searchCountry(String country_name)
     {
         String countriesUrl = COUNTRY_URL;
-        String responseBodyString =  SportsDataUtils.ApiRequest(countriesUrl, null, null);
+        String responseBodyString =  SportsDataUtils.ApiRequest(countriesUrl);
         try {
             ObjectMapper countryMapper = new ObjectMapper();
             RequestAllCountries countries = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
@@ -187,7 +187,7 @@ public class SportsDataUtils {
 
     public static void searchPlayers(String country_name) {
         String countriesPlayersUrl = COUNTRY_URL;
-        String responseBodyString = SportsDataUtils.ApiRequest(countriesPlayersUrl, null, null);
+        String responseBodyString = SportsDataUtils.ApiRequest(countriesPlayersUrl);
 
         try {
 
