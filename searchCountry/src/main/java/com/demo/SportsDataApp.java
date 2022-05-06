@@ -49,7 +49,7 @@ public class SportsDataApp {
                         String country = sc.nextLine();
                         country+=sc.nextLine();
                         SportsDataUtils.searchCountry(country);
-                        sc.next();
+
                     }
                     break;
                 case 3:
