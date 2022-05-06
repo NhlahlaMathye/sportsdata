@@ -185,30 +185,33 @@ public class SportsDataUtils {
         }
     }
 
-    public static void searchPlayers(String country_name) {
+    public static String searchPlayers(String country_name) {
+
         String countriesPlayersUrl = COUNTRY_URL;
         String responseBodyString = SportsDataUtils.ApiRequest(countriesPlayersUrl);
 
+        String message = null;
         try {
 
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             RequestAllCountries countryPlayers = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
 
-            for (int i = 0; i < countryPlayers.getData().size(); i++) {
-                String nameIndent = countryPlayers.getData().get(i).getName();
-                if (nameIndent.equalsIgnoreCase(country_name) ) {
-                    int countryId = countryPlayers.getData().get(i).getCountry_id();
-                    SportsDataUtils.specific_player(countryId);
-                }else
-                    System.out.println("No records");
-                    break;
+            if (countryPlayers != null) {
+                for (int i = 0; i < countryPlayers.getData().size(); i++) {
+                    String nameIndent = countryPlayers.getData().get(i).getName();
+                    if (nameIndent.equalsIgnoreCase(country_name)) {
+                        int countryId = countryPlayers.getData().get(i).getCountry_id();
+                        SportsDataUtils.specific_player(countryId);
+                    }
+                }
+            } else {
+                message = "No records were found";
             }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        catch(IOException ex){
-                ex.printStackTrace();
-            }
-        }
-
+        return country_name;
+    }
 
 }

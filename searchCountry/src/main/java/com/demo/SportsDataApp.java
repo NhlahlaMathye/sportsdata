@@ -12,7 +12,7 @@ public class SportsDataApp {
     public static void main(String[] args) throws  InputMismatchException {
 
         Scanner sc = new Scanner(System.in);
-        Boolean catch_Info ;
+        Boolean catchInfo ;
 
         System.out.println("\n Welcome to the Sports Data App \n");
 
@@ -25,16 +25,15 @@ public class SportsDataApp {
                     "\n 4. Players" +
                     "\n" +
                     "\n Enter number zero(0) to exit the program.");
-            int input_user = sc.nextInt();
+            int inputUser = sc.nextInt();
 
-            switch (input_user){
+            switch (inputUser){
                 case 1:
                     System.out.print("From which continent would you like to view countries: ");
                     String continentName = sc.nextLine();
                     continentName+=sc.nextLine();
                     SportsDataUtils.searchCountryByContinent(continentName);
                     break;
-
                 case 2:
                     System.out.println(" How would you like to view teams?" +
                             "\n" +
@@ -55,31 +54,26 @@ public class SportsDataApp {
                         sc.next();
                     }
                     break;
-
                 case 3:
                     System.out.print("Enter name of country for leagues you want to receive: ");
-                    String league_co = sc.nextLine();
-                    league_co+=sc.nextLine();
-                    SportsDataUtils.searchLeagues(league_co);
+                    String leagueCountry = sc.nextLine();
+                    leagueCountry+=sc.nextLine();
+                    SportsDataUtils.searchLeagues(leagueCountry);
                     break;
-
                 case 4:
                     System.out.print("From which country would you like to view players : ");
-                    String country_play = sc.nextLine();
-                    country_play += sc.nextLine();
-                    SportsDataUtils.searchPlayers(country_play);
+                    String countryPlayer = sc.nextLine();
+                    countryPlayer += sc.nextLine();
+                    SportsDataUtils.searchPlayers(countryPlayer);
                     break;
-
                 default:
                     break;
-
             }
-            if (input_user == 0)
+            if (inputUser == 0)
             {
                 break;
             }
-            catch_Info = false;
-        } while (!catch_Info);
+            catchInfo = false;
+        } while (!catchInfo);
     }
-
 }
