@@ -25,6 +25,7 @@ public class SportsDataUtils {
     private static final String PLAYERS_URL = "/players?apikey=&country_id=";
     private static final String LEAGUES_URL = "/leagues?apikey=&country_id=";
     private static final String TEAMS_URL = "/teams/?apikey=&country_id=" ;
+    private static final String CONTINENT_URL = "/countries?apikey=&continent=";
 
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
 
@@ -141,14 +142,13 @@ public class SportsDataUtils {
 
     public static void searchCountryByContinent(String continent_name)
     {
-        String countryContinentUrl = "/countries?apikey=&continent="+continent_name;
+        String countryContinentUrl = CONTINENT_URL +continent_name;
         String responseBodyString = SportsDataUtils.ApiRequest(countryContinentUrl, null, null);
 
         try {
             ObjectMapper continentMapper = new ObjectMapper();
             CountriesByContinentResponse continent = continentMapper.readValue(responseBodyString, CountriesByContinentResponse.class);
 
-            //logger.info("Response"  + continent);
             for (Map.Entry<String, Country> countryEntry : continent.getData().entrySet())
             {
                 String countryName = countryEntry.getValue().getName();
