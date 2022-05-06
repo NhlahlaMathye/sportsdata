@@ -56,9 +56,9 @@ public class SportsDataUtils {
 
         try {
             ObjectMapper countryMapper = new ObjectMapper();
-            RequestTeamsResponse leagues = countryMapper.readValue(responseBodyString, RequestTeamsResponse.class);
+            RequestTeamsResponse league_teams = countryMapper.readValue(responseBodyString, RequestTeamsResponse.class);
 
-            System.out.println(leagues);
+            System.out.println(league_teams);
         } catch (IOException e) {
             logger.info("IOException message: " + e.getMessage());
             e.printStackTrace();
@@ -96,9 +96,9 @@ public class SportsDataUtils {
         try {
             ObjectMapper mapLeagues = new ObjectMapper();
             mapLeagues.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            ResponsePlayers league_response = mapLeagues.readValue(responseBodyStr, ResponsePlayers.class);
+            ResponsePlayers league_players = mapLeagues.readValue(responseBodyStr, ResponsePlayers.class);
 
-            System.out.println(league_response);
+            System.out.println(league_players);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,11 +119,11 @@ public class SportsDataUtils {
 
             for (int l = 0; l < allCountries.getData().size(); l++)
             {
-                String name_in = allCountries.getData().get(l).getName();
-                int country_id = allCountries.getData().get(l).getCountry_id();
-                if(name_in.equalsIgnoreCase(country_name))
+                String nameIn = allCountries.getData().get(l).getName();
+                int countryId = allCountries.getData().get(l).getCountry_id();
+                if(nameIn.equalsIgnoreCase(country_name))
                 {
-                    specific_league(country_id);
+                    specific_league(countryId);
                 }
             }
 
@@ -167,10 +167,10 @@ public class SportsDataUtils {
             RequestAllCountries countries = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
 
             for (int i = 0; i < countries.getData().size(); i++) {
-                String name_indent = countries.getData().get(i).getName();
-                int count_id = countries.getData().get(i).getCountry_id();
-                if (name_indent.equalsIgnoreCase(country_name)) {
-                    specific_teams(count_id);
+                String nameIndent = countries.getData().get(i).getName();
+                int countryId = countries.getData().get(i).getCountry_id();
+                if (nameIndent.equalsIgnoreCase(country_name)) {
+                    specific_teams(countryId);
                 }
             }
         }
@@ -186,13 +186,13 @@ public class SportsDataUtils {
         try {
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            RequestAllCountries countryP = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
+            RequestAllCountries countryPlayers = countryMapper.readValue(responseBodyString, RequestAllCountries.class);
 
-            for (int i = 0; i < countryP.getData().size(); i++) {
-                String name_indent = countryP.getData().get(i).getName();
-                int count_id = countryP.getData().get(i).getCountry_id();
-                if (name_indent.equalsIgnoreCase(country_name)) {
-                    specific_player(count_id);
+            for (int i = 0; i < countryPlayers.getData().size(); i++) {
+                String nameIndent = countryPlayers.getData().get(i).getName();
+                int countryId = countryPlayers.getData().get(i).getCountry_id();
+                if (nameIndent.equalsIgnoreCase(country_name)) {
+                    specific_player(countryId);
                 }
             }
         }
