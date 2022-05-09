@@ -33,6 +33,7 @@ public class SportsDataUtils {
 
         final Request request = new Request.Builder()
                 .url(BASE_URL + url)
+                .addHeader("Content-Type", "application/json")
                 .addHeader("apikey",API_KEY)
                 .get()
                 .build();
@@ -41,13 +42,10 @@ public class SportsDataUtils {
         try {
             Response response = client.newCall(request).execute();
             if(!response.isSuccessful()){
-
                 return "request was not successful, Unexpected code: " + response;
             }
             ResponseBody responseBody = client.newCall(request).execute().body();
-
             //logger.info("Api response" + responseString);
-
             return responseBody.string();
 
         } catch (IOException e) {
@@ -102,12 +100,16 @@ public class SportsDataUtils {
         String responseBodyStr = SportsDataUtils.ApiRequest(playerUrl);
 
         try {
-            ObjectMapper mapLeagues = new ObjectMapper();
-            mapLeagues.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            ResponsePlayers leaguePlayers = mapLeagues.readValue(responseBodyStr, ResponsePlayers.class);
-
+            ObjectMapper mapPlayers = new ObjectMapper();
+            mapPlayers.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+            ResponsePlayers leaguePlayers = mapPlayers.readValue(responseBodyStr, ResponsePlayers.class);
+            if (leaguePlayers.getData() != null) {
+                //logger.info("It gets here");
                 System.out.println(leaguePlayers);
-
+            }else
+            {
+                System.out.println("No records found!");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -188,7 +190,6 @@ public class SportsDataUtils {
         String responseBodyPlayerString = SportsDataUtils.ApiRequest(COUNTRY_URL);
 
         try {
-
             ObjectMapper countryMapper = new ObjectMapper();
             countryMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
             RequestAllCountries countryPlayers = countryMapper.readValue(responseBodyPlayerString, RequestAllCountries.class);

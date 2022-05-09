@@ -14,7 +14,6 @@ public class SportsDataApp {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n Welcome to the Sports Data App \n");
-
         do {
             System.out.println("Select number for the information you would like to receive." +
                     "\n" +
@@ -49,7 +48,6 @@ public class SportsDataApp {
                         String country = sc.nextLine();
                         country+=sc.nextLine();
                         SportsDataUtils.searchCountry(country);
-
                     }
                     break;
                 case 3:
