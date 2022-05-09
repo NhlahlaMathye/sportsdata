@@ -14,6 +14,7 @@ public class SportsDataApp {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("\n Welcome to the Sports Data App \n");
+
         do {
             System.out.println("Select number for the information you would like to receive." +
                     "\n" +
@@ -32,7 +33,7 @@ public class SportsDataApp {
                     SportsDataUtils.searchCountryByContinent(continentName);
                     break;
                 case 2:
-                    System.out.println("Select How would you like to view teams?" +
+                    System.out.println(" How would you like to view teams?" +
                             "\n" +
                             "\n 1. Default country" +
                             "\n 2. Search by country");
@@ -58,8 +59,7 @@ public class SportsDataApp {
                     break;
                 case 4:
                     System.out.print("From which country would you like to view players : ");
-                    String countryPlayer = sc.nextLine();
-                    countryPlayer += sc.nextLine();
+                    String countryPlayer = sc.next();
                     SportsDataUtils.searchPlayers(countryPlayer);
                     break;
                 default:
