@@ -158,6 +158,7 @@ public class SportsDataUtils {
 
                 for (int o = 0; o < allSeasons.getData().size(); o++)
                 {
+                    // get leagues, assign the country id
 
                 }
 
@@ -166,6 +167,11 @@ public class SportsDataUtils {
             e.printStackTrace();
         }
 
+
+    }
+
+    public static void specific_season(int seasonId)
+    {
 
     }
 
