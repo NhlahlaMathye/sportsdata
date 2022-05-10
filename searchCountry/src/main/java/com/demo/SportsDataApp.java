@@ -75,7 +75,7 @@ public class SportsDataApp {
                     String leagueName = sc.nextLine();
                     leagueName += sc.nextLine();
                     SportsDataUtils.specificLeagueSeason(leagueName);
-                    break;
+                    continue;
 
                 default:
                     break;
