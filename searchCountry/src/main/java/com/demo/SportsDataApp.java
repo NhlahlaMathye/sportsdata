@@ -73,6 +73,13 @@ public class SportsDataApp {
                     SportsDataUtils.searchPlayers(countryPlayer);
                     continue;
 
+                case 11:
+                    System.out.print("From which country referees would you like to view : ");
+                    String countryRef = sc.nextLine();
+                    countryRef += sc.nextLine();
+                    SportsDataUtils.searchCountryReferee(countryRef);
+                    continue;
+
                 case 12:
                     System.out.print("From which league you want to view the seasons : ");
                     String leagueName = sc.nextLine();

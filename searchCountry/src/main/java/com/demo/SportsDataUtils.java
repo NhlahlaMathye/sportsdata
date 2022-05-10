@@ -5,6 +5,7 @@ import com.demo.st.country.RequestAllCountries;
 import com.demo.st.matches.RequestMatch;
 import com.demo.st.matches.RequestMatchResponse;
 import com.demo.st.players.ResponsePlayers;
+import com.demo.st.referees.ResponseReferees;
 import com.demo.st.seasons.RequestSeasonLeague;
 import com.demo.st.seasons.RequestSeasonResponse;
 import com.demo.st.seasons.RequestStages;
@@ -37,6 +38,8 @@ public class SportsDataUtils {
     private static final String SEASON_URL = "/seasons?apikey=&league_id=";
     private static final String STAGES_URL = "/stages?apikey=&season_id=";
     private static final String MATCHES_URL = "/matches?apikey=&season_id=";
+    private static final String REFEREE_URL = "/referees?apikey=&country_id=";
+
 
 
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
@@ -173,6 +176,23 @@ public class SportsDataUtils {
         }
     }
 
+    public static void specific_referees(int countryRefId)
+    {
+        String refUrl = REFEREE_URL + countryRefId;
+        String refResBody = SportsDataUtils.ApiRequest(refUrl);
+
+        try {
+            ObjectMapper refMapping = new ObjectMapper();
+            ResponseReferees referees = refMapping.readValue(refResBody, ResponseReferees.class);
+
+            System.out.println(referees);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void stagesSeason(int seasonsId)
     {
         String stagesUrl = STAGES_URL + seasonsId;
@@ -185,6 +205,7 @@ public class SportsDataUtils {
             for (int ss = 0; ss < requestStage.getData().size(); ss++)
             {
                 System.out.println(requestStage.getData().get(ss));
+
             }
 
         }
@@ -216,6 +237,28 @@ public class SportsDataUtils {
         }
     }
 
+    public static void searchCountryReferee(String countryRef){
+
+        String refResponseBody = SportsDataUtils.ApiRequest(COUNTRY_URL);
+
+        try{
+            ObjectMapper refMap = new ObjectMapper();
+            RequestAllCountries refCountries = refMap.readValue(refResponseBody, RequestAllCountries.class);
+
+            for (int r = 0; r < refCountries.getData().size();r++)
+            {
+                String refCountry = refCountries.getData().get(r).getName();
+                if(refCountry.equalsIgnoreCase(countryRef))
+                {
+                    int countryRefId = refCountries.getData().get(r).getCountry_id();
+                    SportsDataUtils.specific_referees(countryRefId);
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
 
     public static  void searchLeagues(String countryLeagueName)
     {
