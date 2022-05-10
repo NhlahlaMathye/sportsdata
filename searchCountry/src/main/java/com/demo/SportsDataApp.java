@@ -112,6 +112,8 @@ public class SportsDataApp {
                     System.out.print("Would you also like to view, Select : " +
                             "\n 1. Matches" +
                             "\n 2. Stages" +
+                            "\n 3. Rounds" +
+                            "\n 4. Top Scorers" +
                             "\n" +
                             "\n To cancel, enter Zero(0)." +
                             "\n");
