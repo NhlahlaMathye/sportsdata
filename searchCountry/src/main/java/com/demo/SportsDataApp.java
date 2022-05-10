@@ -44,7 +44,10 @@ public class SportsDataApp {
                     System.out.println(" How would you like to view teams?" +
                             "\n" +
                             "\n 1. Default country" +
-                            "\n 2. Search by country");
+                            "\n 2. Search by country" +
+                            "\n " +
+                            "\n press Zero(0) to exit menu" +
+                            "\n");
                     int checkView = sc.nextInt();
                     if (checkView == 1)
                     {
@@ -57,6 +60,8 @@ public class SportsDataApp {
                         String country = sc.nextLine();
                         country+=sc.nextLine();
                         SportsDataUtils.searchCountry(country);
+                    }else if(checkView == 0){
+                        break;
                     }
                     continue;
 
@@ -72,6 +77,16 @@ public class SportsDataApp {
                     String countryPlayer = sc.nextLine();
                     countryPlayer += sc.nextLine();
                     SportsDataUtils.searchPlayers(countryPlayer);
+                    continue;
+
+                case 8:
+                    System.out.println("Here are the bookmakers below.");
+                    SportsDataUtils.bookmakers();
+                    continue;
+
+                case 9:
+                    System.out.println("Here are the markets below.");
+                    SportsDataUtils.markets();
                     continue;
 
                 case 10:

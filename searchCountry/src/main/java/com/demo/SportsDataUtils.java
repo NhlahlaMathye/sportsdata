@@ -1,22 +1,20 @@
 package com.demo;
+import com.demo.st.bets.ResponseBookmakers;
+import com.demo.st.bets.ResponseMarkets;
 import com.demo.st.country.CountriesByContinentResponse;
 import com.demo.st.country.Country;
 import com.demo.st.country.RequestAllCountries;
-import com.demo.st.matches.RequestMatch;
 import com.demo.st.matches.RequestMatchResponse;
 import com.demo.st.players.ResponsePlayers;
 import com.demo.st.referees.ResponseReferees;
 import com.demo.st.seasons.RequestSeasonLeague;
 import com.demo.st.seasons.RequestSeasonResponse;
-import com.demo.st.seasons.RequestStages;
 import com.demo.st.seasons.ResponseStages;
 import com.demo.st.team.RequestLeague;
 import com.demo.st.team.RequestLeagueResponse;
 import com.demo.st.team.RequestTeamsResponse;
 import com.demo.st.venues.ResponseVenues;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -41,6 +39,8 @@ public class SportsDataUtils {
     private static final String MATCHES_URL = "/matches?apikey=&season_id=";
     private static final String REFEREE_URL = "/referees?apikey=&country_id=";
     private static final String VENUES_URL = "/venues?apikey=&country_id=";
+    private static final String BOOKMAKER_URL = "/bookmakers?apikey=";
+    private static final String MARKETS_URL = "/markets?apikey=";
 
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
 
@@ -393,5 +393,38 @@ public class SportsDataUtils {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+    }
+
+    public static void bookmakers()
+    {
+        String urlBody = SportsDataUtils.ApiRequest(BOOKMAKER_URL);
+        try {
+            ObjectMapper book = new ObjectMapper();
+            ResponseBookmakers bookmakers = book.readValue(urlBody, ResponseBookmakers.class);
+            for (int b = 0; b < bookmakers.getData().size();b++)
+            {
+                String name = bookmakers.getData().get(b).getName();
+                String photo = String.valueOf(bookmakers.getData().get(b).getImg());
+                System.out.println("\n Name: " + name + "\n Photo: " + photo);
+            }
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void markets()
+    {
+        String urlRes = SportsDataUtils.ApiRequest(MARKETS_URL);
+        try {
+            ObjectMapper market = new ObjectMapper();
+            ResponseMarkets responseMarkets = market.readValue(urlRes, ResponseMarkets.class);
+            for (int m = 0; m < responseMarkets.getData().size();m++)
+            {
+                String name = responseMarkets.getData().get(m).getName();
+                System.out.println("\n Name: " + name);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
