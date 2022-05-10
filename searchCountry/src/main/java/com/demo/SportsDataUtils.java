@@ -2,11 +2,14 @@ package com.demo;
 import com.demo.st.country.CountriesByContinentResponse;
 import com.demo.st.country.Country;
 import com.demo.st.country.RequestAllCountries;
+import com.demo.st.players.RequestPlayers;
 import com.demo.st.players.ResponsePlayers;
 import com.demo.st.team.RequestLeague;
 import com.demo.st.team.RequestLeagueResponse;
 import com.demo.st.team.RequestTeamsResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,6 +17,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -80,6 +85,7 @@ public class SportsDataUtils {
         String responseBodyString = SportsDataUtils.ApiRequest(specificLeagues);
 
         try {
+
             ObjectMapper mapLeagues = new ObjectMapper();
             RequestLeagueResponse leagueResponse = mapLeagues.readValue(responseBodyString, RequestLeagueResponse.class);
 
@@ -87,7 +93,6 @@ public class SportsDataUtils {
 
                 String leagueName = responseMap.getValue().getName();
                 String leagueID = responseMap.getValue().getLeague_id();
-
                 System.out.println("League Name: " + leagueName + ", League ID: " + leagueID);
             }
         } catch (IOException e) {
@@ -101,17 +106,20 @@ public class SportsDataUtils {
         String playerUrl =PLAYERS_URL + countryID;
         String responseBodyStr = SportsDataUtils.ApiRequest(playerUrl);
 
-        try {
-            ObjectMapper mapPlayers = new ObjectMapper();
-            mapPlayers.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            ResponsePlayers leaguePlayers = mapPlayers.readValue(responseBodyStr, ResponsePlayers.class);
+        if(!responseBodyStr.isEmpty()) {
+            try {
+                ObjectMapper mapPlayers = new ObjectMapper();
+                mapPlayers.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+                ResponsePlayers leaguePlayers = mapPlayers.readValue(responseBodyStr, ResponsePlayers.class);
 
-                System.out.println(leaguePlayers);
+                    System.out.println(leaguePlayers);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            System.out.println("No records were found");
         }
-
     }
 
     public static  void searchLeagues(String countryLeagueName)
@@ -137,6 +145,28 @@ public class SportsDataUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void searchCountrySeasons(String seasonCountryN){
+
+        String responseBodySeason = SportsDataUtils.ApiRequest(COUNTRY_URL);
+
+        try {
+                ObjectMapper seasonCountry = new ObjectMapper();
+                seasonCountry.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+                RequestAllCountries allSeasons = seasonCountry.readValue(responseBodySeason, RequestAllCountries.class);
+
+                for (int o = 0; o < allSeasons.getData().size(); o++)
+                {
+
+                }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public static void searchCountryByContinent(String continentName)
@@ -187,24 +217,27 @@ public class SportsDataUtils {
 
         String responseBodyPlayerString = SportsDataUtils.ApiRequest(COUNTRY_URL);
 
-        try {
+            try {
+                ObjectMapper playerMapper = new ObjectMapper();
+                playerMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+                RequestAllCountries countryPlayers = playerMapper.readValue(responseBodyPlayerString, RequestAllCountries.class);
 
-            ObjectMapper playerMapper = new ObjectMapper();
-            playerMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            RequestAllCountries countryPlayers = playerMapper.readValue(responseBodyPlayerString, RequestAllCountries.class);
-
-                for (int i = 0; i < countryPlayers.getData().size(); i++) {
-                    String nameCountry = countryPlayers.getData().get(i).getName();
-                    int countryId = countryPlayers.getData().get(i).getCountry_id();
-                    //logger.info("It comes here");
-                    if (nameCountry.equalsIgnoreCase(countryPlayerName)) {
-                        //logger.info("It gets here");
-                        SportsDataUtils.specific_player(countryId);
+                if(!countryPlayers.getData().isEmpty()) {
+                    for (int i = 0; i < countryPlayers.getData().size(); i++) {
+                        String nameCountry = countryPlayers.getData().get(i).getName();
+                        int countryId = countryPlayers.getData().get(i).getCountry_id();
+                        //logger.info("It comes here");
+                        if (nameCountry.equalsIgnoreCase(countryPlayerName)) {
+                            //logger.info("It gets here");
+                            SportsDataUtils.specific_player(countryId);
+                        }
                     }
+                }else {
+                    logger.info("No data for the country");
                 }
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
     }
 }
