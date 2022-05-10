@@ -21,15 +21,14 @@ public class SportsDataApp {
                     "\n 2. Teams " +
                     "\n 3. Leagues" +
                     "\n 4. Players" +
-                    "\n 5. Stages" +
+                    "\n 5. Rounds" +
                     "\n 6. Matches" +
                     "\n 7. Top Scorers" +
                     "\n 8. Bookmakers" +
                     "\n 9. Markets" +
                     "\n 10. Venues" +
                     "\n 11. Referees" +
-                    "\n 12. Rounds" +
-                    "\n 13. Seasons" +
+                    "\n 12. Seasons" +
                     "\n" +
                     "\n Enter number zero(0) to exit the program.");
             int inputUser = sc.nextInt();
@@ -70,11 +69,23 @@ public class SportsDataApp {
                     String countryPlayer = sc.next();
                     SportsDataUtils.searchPlayers(countryPlayer);
                     continue;
-                case 13:
+                case 12:
                     System.out.print("From which league you want to view the seasons : ");
                     String leagueName = sc.nextLine();
                     leagueName += sc.nextLine();
                     SportsDataUtils.specificLeagueSeason(leagueName);
+
+                    System.out.print("Would you like to view Stages (Y/N) : ");
+                    String viewStage = sc.next();
+                    if(viewStage.equalsIgnoreCase("Y"))
+                    {
+                        System.out.print("Enter the season(season_id) you have just viewed in the seasons : ");
+                        int season = sc.nextInt();
+                        SportsDataUtils.stagesSeason(season);
+                    }
+                    else{
+                        break;
+                    }
                     continue;
 
                 default:

@@ -12,7 +12,7 @@ public class RequestStages {
     @Override
     public String toString()
     {
-        return " " + id + " " + name ;
+        return " "  + " Stage Name: " + name + "\n" ;
     }
 
     public int getId() {
