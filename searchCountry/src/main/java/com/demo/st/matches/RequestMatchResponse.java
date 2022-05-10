@@ -4,12 +4,13 @@ import com.demo.query.Query;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashMap;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RequestMatchResponse {
 
     private Query query;
-    HashMap<String, RequestMatch> data = new HashMap<>();
+    private List<RequestMatch> data;
 
     @Override
     public String toString()
@@ -25,11 +26,10 @@ public class RequestMatchResponse {
         this.query = query;
     }
 
-    public HashMap<String, RequestMatch> getData() {
+    public List<RequestMatch> getData() {
         return data;
     }
-
-    public void setData(HashMap<String, RequestMatch> data) {
+    public void setData(List<RequestMatch> data) {
         this.data = data;
     }
 }

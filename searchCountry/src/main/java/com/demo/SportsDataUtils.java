@@ -2,6 +2,8 @@ package com.demo;
 import com.demo.st.country.CountriesByContinentResponse;
 import com.demo.st.country.Country;
 import com.demo.st.country.RequestAllCountries;
+import com.demo.st.matches.RequestMatch;
+import com.demo.st.matches.RequestMatchResponse;
 import com.demo.st.players.ResponsePlayers;
 import com.demo.st.seasons.RequestSeasonLeague;
 import com.demo.st.seasons.RequestSeasonResponse;
@@ -34,6 +36,7 @@ public class SportsDataUtils {
     private static final String CONTINENT_URL = "/countries?apikey=&continent=";
     private static final String SEASON_URL = "/seasons?apikey=&league_id=";
     private static final String STAGES_URL = "/stages?apikey=&season_id=";
+    private static final String MATCHES_URL = "/matches?apikey=&season_id=";
 
 
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
@@ -83,13 +86,11 @@ public class SportsDataUtils {
 
     }
 
-    public static String specific_league(int countriesId) {
+    public static void specific_league(int countriesId) {
 
         String specificLeagues = LEAGUES_URL + countriesId;
         String responseBodyString = SportsDataUtils.ApiRequest(specificLeagues);
 
-        String leagueID = null;
-        String leagueName = null;
         try {
 
             ObjectMapper mapLeagues = new ObjectMapper();
@@ -97,17 +98,13 @@ public class SportsDataUtils {
 
             for (Map.Entry<String, RequestLeague> responseMap : leagueResponse.getData().entrySet()) {
 
-                leagueName = responseMap.getValue().getName();
-                leagueID = responseMap.getValue().getLeague_id();
+               String leagueName = responseMap.getValue().getName();
+                String leagueID = responseMap.getValue().getLeague_id();
                 System.out.println("League Name: " + leagueName + ", League ID: " + leagueID);
             }
-
-            ;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return leagueName;
 
     }
 
@@ -147,6 +144,35 @@ public class SportsDataUtils {
         }
     }
 
+    public static void specific_matches(int season, String date)
+    {
+        String matchUrl = MATCHES_URL + season + "&date_from="+date;
+        String matchResponseBody = SportsDataUtils.ApiRequest(matchUrl);
+
+        try{
+            ObjectMapper mapMatch = new ObjectMapper();
+            RequestMatchResponse matchResponse = mapMatch.readValue(matchResponseBody, RequestMatchResponse.class);
+
+            for (int mm = 0; mm < matchResponse.getData().size(); mm++)
+            {
+                String matchStatus = matchResponse.getData().get(mm).getStatus();
+                String matchStart = matchResponse.getData().get(mm).getMatch_start();
+                String homeTeam = String.valueOf(matchResponse.getData().get(mm).getHome_team());
+                String awayTeam = String.valueOf(matchResponse.getData().get(mm).getAway_team());
+
+                System.out.println("****" +
+                        "\n Match Status:" +matchStatus +
+                        "\n Match Starts:" +matchStart +
+                        "\n\n Home Team:" + homeTeam+
+                        "\n\n Away Team:" + awayTeam+
+                        "\n****" );
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void stagesSeason(int seasonsId)
     {
         String stagesUrl = STAGES_URL + seasonsId;
@@ -172,7 +198,6 @@ public class SportsDataUtils {
         String leaguesSeason = LEAGUES_URL ;
         String responseBodySeason = SportsDataUtils.ApiRequest(leaguesSeason);
 
-
         try {
             ObjectMapper mapLeaguesS = new ObjectMapper();
             RequestSeasonLeague leagueSResponse = mapLeaguesS.readValue(responseBodySeason, RequestSeasonLeague.class);
@@ -185,12 +210,12 @@ public class SportsDataUtils {
                 {
                     SportsDataUtils.specific_season(leaguesId);
                 }
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public static  void searchLeagues(String countryLeagueName)
     {

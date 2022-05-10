@@ -18,7 +18,7 @@ public class RequestMatch {
   @Override
   public String toString()
   {
-    return "\n " + status + "\n " + match_start + "\n Home team:" + home_team + "\n Away team:" + away_team;
+    return "\n Match Status:" + status + "\n Match Begins:" + match_start + "\n Home team:" + home_team + "\n Away team:" + away_team;
   }
 
   public int getMatch_id() {

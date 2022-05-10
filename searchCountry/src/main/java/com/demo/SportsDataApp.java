@@ -75,17 +75,30 @@ public class SportsDataApp {
                     leagueName += sc.nextLine();
                     SportsDataUtils.specificLeagueSeason(leagueName);
 
-                    System.out.print("Would you like to view Stages (Y/N) : ");
-                    String viewStage = sc.next();
-                    if(viewStage.equalsIgnoreCase("Y"))
-                    {
-                        System.out.print("Enter the season(season_id) you have just viewed in the seasons : ");
-                        int season = sc.nextInt();
-                        SportsDataUtils.stagesSeason(season);
-                    }
-                    else{
-                        break;
-                    }
+                    System.out.print("Would you also like to view, Select : " +
+                            "\n 1. Matches" +
+                            "\n 2. Stages" +
+                            "\n" +
+                            "\n To cancel, enter Zero(0)." +
+                            "\n");
+                    int viewStage = sc.nextInt();
+
+                        if (viewStage == 2) {
+                            System.out.print("Enter the season(season_id) you have just viewed in the seasons : ");
+                            int season = sc.nextInt();
+                            SportsDataUtils.stagesSeason(season);
+                        } else if (viewStage == 1) {
+                            System.out.print("For which season would you like to view matches (Use season_id Showed to you) ? : ");
+                            int seasonM = sc.nextInt();
+                            System.out.print("Enter the date of the matches you want view (YYYY-MM-DD) : ");
+                            String dateMatch = sc.nextLine();
+                            dateMatch += sc.nextLine();
+                            SportsDataUtils.specific_matches(seasonM, dateMatch);
+
+                        } else if(viewStage == 0) {
+                            break;
+                        }
+
                     continue;
 
                 default:
