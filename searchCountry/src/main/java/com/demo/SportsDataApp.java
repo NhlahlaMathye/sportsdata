@@ -69,8 +69,16 @@ public class SportsDataApp {
 
                 case 4:
                     System.out.print("From which country would you like to view players : ");
-                    String countryPlayer = sc.next();
+                    String countryPlayer = sc.nextLine();
+                    countryPlayer += sc.nextLine();
                     SportsDataUtils.searchPlayers(countryPlayer);
+                    continue;
+
+                case 10:
+                    System.out.print("From which country would you like to view venues(Stadiums) : ");
+                    String countryVenue = sc.nextLine();
+                    countryVenue += sc.nextLine();
+                    SportsDataUtils.searchVenuesCountry(countryVenue);
                     continue;
 
                 case 11:
@@ -93,7 +101,6 @@ public class SportsDataApp {
                             "\n To cancel, enter Zero(0)." +
                             "\n");
                     int viewStage = sc.nextInt();
-
                         if (viewStage == 2) {
                             System.out.print("Enter the season(season_id) you have just viewed in the seasons : ");
                             int season = sc.nextInt();
@@ -109,7 +116,6 @@ public class SportsDataApp {
                         } else if(viewStage == 0) {
                             break;
                         }
-
                     continue;
 
                 default:

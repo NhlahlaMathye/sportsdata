@@ -13,6 +13,7 @@ import com.demo.st.seasons.ResponseStages;
 import com.demo.st.team.RequestLeague;
 import com.demo.st.team.RequestLeagueResponse;
 import com.demo.st.team.RequestTeamsResponse;
+import com.demo.st.venues.ResponseVenues;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -39,8 +40,7 @@ public class SportsDataUtils {
     private static final String STAGES_URL = "/stages?apikey=&season_id=";
     private static final String MATCHES_URL = "/matches?apikey=&season_id=";
     private static final String REFEREE_URL = "/referees?apikey=&country_id=";
-
-
+    private static final String VENUES_URL = "/venues?apikey=&country_id=";
 
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
 
@@ -193,6 +193,23 @@ public class SportsDataUtils {
         }
     }
 
+    public static void specific_venue(int countryVenueId)
+    {
+        String venueUrl = VENUES_URL + countryVenueId;
+        String venueResBody = SportsDataUtils.ApiRequest(venueUrl);
+
+        try {
+            ObjectMapper mapVenues = new ObjectMapper();
+            ResponseVenues responseVenues = mapVenues.readValue(venueResBody, ResponseVenues.class);
+
+            System.out.println(responseVenues);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void stagesSeason(int seasonsId)
     {
         String stagesUrl = STAGES_URL + seasonsId;
@@ -258,6 +275,27 @@ public class SportsDataUtils {
             e.printStackTrace();
         }
 
+    }
+
+    public static void searchVenuesCountry(String country)
+    {
+        String venueResBody = SportsDataUtils.ApiRequest(COUNTRY_URL);
+        try {
+            ObjectMapper venueMap = new ObjectMapper();
+            RequestAllCountries requestAllCountries = venueMap.readValue(venueResBody, RequestAllCountries.class);
+
+            for (int v = 0; v < requestAllCountries.getData().size();v++)
+            {
+                String venueCountry = requestAllCountries.getData().get(v).getName();
+                if(venueCountry.equalsIgnoreCase(country))
+                {
+                    int countryID = requestAllCountries.getData().get(v).getCountry_id();
+                    SportsDataUtils.specific_venue(countryID);
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public static  void searchLeagues(String countryLeagueName)
