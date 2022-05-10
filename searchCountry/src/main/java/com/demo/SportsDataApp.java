@@ -70,6 +70,13 @@ public class SportsDataApp {
                     String countryPlayer = sc.next();
                     SportsDataUtils.searchPlayers(countryPlayer);
                     continue;
+                case 13:
+                    System.out.print("From which league you want to view the seasons : ");
+                    String leagueName = sc.nextLine();
+                    leagueName += sc.nextLine();
+                    SportsDataUtils.specificLeagueSeason(leagueName);
+                    break;
+
                 default:
                     break;
             }
