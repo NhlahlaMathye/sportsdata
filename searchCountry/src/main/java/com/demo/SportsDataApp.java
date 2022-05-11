@@ -7,31 +7,42 @@ public class SportsDataApp {
     //LOGGER
     //final static Logger logger = Logger.getLogger(SportsDataApp.class.getSimpleName());
     static boolean catchInfo ;
+    static int programTrack = 0;
     //Main method
     public static void main(String[] args) throws  InputMismatchException {
 
-        Scanner sc = new Scanner(System.in);
         System.out.println("\n Welcome to the Sports Data App \n");
         catchInfo = false;
-        do {
-            System.out.println("Select number for the information you would like to receive." +
-                    "\n" +
-                    "\n 1. Countries" +
-                    "\n 2. Teams " +
-                    "\n 3. Leagues" +
-                    "\n 4. Players" +
-                    "\n 5. Stages" +
-                    "\n 6. Matches" +
-                    "\n 7. Top Scorers" +
-                    "\n 8. Bookmakers" +
-                    "\n 9. Markets" +
-                    "\n 10. Venues" +
-                    "\n 11. Referees" +
-                    "\n 12. Seasons" +
-                    "\n" +
-                    "\n Enter number zero(0) to exit the program.");
-            int inputUser = sc.nextInt();
+
+        while (programTrack != 99)
+        {
+            SportsDataApp.mainSportData(programTrack);
+        }
+
+    }
+
+    private static void mainSportData(int inputUser){
+        Scanner sc = new Scanner(System.in);
             switch (inputUser){
+                case 0:
+                    System.out.println("Select number for the information you would like to receive." +
+                            "\n" +
+                            "\n 1. Countries" +
+                            "\n 2. Teams " +
+                            "\n 3. Leagues" +
+                            "\n 4. Players" +
+                            "\n 5. Stages" +
+                            "\n 6. Matches" +
+                            "\n 7. Top Scorers" +
+                            "\n 8. Bookmakers" +
+                            "\n 9. Markets" +
+                            "\n 10. Venues" +
+                            "\n 11. Referees" +
+                            "\n 12. Seasons" +
+                            "\n" +
+                            "\n Enter number zero(0) to exit the program.");
+                    programTrack = sc.nextInt();
+                    break;
                 case 1:
                     System.out.print("From which continent would you like to view countries: ");
                     String continentName = sc.nextLine();
@@ -76,7 +87,6 @@ public class SportsDataApp {
                 case 4:
                     System.out.print("From which country would you like to view players : ");
                     String countryPlayer = sc.nextLine();
-                    countryPlayer += sc.nextLine();
                     SportsDataUtils.searchPlayers(countryPlayer);
                     break;
 
@@ -151,36 +161,31 @@ public class SportsDataApp {
                             "\n To cancel, enter Zero(0)." +
                             "\n");
                     int viewStage = sc.nextInt();
-                        if (viewStage == 2) {
-                            System.out.print("Enter the season for the stages (See season's above(Season_ID)) : ");
-                            int season = sc.nextInt();
-                            SportsDataUtils.stagesSeason(season);
-                            break;
-                        } else if (viewStage == 1) {
-                            System.out.print("For which season would you like to view matches (See season's above(Season_ID)) ? : ");
-                            int seasonM = sc.nextInt();
-                            System.out.print("Write the date of the matches you want view? (YYYY-MM-DD) (See dates above) : ");
-                            String dateMatch = sc.nextLine();
-                            dateMatch += sc.nextLine();
-                            SportsDataUtils.specificMatches(seasonM, dateMatch);
-                            break;
-                        } else if(viewStage == 3){
-                            System.out.print("Enter the season you would like to view top scorers (See season's above(Season_ID)) : ");
-                            int seasonS = sc.nextInt();
-                            SportsDataUtils.topScorers(seasonS);
-                            break;
-                        } else if(viewStage == 0) {
-                            break;
-                        }
+                    if (viewStage == 2) {
+                        System.out.print("Enter the season for the stages (See season's above(Season_ID)) : ");
+                        int season = sc.nextInt();
+                        SportsDataUtils.stagesSeason(season);
+                        break;
+                    } else if (viewStage == 1) {
+                        System.out.print("For which season would you like to view matches (See season's above(Season_ID)) ? : ");
+                        int seasonM = sc.nextInt();
+                        System.out.print("Write the date of the matches you want view? (YYYY-MM-DD) (See dates above) : ");
+                        String dateMatch = sc.nextLine();
+                        dateMatch += sc.nextLine();
+                        SportsDataUtils.specificMatches(seasonM, dateMatch);
+                        break;
+                    } else if(viewStage == 3){
+                        System.out.print("Enter the season you would like to view top scorers (See season's above(Season_ID)) : ");
+                        int seasonS = sc.nextInt();
+                        SportsDataUtils.topScorers(seasonS);
+                        break;
+                    } else if(viewStage == 0) {
+                        break;
+                    }
                     break;
 
                 default:
                     break;
             }
-            if (inputUser == 0)
-            {
-                break;
-            }
-        } while (!catchInfo);
     }
 }

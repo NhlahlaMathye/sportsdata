@@ -43,6 +43,7 @@ public class SportsDataUtils {
     private static final String BOOKMAKER_URL = "/bookmakers?apikey=";
     private static final String MARKETS_URL = "/markets?apikey=";
     private static final String TOP_SCORER_URL = "/topscorers?apikey=&season_id=";
+    private static RequestAllCountries allCountries;
 
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
 
@@ -70,8 +71,8 @@ public class SportsDataUtils {
         } catch (IOException e) {
             logger.info("Request Exception : " + e.getMessage());
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public static void specificTeams(int countryTeamId){
@@ -333,14 +334,14 @@ public class SportsDataUtils {
         try{
             String refResponseBody = SportsDataUtils.apiRequest(COUNTRY_URL);
             ObjectMapper refMap = new ObjectMapper();
-            RequestAllCountries refCountries = refMap.readValue(refResponseBody, RequestAllCountries.class);
+            allCountries = refMap.readValue(refResponseBody, RequestAllCountries.class);
 
-            for (int r = 0; r < refCountries.getData().size();r++)
+            for (int r = 0; r < allCountries.getData().size();r++)
             {
-                String refCountry = refCountries.getData().get(r).getName();
+                String refCountry = allCountries.getData().get(r).getName();
                 if(refCountry.equalsIgnoreCase(countryRef))
                 {
-                    int countryRefId = refCountries.getData().get(r).getCountry_id();
+                    int countryRefId = allCountries.getData().get(r).getCountry_id();
                     SportsDataUtils.specificReferees(countryRefId);
                 }
             }
@@ -355,14 +356,14 @@ public class SportsDataUtils {
         try {
             String venueResBody = SportsDataUtils.apiRequest(COUNTRY_URL);
             ObjectMapper venueMap = new ObjectMapper();
-            RequestAllCountries requestAllCountries = venueMap.readValue(venueResBody, RequestAllCountries.class);
+            allCountries = venueMap.readValue(venueResBody, RequestAllCountries.class);
 
-            for (int v = 0; v < requestAllCountries.getData().size();v++)
+            for (int v = 0; v < allCountries.getData().size();v++)
             {
-                String venueCountry = requestAllCountries.getData().get(v).getName();
+                String venueCountry = allCountries.getData().get(v).getName();
                 if(venueCountry.equalsIgnoreCase(country))
                 {
-                    int countryID = requestAllCountries.getData().get(v).getCountry_id();
+                    int countryID = allCountries.getData().get(v).getCountry_id();
                     SportsDataUtils.specificVenue(countryID);
                 }
             }
@@ -378,7 +379,7 @@ public class SportsDataUtils {
             String responseBodyLeagueString = SportsDataUtils.apiRequest(COUNTRY_URL);
             ObjectMapper leagueMap = new ObjectMapper();
             leagueMap.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            RequestAllCountries allCountries = leagueMap.readValue(responseBodyLeagueString, RequestAllCountries.class );
+             allCountries = leagueMap.readValue(responseBodyLeagueString, RequestAllCountries.class );
 
             for (int l = 0; l < allCountries.getData().size(); l++)
             {
@@ -422,11 +423,11 @@ public class SportsDataUtils {
         try {
             String responseBodyCountryString =  SportsDataUtils.apiRequest(COUNTRY_URL);
             ObjectMapper countryMapper = new ObjectMapper();
-            RequestAllCountries countries = countryMapper.readValue(responseBodyCountryString, RequestAllCountries.class);
+            allCountries = countryMapper.readValue(responseBodyCountryString, RequestAllCountries.class);
 
-            for (int i = 0; i < countries.getData().size(); i++) {
-                String nameIndentCountry = countries.getData().get(i).getName();
-                int countryIds = countries.getData().get(i).getCountry_id();
+            for (int i = 0; i < allCountries.getData().size(); i++) {
+                String nameIndentCountry = allCountries.getData().get(i).getName();
+                int countryIds = allCountries.getData().get(i).getCountry_id();
                 if (nameIndentCountry.equalsIgnoreCase(countryName)) {
                     SportsDataUtils.specificTeams(countryIds);
                 }
@@ -438,22 +439,23 @@ public class SportsDataUtils {
     }
 
     public static void searchPlayers(String countryPlayerName) {
+
             try {
                 String responseBodyPlayerString = SportsDataUtils.apiRequest(COUNTRY_URL);
                 ObjectMapper playerMapper = new ObjectMapper();
                 playerMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-                RequestAllCountries countryPlayers = playerMapper.readValue(responseBodyPlayerString, RequestAllCountries.class);
+                 allCountries = playerMapper.readValue(responseBodyPlayerString, RequestAllCountries.class);
 
-                    for (int i = 0; i < countryPlayers.getData().size(); i++) {
-                        String nameCountry = countryPlayers.getData().get(i).getName();
-                        int countryId = countryPlayers.getData().get(i).getCountry_id();
-                        //logger.info("It comes here");
-                        if (nameCountry.equalsIgnoreCase(countryPlayerName)) {
-                            //logger.info("It gets here");
-                            SportsDataUtils.specificPlayer(countryId);
-                        }
+                for (int x = 0; x < responseBodyPlayerString.length(); x++) {
+                    if (countryPlayerName != allCountries.getData().get(x).getName()) {
+                        System.out.println("not found");
+                        break;
+                    }
+                    else {
+                        System.out.println("found");
+                        break;
+                    }
                 }
-
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
