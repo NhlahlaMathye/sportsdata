@@ -2,11 +2,10 @@ package com.demo;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class SportsDataApp {
     //LOGGER
-    final static Logger logger = Logger.getLogger(SportsDataApp.class.getSimpleName());
+    //final static Logger logger = Logger.getLogger(SportsDataApp.class.getSimpleName());
     static boolean catchInfo ;
     //Main method
     public static void main(String[] args) throws  InputMismatchException {
