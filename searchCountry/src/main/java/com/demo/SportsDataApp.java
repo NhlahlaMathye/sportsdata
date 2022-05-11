@@ -126,7 +126,7 @@ public class SportsDataApp {
                         } else if (viewStage == 1) {
                             System.out.print("For which season would you like to view matches (See season's above(Season_ID)) ? : ");
                             int seasonM = sc.nextInt();
-                            System.out.print("Write the date of the matches you want view? (YYYY-MM-DD) : ");
+                            System.out.print("Write the date of the matches you want view? (YYYY-MM-DD) (See dates above) : ");
                             String dateMatch = sc.nextLine();
                             dateMatch += sc.nextLine();
                             SportsDataUtils.specific_matches(seasonM, dateMatch);
