@@ -221,8 +221,8 @@ public class SportsDataUtils {
 
                 System.out.println("" +
                         "\n Position: " + position +
-                        "" + name +
-                        "" + team +
+                        "\n Player Name:" + name +
+                        "\n Team:" + team +
                         "\n Matches played: " + matchesPlayed +
                         "\n Minutes played: " + minutesPlayed +
                         "\n Substituted times: " + substituted +

@@ -11,6 +11,11 @@ public class CountriesByContinentResponse {
     private ContinentQuery query;
     HashMap<String, Country> data = new HashMap<>();
 
+    @Override
+    public String toString()
+    {
+        return query + "" + data;
+    }
 
     public ContinentQuery getQuery() {
         return query;

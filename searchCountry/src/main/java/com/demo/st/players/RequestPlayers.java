@@ -15,6 +15,12 @@ public class RequestPlayers {
     private int height;
     private Country country;
 
+    @Override
+    public String toString()
+    {
+        return "" + firstname + " " + lastname + "" + birthday + "" + age +
+        "" + weight + "" + height + "";
+    }
 
     public int getPlayer_id() {
         return player_id;

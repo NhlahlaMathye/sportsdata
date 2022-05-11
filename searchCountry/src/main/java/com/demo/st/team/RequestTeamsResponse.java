@@ -13,6 +13,11 @@ public class RequestTeamsResponse {
     private Query query;
     private List<RequestTeams> data;
 
+    @Override
+    public String toString() {
+        return   ""  + "" + data;
+    }
+
 
     public Query getQuery() {
         return query;

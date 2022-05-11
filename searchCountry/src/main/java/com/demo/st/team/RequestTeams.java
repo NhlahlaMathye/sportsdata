@@ -18,6 +18,12 @@ public class RequestTeams {
     private Country country;
 
 
+    @Override
+    public String toString()
+    {
+        return "" + name +  " ";
+    }
+
     public Country getCountry() {
         return country;
     }

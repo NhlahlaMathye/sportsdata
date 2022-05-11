@@ -11,6 +11,11 @@ public class ResponsePlayers {
     private Query query;
     private List<RequestPlayers> data;
 
+    @Override
+    public String toString()
+    {
+        return "" + data;
+    }
 
     public Query getQuery() {
         return query;

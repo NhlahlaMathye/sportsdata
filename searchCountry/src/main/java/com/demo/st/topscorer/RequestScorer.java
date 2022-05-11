@@ -19,6 +19,12 @@ public class RequestScorer {
     private Goals goals;
     private int penalties;
 
+    @Override
+    public String toString()
+    {
+        return "" + pos + " " + player + " " + team + "" + matches_played
+                + "" + minutes_played + "" + substituted_in + " " + goals + "" + penalties;
+    }
 
     public int getPos() {
         return pos;

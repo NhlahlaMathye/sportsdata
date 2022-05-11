@@ -8,6 +8,12 @@ public class Team {
     private int team_id;
     private String team_name;
 
+    @Override
+    public String toString()
+    {
+        return "" + team_name + "";
+    }
+
     public int getTeam_id() {
         return team_id;
     }

@@ -15,6 +15,11 @@ public class RequestReferee {
      private File img;
      private Country country;
 
+     @Override
+     public String toString()
+     {
+         return "" + name + ""+ birthdate +"" + img + "";
+     }
 
     public int getId() {
         return id;

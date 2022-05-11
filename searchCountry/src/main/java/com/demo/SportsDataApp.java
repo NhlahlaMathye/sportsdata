@@ -117,6 +117,7 @@ public class SportsDataApp {
                     int scoreSeason = sc.nextInt();
                     SportsDataUtils.topScorers(scoreSeason);
                     SportsDataApp.programTrack = 0;
+                    break;
 
                 case 8:
                     System.out.println("Here are the bookmakers below.");

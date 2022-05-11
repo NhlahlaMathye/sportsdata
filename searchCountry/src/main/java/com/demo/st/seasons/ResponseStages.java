@@ -11,6 +11,11 @@ public class ResponseStages {
     private Query query;
     private List<RequestStages> data;
 
+    @Override
+    public String toString()
+    {
+        return "" + data ;
+    }
 
     public Query getQuery() {
         return query;

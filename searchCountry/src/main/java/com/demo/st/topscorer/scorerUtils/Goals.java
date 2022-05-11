@@ -9,6 +9,11 @@ public class Goals {
     private int home;
     private int away;
 
+    @Override
+    public String toString()
+    {
+        return "" + overall + "" + home + ""+away+ "";
+    }
 
     public int getOverall() {
         return overall;

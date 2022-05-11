@@ -9,6 +9,11 @@ public class RequestStages {
     private int id;
     private String name;
 
+    @Override
+    public String toString()
+    {
+        return ""  + "" + name ;
+    }
 
     public int getId() {
         return id;

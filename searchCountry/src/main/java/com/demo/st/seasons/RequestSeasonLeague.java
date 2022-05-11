@@ -12,6 +12,12 @@ public class RequestSeasonLeague {
     private Query query;
     private List<RequestLeague> data;
 
+    @Override
+    public String toString()
+    {
+        return " " + data;
+    }
+
     public Query getQuery() {
         return query;
     }

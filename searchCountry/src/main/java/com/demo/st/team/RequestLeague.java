@@ -13,6 +13,10 @@ public class RequestLeague {
     @JsonProperty("country_id")
     private int country_id;
 
+    @Override
+    public String toString() {
+        return "" + name;
+    }
 
     public int getCountry_id() {
         return country_id;

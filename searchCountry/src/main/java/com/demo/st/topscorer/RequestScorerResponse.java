@@ -11,6 +11,12 @@ public class RequestScorerResponse {
     private Query query;
     private List<RequestScorer> data;
 
+    @Override
+    public String toString()
+    {
+        return " " + data;
+    }
+
     public Query getQuery() {
         return query;
     }
