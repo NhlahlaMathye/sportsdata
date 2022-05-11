@@ -46,7 +46,6 @@ public class SportsDataApp {
                 case 1:
                     System.out.print("From which continent would you like to view countries: ");
                     String continentName = sc.nextLine();
-                    continentName+=sc.nextLine();
                     SportsDataUtils.searchCountryByContinent(continentName);
                     break;
 
@@ -69,7 +68,6 @@ public class SportsDataApp {
                     else if(checkView == 2) {
                         System.out.print("From which country would you like to receive teams : ");
                         String country = sc.nextLine();
-                        country+=sc.nextLine();
                         SportsDataUtils.searchCountry(country);
                         break;
                     }else if(checkView == 0){
@@ -80,20 +78,18 @@ public class SportsDataApp {
                 case 3:
                     System.out.print("Enter name of country for leagues you want to receive: ");
                     String leagueCountry = sc.nextLine();
-                    leagueCountry+=sc.nextLine();
                     SportsDataUtils.searchLeagues(leagueCountry);
                     break;
 
                 case 4:
                     System.out.print("From which country would you like to view players : ");
-                    String countryPlayer = sc.nextLine();
+                    String countryPlayer = sc.next();
                     SportsDataUtils.searchPlayers(countryPlayer);
                     break;
 
                 case 5:
                     System.out.print("For which league would you like to view stages : ");
                     String stageLeague = sc.nextLine();
-                    stageLeague += sc.nextLine();
                     SportsDataUtils.specificLeagueSeason(stageLeague);
                     System.out.print("Enter the season for stages you want to view (See above Season_ID) : ");
                     int stageSeason = sc.nextInt();
@@ -103,20 +99,17 @@ public class SportsDataApp {
                 case 6:
                     System.out.print("For which league would you like to view matches : ");
                     String matchLeague = sc.nextLine();
-                    matchLeague += sc.nextLine();
                     SportsDataUtils.specificLeagueSeason(matchLeague);
                     System.out.print("Enter the season for matches you want to view (See above Season_ID) : ");
                     int matchSeason = sc.nextInt();
                     System.out.print("Enter date of the matches you want to view (See dates above) : ");
                     String matchDate = sc.nextLine();
-                    matchDate += sc.nextLine();
                     SportsDataUtils.specificMatches(matchSeason, matchDate);
                     break;
 
                 case 7:
                     System.out.print("For which league would you like to view top scorers : ");
                     String scoreLeague = sc.nextLine();
-                    scoreLeague += sc.nextLine();
                     SportsDataUtils.specificLeagueSeason(scoreLeague);
                     System.out.print("Enter the season for top scorers (See above Season_ID) : ");
                     int scoreSeason = sc.nextInt();
@@ -136,21 +129,18 @@ public class SportsDataApp {
                 case 10:
                     System.out.print("From which country would you like to view venues(Stadiums) : ");
                     String countryVenue = sc.nextLine();
-                    countryVenue += sc.nextLine();
                     SportsDataUtils.searchVenuesCountry(countryVenue);
                     break;
 
                 case 11:
                     System.out.print("From which country referees would you like to view : ");
                     String countryRef = sc.nextLine();
-                    countryRef += sc.nextLine();
                     SportsDataUtils.searchCountryReferee(countryRef);
                     break;
 
                 case 12:
                     System.out.print("From which league you want to view the seasons : ");
                     String leagueName = sc.nextLine();
-                    leagueName += sc.nextLine();
                     SportsDataUtils.specificLeagueSeason(leagueName);
 
                     System.out.print("Would you also like to view, Select : " +
@@ -171,7 +161,6 @@ public class SportsDataApp {
                         int seasonM = sc.nextInt();
                         System.out.print("Write the date of the matches you want view? (YYYY-MM-DD) (See dates above) : ");
                         String dateMatch = sc.nextLine();
-                        dateMatch += sc.nextLine();
                         SportsDataUtils.specificMatches(seasonM, dateMatch);
                         break;
                     } else if(viewStage == 3){

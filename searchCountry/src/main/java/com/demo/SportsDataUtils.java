@@ -23,6 +23,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -65,7 +67,6 @@ public class SportsDataUtils {
             ResponseBody responseBody = client.newCall(request).execute().body();
 
             //logger.info("Api response" + responseString);
-
             return responseBody.string();
 
         } catch (IOException e) {
@@ -299,7 +300,6 @@ public class SportsDataUtils {
             for (int ss = 0; ss < requestStage.getData().size(); ss++)
             {
                 System.out.println(requestStage.getData().get(ss));
-
             }
 
         }
@@ -325,6 +325,7 @@ public class SportsDataUtils {
                     SportsDataUtils.specificSeason(leaguesId);
                 }
             }
+            SportsDataApp.programTrack = 0;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -345,6 +346,8 @@ public class SportsDataUtils {
                     SportsDataUtils.specificReferees(countryRefId);
                 }
             }
+            SportsDataApp.programTrack = 0;
+
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -367,6 +370,7 @@ public class SportsDataUtils {
                     SportsDataUtils.specificVenue(countryID);
                 }
             }
+            SportsDataApp.programTrack = 0;
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -391,6 +395,8 @@ public class SportsDataUtils {
                 }
             }
 
+            SportsDataApp.programTrack = 0;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -412,6 +418,8 @@ public class SportsDataUtils {
                 System.out.println("\n Country Name:" + countryName + ", Country ID:" + countryID + ", Country Code:"+countryCode);
             }
 
+            SportsDataApp.programTrack = 0;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -432,6 +440,8 @@ public class SportsDataUtils {
                     SportsDataUtils.specificTeams(countryIds);
                 }
             }
+
+            SportsDataApp.programTrack = 0;
         }
         catch (IOException ex) {
             ex.printStackTrace();
@@ -442,20 +452,41 @@ public class SportsDataUtils {
 
             try {
                 String responseBodyPlayerString = SportsDataUtils.apiRequest(COUNTRY_URL);
+
+                if (responseBodyPlayerString == null)
+                {
+                     System.out.println("Get Countries Api Call is Null");
+                }
                 ObjectMapper playerMapper = new ObjectMapper();
                 playerMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
                  allCountries = playerMapper.readValue(responseBodyPlayerString, RequestAllCountries.class);
+                 // logger.info("\n Info Logger" + allCountries);
 
-                for (int x = 0; x < responseBodyPlayerString.length(); x++) {
-                    if (countryPlayerName != allCountries.getData().get(x).getName()) {
-                        System.out.println("not found");
-                        break;
-                    }
-                    else {
-                        System.out.println("found");
-                        break;
-                    }
-                }
+                 for(Country name: allCountries.getData()) {
+                     String countryName = name.getName();
+                     if (countryPlayerName.equalsIgnoreCase(countryName))
+                     {
+                         System.out.println("Found Country : " + countryPlayerName);
+                     }else{
+                         System.out.println("Not found");
+                     }
+                 }
+
+
+//                 if(countryPlayerName.equalsIgnoreCase(name)) {
+//                     System.out.println("Found country");
+//                 }
+//                 else{
+//                     System.out.println("Not Found country");
+//                 }
+
+//                for (int x = 0; x < responseBodyPlayerString.length(); x++) {
+//
+//                    String name = allCountries.getData().get(x).getName();
+//                    if (countryPlayerName.equalsIgnoreCase(name)) {
+//                        System.out.println("not found");
+//                    }
+//                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -473,6 +504,8 @@ public class SportsDataUtils {
                 String photo = String.valueOf(bookmakers.getData().get(b).getImg());
                 System.out.println("\n Name: " + name + "\n Photo: " + photo);
             }
+            SportsDataApp.programTrack = 0;
+
         }catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -489,8 +522,12 @@ public class SportsDataUtils {
                 String name = responseMarkets.getData().get(m).getName();
                 System.out.println("\n Name: " + name);
             }
+            SportsDataApp.programTrack = 0;
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
+
 }
