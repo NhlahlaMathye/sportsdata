@@ -9,6 +9,7 @@ import com.demo.st.players.ResponsePlayers;
 import com.demo.st.referees.ResponseReferees;
 import com.demo.st.seasons.RequestSeasonLeague;
 import com.demo.st.seasons.RequestSeasonResponse;
+import com.demo.st.seasons.RequestStages;
 import com.demo.st.seasons.ResponseStages;
 import com.demo.st.team.RequestLeague;
 import com.demo.st.team.RequestLeagueResponse;
@@ -46,6 +47,7 @@ public class SportsDataUtils {
     private static final String MARKETS_URL = "/markets?apikey=";
     private static final String TOP_SCORER_URL = "/topscorers?apikey=&season_id=";
     private static RequestAllCountries allCountries;
+    private static RequestLeague leagueRequest;
 
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
 
@@ -107,8 +109,9 @@ public class SportsDataUtils {
 
                String leagueName = responseMap.getValue().getName();
                 String leagueID = responseMap.getValue().getLeague_id();
-                System.out.println("\n League Name: " + leagueName + "\n League ID: " + leagueID);
+                System.out.println("\n League Name: " + leagueName);
             }
+            SportsDataApp.programTrack = 0;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -296,10 +299,18 @@ public class SportsDataUtils {
             String stagesResponseBody = SportsDataUtils.apiRequest(STAGES_URL + seasonsId);
             ObjectMapper stageMap = new ObjectMapper();
             ResponseStages requestStage = stageMap.readValue(stagesResponseBody, ResponseStages.class);
+            RequestStages requestStages = null;
 
-            for (int ss = 0; ss < requestStage.getData().size(); ss++)
+            for (RequestStages requestStages1 : requestStage.getData())
             {
-                System.out.println(requestStage.getData().get(ss));
+                String name = requestStages1.getName();
+                requestStages = requestStages1;
+                System.out.println("\n Stage Name: " + name);
+            }
+
+            if (requestStages == null)
+            {
+                System.out.println("Could not retrieve stages");
             }
 
         }
@@ -316,14 +327,22 @@ public class SportsDataUtils {
             ObjectMapper mapLeaguesS = new ObjectMapper();
             RequestSeasonLeague leagueSResponse = mapLeaguesS.readValue(responseBodySeason, RequestSeasonLeague.class);
 
-            for (int oo = 0; oo < leagueSResponse.getData().size(); oo++)
+            RequestLeague requestLeague = null;
+
+            for (RequestLeague requestLeague1 : leagueSResponse.getData())
             {
-                String leaguesName = leagueSResponse.getData().get(oo).getName();
-                int leaguesId = Integer.parseInt(leagueSResponse.getData().get(oo).getLeague_id());
+                String leaguesName = requestLeague1.getName();
+                int leaguesId = Integer.parseInt(requestLeague1.getLeague_id());
                 if(leaguesName.equalsIgnoreCase(leaguesNames))
                 {
+                    requestLeague = requestLeague1;
                     SportsDataUtils.specificSeason(leaguesId);
+                    break;
                 }
+            }
+            if (requestLeague == null)
+            {
+                System.out.println("Could not find league : " + leaguesNames);
             }
             SportsDataApp.programTrack = 0;
         } catch (IOException e) {
@@ -337,6 +356,8 @@ public class SportsDataUtils {
             ObjectMapper refMap = new ObjectMapper();
             allCountries = refMap.readValue(refResponseBody, RequestAllCountries.class);
 
+            Country userCountry = null;
+
             for (int r = 0; r < allCountries.getData().size();r++)
             {
                 String refCountry = allCountries.getData().get(r).getName();
@@ -345,6 +366,12 @@ public class SportsDataUtils {
                     int countryRefId = allCountries.getData().get(r).getCountry_id();
                     SportsDataUtils.specificReferees(countryRefId);
                 }
+
+            }
+            if (userCountry == null)
+            {
+                System.out.println("Could not find Country : " + countryRef);
+
             }
             SportsDataApp.programTrack = 0;
 
@@ -354,22 +381,31 @@ public class SportsDataUtils {
 
     }
 
-    public static void searchVenuesCountry(String country)
+    public static void searchVenuesCountry(String countryName)
     {
         try {
             String venueResBody = SportsDataUtils.apiRequest(COUNTRY_URL);
             ObjectMapper venueMap = new ObjectMapper();
             allCountries = venueMap.readValue(venueResBody, RequestAllCountries.class);
 
-            for (int v = 0; v < allCountries.getData().size();v++)
-            {
-                String venueCountry = allCountries.getData().get(v).getName();
-                if(venueCountry.equalsIgnoreCase(country))
+            Country userCountry = null;
+
+            for( Country country: allCountries.getData()) {
+                String countryNames = country.getName();
+                int countryId = country.getCountry_id();
+                if (countryName.equalsIgnoreCase(countryNames))
                 {
-                    int countryID = allCountries.getData().get(v).getCountry_id();
-                    SportsDataUtils.specificVenue(countryID);
+                    userCountry = country;
+                    SportsDataUtils.specificVenue(countryId);;;
+                    break;
                 }
             }
+            if (userCountry == null)
+            {
+                System.out.println("Could not find Country : " + countryName);
+            }
+
+
             SportsDataApp.programTrack = 0;
         }catch (IOException e){
             e.printStackTrace();
@@ -378,24 +414,29 @@ public class SportsDataUtils {
 
     public static  void searchLeagues(String countryLeagueName)
     {
-
         try {
             String responseBodyLeagueString = SportsDataUtils.apiRequest(COUNTRY_URL);
             ObjectMapper leagueMap = new ObjectMapper();
             leagueMap.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
              allCountries = leagueMap.readValue(responseBodyLeagueString, RequestAllCountries.class );
 
-            for (int l = 0; l < allCountries.getData().size(); l++)
-            {
-                String nameInLeague = allCountries.getData().get(l).getName();
-                int countryId = allCountries.getData().get(l).getCountry_id();
-                if(nameInLeague.equalsIgnoreCase(countryLeagueName))
-                {
-                    SportsDataUtils.specificLeague(countryId);
-                }
-            }
+             Country userCountry = null;
 
-            SportsDataApp.programTrack = 0;
+            for( Country country: allCountries.getData()) {
+                String countryNames = country.getName();
+                int countryId = country.getCountry_id();
+                if (countryLeagueName.equalsIgnoreCase(countryNames))
+                {
+                    userCountry = country;
+                    SportsDataUtils.specificLeague(countryId);
+                    break;
+                }
+                SportsDataApp.programTrack = 0;
+            }
+            if (userCountry == null)
+            {
+                System.out.println("Could not find Country : " + countryLeagueName);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -412,10 +453,7 @@ public class SportsDataUtils {
             for (Map.Entry<String, Country> countryEntry : continent.getData().entrySet())
             {
                 String countryName = countryEntry.getValue().getName();
-                String countryID = String.valueOf(countryEntry.getValue().getCountry_id());
-                String countryCode = countryEntry.getValue().getCountry_code();
-
-                System.out.println("\n Country Name:" + countryName + ", Country ID:" + countryID + ", Country Code:"+countryCode);
+                System.out.println("\n Country Name:" + countryName);
             }
 
             SportsDataApp.programTrack = 0;
@@ -433,15 +471,25 @@ public class SportsDataUtils {
             ObjectMapper countryMapper = new ObjectMapper();
             allCountries = countryMapper.readValue(responseBodyCountryString, RequestAllCountries.class);
 
-            for (int i = 0; i < allCountries.getData().size(); i++) {
-                String nameIndentCountry = allCountries.getData().get(i).getName();
-                int countryIds = allCountries.getData().get(i).getCountry_id();
-                if (nameIndentCountry.equalsIgnoreCase(countryName)) {
-                    SportsDataUtils.specificTeams(countryIds);
+            Country userCountry = null;
+
+            for( Country country: allCountries.getData()) {
+                String countryNames = country.getName();
+                int countryIds = country.getCountry_id();
+                if (countryName.equalsIgnoreCase(countryNames))
+                {
+                    userCountry = country;
+                    SportsDataUtils.specificTeams(countryIds);;
+                    break;
                 }
+                SportsDataApp.programTrack = 0;
+
+            }
+            if (userCountry == null)
+            {
+                System.out.println("Could not find Country : " + countryName);
             }
 
-            SportsDataApp.programTrack = 0;
         }
         catch (IOException ex) {
             ex.printStackTrace();
@@ -460,37 +508,29 @@ public class SportsDataUtils {
                 ObjectMapper playerMapper = new ObjectMapper();
                 playerMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
                  allCountries = playerMapper.readValue(responseBodyPlayerString, RequestAllCountries.class);
-                 // logger.info("\n Info Logger" + allCountries);
 
-                 for(Country name: allCountries.getData()) {
-                     String countryName = name.getName();
+                Country userCountrys = null;
+
+                 for(Country country: allCountries.getData()) {
+                     String countryName = country.getName();
+                     int countryId = country.getCountry_id();
                      if (countryPlayerName.equalsIgnoreCase(countryName))
                      {
-                         System.out.println("Found Country : " + countryPlayerName);
-                     }else{
-                         System.out.println("Not found");
+                         userCountrys = country;
+                         specificPlayer(countryId);
+                         break;
                      }
+                     SportsDataApp.programTrack = 0;
                  }
-
-
-//                 if(countryPlayerName.equalsIgnoreCase(name)) {
-//                     System.out.println("Found country");
-//                 }
-//                 else{
-//                     System.out.println("Not Found country");
-//                 }
-
-//                for (int x = 0; x < responseBodyPlayerString.length(); x++) {
-//
-//                    String name = allCountries.getData().get(x).getName();
-//                    if (countryPlayerName.equalsIgnoreCase(name)) {
-//                        System.out.println("not found");
-//                    }
-//                }
+                if (userCountrys == null)
+                {
+                    System.out.println("Could not find Country : " + countryPlayerName);
+                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
     }
+
 
     public static void bookmakers()
     {

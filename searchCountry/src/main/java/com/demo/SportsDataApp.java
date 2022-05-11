@@ -40,7 +40,7 @@ public class SportsDataApp {
                             "\n 11. Referees" +
                             "\n 12. Seasons" +
                             "\n" +
-                            "\n Enter number zero(0) to exit the program.");
+                            "\n Enter number (99) to exit the program.");
                     programTrack = sc.nextInt();
                     break;
                 case 1:
@@ -85,6 +85,7 @@ public class SportsDataApp {
                     System.out.print("From which country would you like to view players : ");
                     String countryPlayer = sc.next();
                     SportsDataUtils.searchPlayers(countryPlayer);
+
                     break;
 
                 case 5:
@@ -176,5 +177,7 @@ public class SportsDataApp {
                 default:
                     break;
             }
+
     }
+
 }

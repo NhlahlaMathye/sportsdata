@@ -14,7 +14,7 @@ public class ResponseStages {
     @Override
     public String toString()
     {
-        return "\n " + data + "\n";
+        return "" + data ;
     }
 
     public Query getQuery() {

@@ -15,7 +15,7 @@ public class RequestLeague {
 
     @Override
     public String toString() {
-        return "\n League Name:" + name + " League_id:" + league_id + " Country_id:" + country_id + " \n";
+        return " " + name;
     }
 
     public int getCountry_id() {
