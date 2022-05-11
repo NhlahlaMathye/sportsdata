@@ -79,6 +79,29 @@ public class SportsDataApp {
                     SportsDataUtils.searchPlayers(countryPlayer);
                     continue;
 
+                case 6:
+                    System.out.print("For which league would you like to view matches : ");
+                    String matchLeague = sc.nextLine();
+                    matchLeague += sc.nextLine();
+                    SportsDataUtils.specificLeagueSeason(matchLeague);
+                    System.out.print("Enter the season for matches you want to view (See above Season_ID) : ");
+                    int matchSeason = sc.nextInt();
+                    System.out.print("Enter date of the matches you want to view (See dates above) : ");
+                    String matchDate = sc.nextLine();
+                    matchDate += sc.nextLine();
+                    SportsDataUtils.specific_matches(matchSeason, matchDate);
+                    continue;
+
+                case 7:
+                    System.out.print("For which league would you like to view top scorers : ");
+                    String scoreLeague = sc.nextLine();
+                    scoreLeague += sc.nextLine();
+                    SportsDataUtils.specificLeagueSeason(scoreLeague);
+                    System.out.print("Enter the season for top scorers (See above Season_ID) : ");
+                    int scoreSeason = sc.nextInt();
+                    SportsDataUtils.topScorers(scoreSeason);
+                    continue;
+
                 case 8:
                     System.out.println("Here are the bookmakers below.");
                     SportsDataUtils.bookmakers();
@@ -112,8 +135,7 @@ public class SportsDataApp {
                     System.out.print("Would you also like to view, Select : " +
                             "\n 1. Matches" +
                             "\n 2. Stages" +
-                            "\n 3. Rounds" +
-                            "\n 4. Top Scorers" +
+                            "\n 3. Top Scorers" +
                             "\n" +
                             "\n To cancel, enter Zero(0)." +
                             "\n");
@@ -131,7 +153,7 @@ public class SportsDataApp {
                             dateMatch += sc.nextLine();
                             SportsDataUtils.specific_matches(seasonM, dateMatch);
                             break;
-                        } else if(viewStage == 4){
+                        } else if(viewStage == 3){
                             System.out.print("Enter the season you would like to view top scorers (See season's above(Season_ID)) : ");
                             int seasonS = sc.nextInt();
                             SportsDataUtils.topScorers(seasonS);
