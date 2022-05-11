@@ -50,7 +50,7 @@ public class SportsDataApp {
                     break;
 
                 case 2:
-                    System.out.println(" How would you like to view teams?" +
+                    System.out.println(" How would you like to view teams? Select number" +
                             "\n" +
                             "\n 1. Default country" +
                             "\n 2. Search by country" +
@@ -58,35 +58,35 @@ public class SportsDataApp {
                             "\n press Zero(0) to exit menu" +
                             "\n");
                     int checkView = sc.nextInt();
+
                     if (checkView == 1)
                     {
                         System.out.println("Teams are from South Africa");
                         String defaultCountry = "South Africa";
                         SportsDataUtils.searchCountry(defaultCountry);
                         break;
+
                     }
                     else if(checkView == 2) {
                         System.out.print("From which country would you like to receive teams : ");
                         String country = sc.nextLine();
                         SportsDataUtils.searchCountry(country);
                         break;
-                    }else if(checkView == 0){
+
+                    }else {
+                        programTrack = 0;
                         break;
                     }
-                    break;
 
                 case 3:
                     System.out.print("Enter name of country for leagues you want to receive: ");
                     String leagueCountry = sc.nextLine();
                     SportsDataUtils.searchLeagues(leagueCountry);
-                    break;
 
                 case 4:
                     System.out.print("From which country would you like to view players : ");
                     String countryPlayer = sc.next();
                     SportsDataUtils.searchPlayers(countryPlayer);
-
-                    break;
 
                 case 5:
                     System.out.print("For which league would you like to view stages : ");
@@ -95,7 +95,7 @@ public class SportsDataApp {
                     System.out.print("Enter the season for stages you want to view (See above Season_ID) : ");
                     int stageSeason = sc.nextInt();
                     SportsDataUtils.stagesSeason(stageSeason);
-                    break;
+
 
                 case 6:
                     System.out.print("For which league would you like to view matches : ");
@@ -106,7 +106,7 @@ public class SportsDataApp {
                     System.out.print("Enter date of the matches you want to view (See dates above) : ");
                     String matchDate = sc.nextLine();
                     SportsDataUtils.specificMatches(matchSeason, matchDate);
-                    break;
+
 
                 case 7:
                     System.out.print("For which league would you like to view top scorers : ");
@@ -115,29 +115,29 @@ public class SportsDataApp {
                     System.out.print("Enter the season for top scorers (See above Season_ID) : ");
                     int scoreSeason = sc.nextInt();
                     SportsDataUtils.topScorers(scoreSeason);
-                    break;
+
 
                 case 8:
                     System.out.println("Here are the bookmakers below.");
                     SportsDataUtils.bookmakers();
-                    break;
+
 
                 case 9:
                     System.out.println("Here are the markets below.");
                     SportsDataUtils.markets();
-                    break;
+
 
                 case 10:
                     System.out.print("From which country would you like to view venues(Stadiums) : ");
                     String countryVenue = sc.nextLine();
                     SportsDataUtils.searchVenuesCountry(countryVenue);
-                    break;
+
 
                 case 11:
                     System.out.print("From which country referees would you like to view : ");
                     String countryRef = sc.nextLine();
                     SportsDataUtils.searchCountryReferee(countryRef);
-                    break;
+
 
                 case 12:
                     System.out.print("From which league you want to view the seasons : ");
@@ -172,7 +172,7 @@ public class SportsDataApp {
                     } else if(viewStage == 0) {
                         break;
                     }
-                    break;
+
 
                 default:
                     break;
