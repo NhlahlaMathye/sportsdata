@@ -21,7 +21,7 @@ public class RequestTeams {
     @Override
     public String toString()
     {
-        return  "\n " + "\n Team_name:" + name + "\n team_id:" + team_id + "" + country + "";
+        return " " + name +  " ";
     }
 
     public Country getCountry() {

@@ -11,7 +11,7 @@ public class RequestVenues {
     @Override
     public String toString()
     {
-        return "\n Venue Name: " + name + "\n Capacity: " + capacity + "\n City: " + city + "\n";
+        return " " + name + " " + capacity + " " + city + " ";
     }
 
     public int getVenue_id() {

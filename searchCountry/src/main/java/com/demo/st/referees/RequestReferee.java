@@ -18,7 +18,7 @@ public class RequestReferee {
      @Override
      public String toString()
      {
-         return "\n Name:" + name + "\n Birthdate:"+ birthdate +" \n Photo: " + img + " " + country+ " \n";
+         return " " + name + " "+ birthdate +" " + img + " ";
      }
 
     public int getId() {

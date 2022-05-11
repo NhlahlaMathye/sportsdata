@@ -100,7 +100,7 @@ public class SportsDataApp {
                     System.out.print("Enter date of the matches you want to view (See dates above) : ");
                     String matchDate = sc.nextLine();
                     matchDate += sc.nextLine();
-                    SportsDataUtils.specific_matches(matchSeason, matchDate);
+                    SportsDataUtils.specificMatches(matchSeason, matchDate);
                     break;
 
                 case 7:
@@ -162,7 +162,7 @@ public class SportsDataApp {
                             System.out.print("Write the date of the matches you want view? (YYYY-MM-DD) (See dates above) : ");
                             String dateMatch = sc.nextLine();
                             dateMatch += sc.nextLine();
-                            SportsDataUtils.specific_matches(seasonM, dateMatch);
+                            SportsDataUtils.specificMatches(seasonM, dateMatch);
                             break;
                         } else if(viewStage == 3){
                             System.out.print("Enter the season you would like to view top scorers (See season's above(Season_ID)) : ");

@@ -16,7 +16,7 @@ public class RequestSeason {
      @Override
      public String toString()
      {
-         return "\n Season Name:" + name + " Start date:" + start_date + " End date:" + end_date + " Season_ID:" + season_id +  "\n";
+         return " " + name + " " + start_date + " " + end_date + " " + season_id +  "";
      }
 
 
