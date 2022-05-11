@@ -21,7 +21,7 @@ public class SportsDataApp {
                     "\n 2. Teams " +
                     "\n 3. Leagues" +
                     "\n 4. Players" +
-                    "\n 5. Rounds" +
+                    "\n 5. Stages" +
                     "\n 6. Matches" +
                     "\n 7. Top Scorers" +
                     "\n 8. Bookmakers" +
@@ -77,6 +77,16 @@ public class SportsDataApp {
                     String countryPlayer = sc.nextLine();
                     countryPlayer += sc.nextLine();
                     SportsDataUtils.searchPlayers(countryPlayer);
+                    continue;
+
+                case 5:
+                    System.out.print("For which league would you like to view stages : ");
+                    String stageLeague = sc.nextLine();
+                    stageLeague += sc.nextLine();
+                    SportsDataUtils.specificLeagueSeason(stageLeague);
+                    System.out.print("Enter the season for stages you want to view (See above Season_ID) : ");
+                    int stageSeason = sc.nextInt();
+                    SportsDataUtils.stagesSeason(stageSeason);
                     continue;
 
                 case 6:
