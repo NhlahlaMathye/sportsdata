@@ -13,6 +13,7 @@ import com.demo.st.seasons.ResponseStages;
 import com.demo.st.team.RequestLeague;
 import com.demo.st.team.RequestLeagueResponse;
 import com.demo.st.team.RequestTeamsResponse;
+import com.demo.st.topscorer.RequestScorerResponse;
 import com.demo.st.venues.ResponseVenues;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,6 +42,7 @@ public class SportsDataUtils {
     private static final String VENUES_URL = "/venues?apikey=&country_id=";
     private static final String BOOKMAKER_URL = "/bookmakers?apikey=";
     private static final String MARKETS_URL = "/markets?apikey=";
+    private static final String TOP_SCORER_URL = "/topscorers?apikey=&season_id=";
 
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
 
@@ -172,6 +174,43 @@ public class SportsDataUtils {
             }
         }
         catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void topScorers(int season)
+    {
+        String scorerUrl = TOP_SCORER_URL + season;
+        String scoreResBody = SportsDataUtils.ApiRequest(scorerUrl);
+
+        try {
+            ObjectMapper scoreMap = new ObjectMapper();
+            RequestScorerResponse scorerResponse = scoreMap.readValue(scoreResBody, RequestScorerResponse.class);
+
+            for (int s= 0; s < scorerResponse.getData().size(); s++)
+            {
+                int position = scorerResponse.getData().get(s).getPos();
+                String name = String.valueOf(scorerResponse.getData().get(s).getPlayer());
+                String team = String.valueOf(scorerResponse.getData().get(s).getTeam());
+                int matchesPlayed = scorerResponse.getData().get(s).getMatches_played();
+                int minutesPlayed = scorerResponse.getData().get(s).getMinutes_played();
+                int substituted = scorerResponse.getData().get(s).getSubstituted_in();
+                String goals = String.valueOf(scorerResponse.getData().get(s).getGoals());
+                int penalty = scorerResponse.getData().get(s).getPenalties();
+
+                System.out.println("" +
+                        "\n Position: " + position +
+                        "" + name +
+                        "" + team +
+                        "\n Matches played: " + matchesPlayed +
+                        "\n Minutes played: " + minutesPlayed +
+                        "\n Substituted times: " + substituted +
+                        "\n Goals scored: " + goals +
+                        " Penalties taken: " + penalty
+                        );
+            }
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

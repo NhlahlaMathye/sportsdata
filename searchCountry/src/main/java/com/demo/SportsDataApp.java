@@ -119,17 +119,23 @@ public class SportsDataApp {
                             "\n");
                     int viewStage = sc.nextInt();
                         if (viewStage == 2) {
-                            System.out.print("Enter the season(season_id) you have just viewed in the seasons : ");
+                            System.out.print("Enter the season for the stages (See season's above(Season_ID)) : ");
                             int season = sc.nextInt();
                             SportsDataUtils.stagesSeason(season);
+                            break;
                         } else if (viewStage == 1) {
-                            System.out.print("For which season would you like to view matches (See season_id's above) ? : ");
+                            System.out.print("For which season would you like to view matches (See season's above(Season_ID)) ? : ");
                             int seasonM = sc.nextInt();
                             System.out.print("Write the date of the matches you want view? (YYYY-MM-DD) : ");
                             String dateMatch = sc.nextLine();
                             dateMatch += sc.nextLine();
                             SportsDataUtils.specific_matches(seasonM, dateMatch);
-
+                            break;
+                        } else if(viewStage == 4){
+                            System.out.print("Enter the season you would like to view top scorers (See season's above(Season_ID)) : ");
+                            int seasonS = sc.nextInt();
+                            SportsDataUtils.topScorers(seasonS);
+                            break;
                         } else if(viewStage == 0) {
                             break;
                         }
