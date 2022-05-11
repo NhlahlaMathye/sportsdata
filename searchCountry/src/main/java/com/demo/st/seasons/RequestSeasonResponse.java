@@ -10,12 +10,6 @@ public class RequestSeasonResponse {
     private Query query;
     private List<RequestSeason> data;
 
-    @Override
-    public String toString()
-    {
-        return "\n" + data;
-    }
-
     public Query getQuery() {
         return query;
     }

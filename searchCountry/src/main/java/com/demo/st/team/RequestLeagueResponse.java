@@ -10,11 +10,6 @@ public class RequestLeagueResponse {
     private Query query;
     HashMap<String, RequestLeague>  data = new HashMap<>();
 
-    @Override
-    public String toString() {
-        return  "\n Data: " + query + " \n " + data + " \n ";
-    }
-
     public Query getQuery() {
         return query;
     }

@@ -13,12 +13,6 @@ public class RequestSeason {
      private String start_date;
      private String end_date;
 
-     @Override
-     public String toString()
-     {
-         return " " + name + " " + start_date + " " + end_date + " " + season_id +  "";
-     }
-
 
     public int getSeason_id() {
         return season_id;

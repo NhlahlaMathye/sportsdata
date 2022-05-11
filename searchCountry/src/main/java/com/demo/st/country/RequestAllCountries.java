@@ -12,11 +12,6 @@ public class RequestAllCountries {
     private Query query;
     private List<Country> data;
 
-    @Override
-    public String toString() {
-        return   "\n "  + " " + data+" ";
-    }
-
 
     public Query getQuery() {
         return query;

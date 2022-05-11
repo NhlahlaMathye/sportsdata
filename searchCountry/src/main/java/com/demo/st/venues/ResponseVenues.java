@@ -9,12 +9,6 @@ public class ResponseVenues {
     private Query query;
     private List<RequestVenues> data;
 
-    @Override
-    public String toString()
-    {
-        return " " + data;
-    }
-
     public Query getQuery() {
         return query;
     }

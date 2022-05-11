@@ -15,11 +15,7 @@ public class RequestMatch {
   private RequestTeams home_team;
   private RequestTeams away_team;
 
-  @Override
-  public String toString()
-  {
-    return "\n Match Status:" + status + "\n Match Begins:" + match_start + "\n Home team:" + home_team + "\n Away team:" + away_team;
-  }
+
 
   public int getMatch_id() {
     return match_id;

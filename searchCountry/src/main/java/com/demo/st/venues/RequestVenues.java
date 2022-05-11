@@ -8,11 +8,6 @@ public class RequestVenues {
     private String city;
     private int country_id;
 
-    @Override
-    public String toString()
-    {
-        return " " + name + " " + capacity + " " + city + " ";
-    }
 
     public int getVenue_id() {
         return venue_id;

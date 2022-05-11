@@ -10,11 +10,7 @@ public class Country {
     private String country_code;
     private String continent;
 
-@Override
-public String toString()
-{
-    return " " + name;
-}
+
     // Getter Methods
     public int getCountry_id() {
         return country_id;

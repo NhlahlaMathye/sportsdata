@@ -8,11 +8,6 @@ public class Player {
     private int player_id;
     private String player_name;
 
-    @Override
-    public String toString()
-    {
-        return "\n Player Name: " + player_name + "";
-    }
 
     public int getPlayer_id() {
         return player_id;
