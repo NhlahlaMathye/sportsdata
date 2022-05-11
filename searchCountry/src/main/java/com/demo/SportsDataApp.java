@@ -37,7 +37,7 @@ public class SportsDataApp {
                     String continentName = sc.nextLine();
                     continentName+=sc.nextLine();
                     SportsDataUtils.searchCountryByContinent(continentName);
-                    continue;
+                    break;
 
                 case 2:
                     System.out.println(" How would you like to view teams?" +
@@ -64,21 +64,21 @@ public class SportsDataApp {
                     }else if(checkView == 0){
                         break;
                     }
-                    continue;
+                    break;
 
                 case 3:
                     System.out.print("Enter name of country for leagues you want to receive: ");
                     String leagueCountry = sc.nextLine();
                     leagueCountry+=sc.nextLine();
                     SportsDataUtils.searchLeagues(leagueCountry);
-                    continue;
+                    break;
 
                 case 4:
                     System.out.print("From which country would you like to view players : ");
                     String countryPlayer = sc.nextLine();
                     countryPlayer += sc.nextLine();
                     SportsDataUtils.searchPlayers(countryPlayer);
-                    continue;
+                    break;
 
                 case 5:
                     System.out.print("For which league would you like to view stages : ");
@@ -88,7 +88,7 @@ public class SportsDataApp {
                     System.out.print("Enter the season for stages you want to view (See above Season_ID) : ");
                     int stageSeason = sc.nextInt();
                     SportsDataUtils.stagesSeason(stageSeason);
-                    continue;
+                    break;
 
                 case 6:
                     System.out.print("For which league would you like to view matches : ");
@@ -101,7 +101,7 @@ public class SportsDataApp {
                     String matchDate = sc.nextLine();
                     matchDate += sc.nextLine();
                     SportsDataUtils.specific_matches(matchSeason, matchDate);
-                    continue;
+                    break;
 
                 case 7:
                     System.out.print("For which league would you like to view top scorers : ");
@@ -111,31 +111,31 @@ public class SportsDataApp {
                     System.out.print("Enter the season for top scorers (See above Season_ID) : ");
                     int scoreSeason = sc.nextInt();
                     SportsDataUtils.topScorers(scoreSeason);
-                    continue;
+                    break;
 
                 case 8:
                     System.out.println("Here are the bookmakers below.");
                     SportsDataUtils.bookmakers();
-                    continue;
+                    break;
 
                 case 9:
                     System.out.println("Here are the markets below.");
                     SportsDataUtils.markets();
-                    continue;
+                    break;
 
                 case 10:
                     System.out.print("From which country would you like to view venues(Stadiums) : ");
                     String countryVenue = sc.nextLine();
                     countryVenue += sc.nextLine();
                     SportsDataUtils.searchVenuesCountry(countryVenue);
-                    continue;
+                    break;
 
                 case 11:
                     System.out.print("From which country referees would you like to view : ");
                     String countryRef = sc.nextLine();
                     countryRef += sc.nextLine();
                     SportsDataUtils.searchCountryReferee(countryRef);
-                    continue;
+                    break;
 
                 case 12:
                     System.out.print("From which league you want to view the seasons : ");
@@ -172,7 +172,7 @@ public class SportsDataApp {
                         } else if(viewStage == 0) {
                             break;
                         }
-                    continue;
+                    break;
 
                 default:
                     break;
