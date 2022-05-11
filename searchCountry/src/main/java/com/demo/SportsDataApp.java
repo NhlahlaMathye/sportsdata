@@ -53,12 +53,14 @@ public class SportsDataApp {
                         System.out.println("Teams are from South Africa");
                         String defaultCountry = "South Africa";
                         SportsDataUtils.searchCountry(defaultCountry);
+                        break;
                     }
                     else if(checkView == 2) {
                         System.out.print("From which country would you like to receive teams : ");
                         String country = sc.nextLine();
                         country+=sc.nextLine();
                         SportsDataUtils.searchCountry(country);
+                        break;
                     }else if(checkView == 0){
                         break;
                     }
