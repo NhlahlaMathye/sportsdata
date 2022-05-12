@@ -73,7 +73,6 @@ public class SportsDataApp {
                         break;
 
                     } else {
-                        programTrack = 0;
                         break;
                     }
 
