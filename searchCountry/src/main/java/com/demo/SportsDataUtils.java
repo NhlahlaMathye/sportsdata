@@ -25,6 +25,7 @@ import okhttp3.ResponseBody;
 
 import java.io.IOException;
 
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -252,7 +253,6 @@ public class SportsDataUtils {
                         "\n Referee birthdate: " + birthdate +
                         "\n Referee Images: " + image +
                         "\n");
-
             }
 
         }
@@ -346,77 +346,54 @@ public class SportsDataUtils {
     }
 
     public static void searchCountryReferee(String countryRef){
-        try{
-            String refResponseBody = SportsDataUtils.apiRequest(COUNTRY_URL);
-            ObjectMapper refMap = new ObjectMapper();
-            RequestAllCountries allCountries = refMap.readValue(refResponseBody, RequestAllCountries.class);
 
+        List<Country> allCountries = SportsDataUtils.countryRequest();
             Country userCountry = null;
-
-            for (int r = 0; r < allCountries.getData().size();r++)
+            for (int r = 0; r < allCountries.size();r++)
             {
-                String refCountry = allCountries.getData().get(r).getName();
+                String refCountry = allCountries.get(r).getName();
                 if(refCountry.equalsIgnoreCase(countryRef))
                 {
-                    int countryRefId = allCountries.getData().get(r).getCountry_id();
+                    userCountry = allCountries.get(r);
+                    int countryRefId = allCountries.get(r).getCountry_id();
                     SportsDataUtils.specificReferees(countryRefId);
                 }
-
             }
-            if (userCountry == null)
+            if (userCountry ==  null)
             {
                 System.out.println("Could not find Country : " + countryRef);
             }
-            
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
     }
 
     public static void searchVenuesCountry(String countryName)
     {
-        try {
-            String venueResBody = SportsDataUtils.apiRequest(COUNTRY_URL);
-            ObjectMapper venueMap = new ObjectMapper();
-            RequestAllCountries allCountries = venueMap.readValue(venueResBody, RequestAllCountries.class);
+        List<Country> allCountries = countryRequest();
 
-            Country userCountry = null;
+        Country userCountry = null;
 
-            for( Country country: allCountries.getData()) {
-                String countryNames = country.getName();
-                int countryId = country.getCountry_id();
-                if (countryName.equalsIgnoreCase(countryNames))
-                {
-                    userCountry = country;
-                    SportsDataUtils.specificVenue(countryId);
-                    break;
-                }
-            }
-            if (userCountry == null)
+        for( Country country: allCountries) {
+            String countryNames = country.getName();
+            int countryId = country.getCountry_id();
+            if (countryName.equalsIgnoreCase(countryNames))
             {
-                System.out.println("Could not find Country : " + countryName);
+                userCountry = country;
+                SportsDataUtils.specificVenue(countryId);
+                break;
             }
-
-
-            
-        }catch (IOException e){
-            e.printStackTrace();
+        }
+        if (userCountry == null)
+        {
+            System.out.println("Could not find Country : " + countryName);
         }
     }
 
     public static  void searchLeagues(String countryLeagueName)
     {
-        try {
-            String responseBodyLeagueString = SportsDataUtils.apiRequest(COUNTRY_URL);
-            ObjectMapper leagueMap = new ObjectMapper();
-            leagueMap.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-            RequestAllCountries allCountries = leagueMap.readValue(responseBodyLeagueString, RequestAllCountries.class );
+        List<Country> allCountries = SportsDataUtils.countryRequest();
 
              Country userCountry = null;
 
-            for( Country country: allCountries.getData()) {
+            for( Country country: allCountries) {
                 String countryNames = country.getName();
                 int countryId = country.getCountry_id();
                 if (countryLeagueName.equalsIgnoreCase(countryNames))
@@ -425,16 +402,12 @@ public class SportsDataUtils {
                     SportsDataUtils.specificLeague(countryId);
                     break;
                 }
-                
             }
             if (userCountry == null)
             {
                 System.out.println("Could not find Country : " + countryLeagueName);
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void searchCountryByContinent(String continentName)
@@ -458,14 +431,10 @@ public class SportsDataUtils {
 
     public static void searchCountry(String countryName)
     {
-        try {
-            String responseBodyCountryString =  SportsDataUtils.apiRequest(COUNTRY_URL);
-            ObjectMapper countryMapper = new ObjectMapper();
-            RequestAllCountries allCountries = countryMapper.readValue(responseBodyCountryString, RequestAllCountries.class);
-
+        List<Country> allCountries = SportsDataUtils.countryRequest();
             Country userCountry = null;
 
-            for( Country country: allCountries.getData()) {
+            for( Country country: allCountries) {
                 String countryNames = country.getName();
                 int countryIds = country.getCountry_id();
                 if (countryName.equalsIgnoreCase(countryNames))
@@ -482,27 +451,13 @@ public class SportsDataUtils {
             }
 
         }
-        catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
 
     public static void searchPlayers(String countryPlayerName) {
 
-            try {
-                String responseBodyPlayerString = SportsDataUtils.apiRequest(COUNTRY_URL);
-
-                if (responseBodyPlayerString == null)
-                {
-                     System.out.println("Get Countries Api Call is Null");
-                }
-                ObjectMapper playerMapper = new ObjectMapper();
-                playerMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-                 RequestAllCountries allCountries = playerMapper.readValue(responseBodyPlayerString, RequestAllCountries.class);
-
+        List<Country> allCountries = SportsDataUtils.countryRequest();
                 Country userCountry = null;
 
-                 for(Country country: allCountries.getData()) {
+                 for(Country country: allCountries) {
                      String countryName = country.getName();
                      int countryId = country.getCountry_id();
                      if (countryPlayerName.equalsIgnoreCase(countryName))
@@ -517,11 +472,7 @@ public class SportsDataUtils {
                 {
                     System.out.println("Could not find Country : " + countryPlayerName);
                 }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
     }
-
 
     public static void bookmakers()
     {
@@ -553,12 +504,24 @@ public class SportsDataUtils {
                 String name = responseMarkets.getData().get(m).getName();
                 System.out.println("\n Name: " + name);
             }
-            
 
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
+    public static List<Country> countryRequest() {
+        try {
+            String countriesResBody = SportsDataUtils.apiRequest(COUNTRY_URL);
+            ObjectMapper countriesMap = new ObjectMapper();
+            RequestAllCountries allCountries = countriesMap.readValue(countriesResBody, RequestAllCountries.class);
+
+            return allCountries.getData();
+
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 
 }
