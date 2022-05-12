@@ -46,6 +46,8 @@ public class SportsDataUtils {
     private static final String MARKETS_URL = "/markets?apikey=";
     private static final String TOP_SCORER_URL = "/topscorers?apikey=&season_id=";
 
+    private static List<Country> allCountries = SportsDataUtils.countryRequest();
+
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());
 
     public static String apiRequest(String url){
@@ -340,7 +342,6 @@ public class SportsDataUtils {
 
     public static void searchCountryReferee(String countryRef){
 
-        List<Country> allCountries = SportsDataUtils.countryRequest();
             Country userCountry = null;
             for (int r = 0; r < allCountries.size();r++)
             {
@@ -360,7 +361,6 @@ public class SportsDataUtils {
 
     public static void searchVenuesCountry(String countryName)
     {
-        List<Country> allCountries = SportsDataUtils.countryRequest();
 
         Country userCountry = null;
 
@@ -382,7 +382,6 @@ public class SportsDataUtils {
 
     public static  void searchLeagues(String countryLeagueName)
     {
-        List<Country> allCountries = SportsDataUtils.countryRequest();
 
              Country userCountry = null;
             for( Country country: allCountries) {
@@ -423,7 +422,7 @@ public class SportsDataUtils {
 
     public static void searchCountry(String countryName)
     {
-        List<Country> allCountries = SportsDataUtils.countryRequest();
+
             Country userCountry = null;
 
             for( Country country: allCountries) {
@@ -446,7 +445,6 @@ public class SportsDataUtils {
 
     public static void searchPlayers(String countryPlayerName) {
 
-        List<Country> allCountries = SportsDataUtils.countryRequest();
                 Country userCountry = null;
 
                  for(Country country: allCountries) {
