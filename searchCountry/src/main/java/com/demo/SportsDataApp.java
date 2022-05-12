@@ -45,7 +45,7 @@ public class SportsDataApp {
                     break;
                 case 1:
                     System.out.print("From which continent would you like to view countries: ");
-                    String continentName = sc.nextLine();
+                    String continentName = sc.next();
                     SportsDataUtils.searchCountryByContinent(continentName);
                     programTrack = 0;
                     break;
@@ -98,7 +98,7 @@ public class SportsDataApp {
                         SportsDataUtils.searchLeagues(leagueCountry);
                         programTrack = 3;
                     }
-                    else if (programTrack == 0) {
+                    else if (checkLeagues == 0) {
                         programTrack = 0;
                         break;
                     }
