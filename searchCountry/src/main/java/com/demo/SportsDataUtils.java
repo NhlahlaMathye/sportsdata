@@ -367,7 +367,7 @@ public class SportsDataUtils {
 
     public static void searchVenuesCountry(String countryName)
     {
-        List<Country> allCountries = countryRequest();
+        List<Country> allCountries = SportsDataUtils.countryRequest();
 
         Country userCountry = null;
 
@@ -392,7 +392,6 @@ public class SportsDataUtils {
         List<Country> allCountries = SportsDataUtils.countryRequest();
 
              Country userCountry = null;
-
             for( Country country: allCountries) {
                 String countryNames = country.getName();
                 int countryId = country.getCountry_id();
