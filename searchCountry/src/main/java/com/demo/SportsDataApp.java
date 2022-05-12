@@ -47,6 +47,7 @@ public class SportsDataApp {
                     System.out.print("From which continent would you like to view countries: ");
                     String continentName = sc.nextLine();
                     SportsDataUtils.searchCountryByContinent(continentName);
+                    programTrack = 0;
                     break;
 
                 case 2:
@@ -131,6 +132,7 @@ public class SportsDataApp {
                     System.out.print("Enter the season for stages you want to view (See above Season_ID) : ");
                     int stageSeason = sc.nextInt();
                     SportsDataUtils.stagesSeason(stageSeason);
+                    programTrack = 0;
                     break;
 
                 case 6:
