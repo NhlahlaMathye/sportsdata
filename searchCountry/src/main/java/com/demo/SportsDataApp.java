@@ -21,9 +21,10 @@ public class SportsDataApp {
 
     }
 
-    private static void mainSportData(int inputUser){
+    private static void mainSportData(int inputUser) throws InputMismatchException {
         Scanner sc = new Scanner(System.in);
-            switch (inputUser){
+        try {
+            switch (inputUser) {
                 case 0:
                     System.out.println("Select number for the information you would like to receive." +
                             "\n" +
@@ -60,21 +61,19 @@ public class SportsDataApp {
                             "\n");
                     int checkView = sc.nextInt();
 
-                    if (checkView == 1)
-                    {
+                    if (checkView == 1) {
                         System.out.println("Teams are from South Africa");
                         String defaultCountry = "South Africa";
                         SportsDataUtils.searchCountry(defaultCountry);
                         break;
 
-                    }
-                    else if(checkView == 2) {
+                    } else if (checkView == 2) {
                         System.out.print("From which country would you like to receive teams : ");
                         String country = sc.nextLine();
                         SportsDataUtils.searchCountry(country);
                         break;
 
-                    }else {
+                    } else {
                         programTrack = 0;
                         break;
                     }
@@ -176,7 +175,7 @@ public class SportsDataApp {
                         String dateMatch = sc.nextLine();
                         SportsDataUtils.specificMatches(seasonM, dateMatch);
                         break;
-                    } else if(viewStage == 3){
+                    } else if (viewStage == 3) {
                         System.out.print("Enter the season you would like to view top scorers (See season's above(Season_ID)) : ");
                         int seasonS = sc.nextInt();
                         SportsDataUtils.topScorers(seasonS);
@@ -185,11 +184,12 @@ public class SportsDataApp {
                         SportsDataApp.programTrack = 0;
                         break;
                     }
-
                 default:
                     break;
             }
-
+        }catch(InputMismatchException e){
+            System.out.println("Expects a number!");
+        }
     }
 
 }

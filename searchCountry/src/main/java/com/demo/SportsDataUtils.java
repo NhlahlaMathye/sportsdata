@@ -231,7 +231,7 @@ public class SportsDataUtils {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Enter a valid season");
         }
     }
 
