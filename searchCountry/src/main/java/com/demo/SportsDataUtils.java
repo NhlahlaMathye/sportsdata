@@ -202,7 +202,6 @@ public class SportsDataUtils {
 
     public static void topScorers(int season)
     {
-
         try {
             String scoreResBody = SportsDataUtils.apiRequest(TOP_SCORER_URL + season);
             ObjectMapper scoreMap = new ObjectMapper();
@@ -451,10 +450,8 @@ public class SportsDataUtils {
                 System.out.println("\n Country Name:" + countryName);
             }
 
-            
-
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("This is not a valid continent name: " + continentName);
         }
 
     }
