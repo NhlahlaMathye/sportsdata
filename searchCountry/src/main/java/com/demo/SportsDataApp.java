@@ -18,7 +18,6 @@ public class SportsDataApp {
         {
             SportsDataApp.mainSportData(programTrack);
         }
-
     }
 
     private static void mainSportData(int inputUser) throws InputMismatchException {

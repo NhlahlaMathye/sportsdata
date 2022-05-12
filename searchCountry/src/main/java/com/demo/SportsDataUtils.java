@@ -22,7 +22,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-
 import java.io.IOException;
 
 import java.util.List;
@@ -254,7 +253,6 @@ public class SportsDataUtils {
                         "\n Referee Images: " + image +
                         "\n");
             }
-
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -263,7 +261,6 @@ public class SportsDataUtils {
 
     public static void specificVenue(int countryVenueId)
     {
-
         try {
             String venueResBody = SportsDataUtils.apiRequest(VENUES_URL + countryVenueId);
             ObjectMapper mapVenues = new ObjectMapper();
@@ -289,7 +286,6 @@ public class SportsDataUtils {
 
     public static void stagesSeason(int seasonsId)
     {
-
         try {
             String stagesResponseBody = SportsDataUtils.apiRequest(STAGES_URL + seasonsId);
             ObjectMapper stageMap = new ObjectMapper();
@@ -302,12 +298,10 @@ public class SportsDataUtils {
                 requestStages = requestStages1;
                 System.out.println("\n Stage Name: " + name);
             }
-
             if (requestStages == null)
             {
                 System.out.println("Could not retrieve stages");
             }
-
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -316,7 +310,6 @@ public class SportsDataUtils {
 
     public static void specificLeagueSeason(String leaguesNames)
     {
-
         try {
             String responseBodySeason = SportsDataUtils.apiRequest(LEAGUES_URL);
             ObjectMapper mapLeaguesS = new ObjectMapper();
