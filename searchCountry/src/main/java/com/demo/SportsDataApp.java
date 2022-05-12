@@ -188,7 +188,7 @@ public class SportsDataApp {
                     break;
             }
         }catch(InputMismatchException e){
-            System.out.println("Expects a number!");
+            System.out.println("Please enter valid input!");
         }
     }
 
