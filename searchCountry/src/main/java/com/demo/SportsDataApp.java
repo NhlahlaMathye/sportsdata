@@ -50,7 +50,7 @@ public class SportsDataApp {
                     break;
 
                 case 2:
-                    System.out.println(" How would you like to view teams? Select number" +
+                    System.out.println(" How would you like to view teams? select character." +
                             "\n" +
                             "\n D. for Default country " +
                             "\n S. for Searching by country" +
@@ -62,31 +62,65 @@ public class SportsDataApp {
                         System.out.println("Teams are from South Africa");
                         String defaultCountry = "South Africa";
                         SportsDataUtils.searchCountry(defaultCountry);
-                        programTrack = 0;
-
-
                     }  if (checkView.equalsIgnoreCase("S")) {
                         System.out.print("From which country would you like to receive teams : ");
                         String country = sc.nextLine();
                         SportsDataUtils.searchCountry(country);
-                        programTrack = 0;
 
                     } else {
-                        programTrack = 0;
                         break;
                     }
                     break;
 
                 case 3:
-                    System.out.print("Enter name of country for leagues you want to receive: ");
-                    String leagueCountry = sc.nextLine();
-                    SportsDataUtils.searchLeagues(leagueCountry);
+                    System.out.println(" How would you like to view leagues? select character." +
+                            "\n" +
+                            "\n D. for Default country " +
+                            "\n S. for Searching by country" +
+                            "\n " +
+                            "\n press Zero(0) to exit menu" +
+                            "\n");
+                    String checkLeagues = sc.nextLine();
+                    if(checkLeagues.equalsIgnoreCase("D"))
+                    {
+                        System.out.println("Leagues are from South Africa");
+                        String defaultLCountry = "South Africa";
+                        SportsDataUtils.searchLeagues(defaultLCountry);
+                    }
+                    if(checkLeagues.equalsIgnoreCase("S")) {
+                        System.out.print("Enter name of country for leagues you want to receive: ");
+                        String leagueCountry = sc.nextLine();
+                        SportsDataUtils.searchLeagues(leagueCountry);
+                    }
+                    else {
+                        programTrack = 0;
+                        break;
+                    }
                     break;
 
                 case 4:
-                    System.out.print("From which country would you like to view players : ");
-                    String countryPlayer = sc.nextLine();
-                    SportsDataUtils.searchPlayers(countryPlayer);
+                    System.out.println(" How would you like to view players? select character." +
+                            "\n" +
+                            "\n D. for Default country " +
+                            "\n S. for Searching by country" +
+                            "\n " +
+                            "\n press Zero(0) to exit menu" +
+                            "\n");
+                    String checkPlayers = sc.nextLine();
+                    if(checkPlayers.equalsIgnoreCase("D")) {
+                        System.out.println("Players are from South Africa");
+                        String defaultPCountry = "South Africa";
+                        SportsDataUtils.searchPlayers(defaultPCountry);
+                    }
+                    if(checkPlayers.equalsIgnoreCase("S")) {
+                        System.out.print("From which country would you like to view players : ");
+                        String countryPlayer = sc.nextLine();
+                        SportsDataUtils.searchPlayers(countryPlayer);
+                    }
+                    else {
+                        programTrack = 0;
+                        break;
+                    }
                     break;
 
                 case 5:
@@ -129,15 +163,53 @@ public class SportsDataApp {
                     break;
 
                 case 10:
-                    System.out.print("From which country would you like to view venues(Stadiums) : ");
-                    String countryVenue = sc.nextLine();
-                    SportsDataUtils.searchVenuesCountry(countryVenue);
+                    System.out.println(" How would you like to view venues? select character." +
+                            "\n" +
+                            "\n D. for Default country " +
+                            "\n S. for Searching by country" +
+                            "\n " +
+                            "\n press Zero(0) to exit menu" +
+                            "\n");
+                    String checkVenues = sc.nextLine();
+                    if(checkVenues.equalsIgnoreCase("D")) {
+                        System.out.println("Venues are from South Africa");
+                        String defaultVCountry = "South Africa";
+                        SportsDataUtils.searchVenuesCountry(defaultVCountry);
+                    }
+                    if(checkVenues.equalsIgnoreCase("S")) {
+                        System.out.print("From which country would you like to view venues(Stadiums) : ");
+                        String countryVenue = sc.nextLine();
+                        SportsDataUtils.searchVenuesCountry(countryVenue);
+                    }
+                    else {
+                        programTrack = 0;
+                        break;
+                    }
                     break;
 
                 case 11:
-                    System.out.print("From which country referees would you like to view : ");
-                    String countryRef = sc.nextLine();
-                    SportsDataUtils.searchCountryReferee(countryRef);
+                    System.out.println(" How would you like to view referees? select character." +
+                            "\n" +
+                            "\n D. for Default country " +
+                            "\n S. for Searching by country" +
+                            "\n " +
+                            "\n press Zero(0) to exit menu" +
+                            "\n");
+                    String checkReferees = sc.nextLine();
+                    if(checkReferees.equalsIgnoreCase("D")){
+                        System.out.println("Referees are from South Africa");
+                        String defaultRCountry = "South Africa";
+                        SportsDataUtils.searchCountryReferee(defaultRCountry);
+                    }
+                    if(checkReferees.equalsIgnoreCase("S")) {
+                        System.out.print("From which country referees would you like to view : ");
+                        String countryRef = sc.nextLine();
+                        SportsDataUtils.searchCountryReferee(countryRef);
+                    }
+                    else {
+                        programTrack = 0;
+                        break;
+                    }
                     break;
 
                 case 12:
@@ -171,8 +243,10 @@ public class SportsDataApp {
                         SportsDataUtils.topScorers(seasonS);
                         break;
                     } else {
+                        programTrack = 0;
                         break;
                     }
+
                 default:
                     break;
             }

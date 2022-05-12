@@ -423,8 +423,7 @@ public class SportsDataUtils {
     public static void searchCountry(String countryName)
     {
 
-            Country userCountry = null;
-
+        Country userCountry = null;
             for( Country country: allCountries) {
                 String countryNames = country.getName();
                 int countryIds = country.getCountry_id();
@@ -434,13 +433,11 @@ public class SportsDataUtils {
                     SportsDataUtils.specificTeams(countryIds);
                     break;
                 }
-
             }
             if (userCountry == null)
             {
                 System.out.println("Could not find Country : " + countryName);
             }
-
         }
 
     public static void searchPlayers(String countryPlayerName) {
