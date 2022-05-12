@@ -46,6 +46,7 @@ public class SportsDataUtils {
     private static final String MARKETS_URL = "/markets?apikey=";
     private static final String TOP_SCORER_URL = "/topscorers?apikey=&season_id=";
 
+    //Get all countries request.
     private static List<Country> allCountries = SportsDataUtils.countryRequest();
 
     final static Logger logger = Logger.getLogger(SportsDataUtils.class.getSimpleName());

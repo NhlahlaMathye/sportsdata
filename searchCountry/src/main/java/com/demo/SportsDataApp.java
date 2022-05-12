@@ -156,11 +156,13 @@ public class SportsDataApp {
                 case 8:
                     System.out.println("Here are the bookmakers below.");
                     SportsDataUtils.bookmakers();
+                    programTrack = 0;
                     break;
 
                 case 9:
                     System.out.println("Here are the markets below.");
                     SportsDataUtils.markets();
+                    programTrack = 0;
                     break;
 
                 case 10:
@@ -247,7 +249,6 @@ public class SportsDataApp {
                         programTrack = 0;
                         break;
                     }
-
                 default:
                     break;
             }
