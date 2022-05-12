@@ -188,7 +188,6 @@ public class SportsDataApp {
                         String defaultVCountry = "South Africa";
                         SportsDataUtils.searchVenuesCountry(defaultVCountry);
                         programTrack = 10;
-
                     }
                      if(checkVenues == 2) {
                         System.out.print("From which country would you like to view venues(Stadiums) :");
@@ -200,7 +199,6 @@ public class SportsDataApp {
                         programTrack = 0;
                         break;
                     }
-
                     break;
 
                 case 11:
@@ -271,5 +269,4 @@ public class SportsDataApp {
             System.out.println("Please enter valid input!");
         }
     }
-
 }
