@@ -68,6 +68,7 @@ public class SportsDataApp {
                         SportsDataUtils.searchCountry(country);
 
                     } else {
+                        programTrack = 0;
                         break;
                     }
                     break;
