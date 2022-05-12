@@ -21,7 +21,7 @@ public class SportsDataApp {
     }
 
     private static void mainSportData(int inputUser) throws InputMismatchException {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in).useDelimiter("\n");
         try {
             switch (inputUser) {
                 case 0:
@@ -53,22 +53,24 @@ public class SportsDataApp {
                 case 2:
                     System.out.println(" How would you like to view teams? select character." +
                             "\n" +
-                            "\n D. for Default country " +
-                            "\n S. for Searching by country" +
+                            "\n 1. for Default country " +
+                            "\n 2. for Searching by country" +
                             "\n " +
                             "\n press Zero(0) to exit menu" +
                             "\n");
-                    String checkView = sc.nextLine();
-                    if (checkView.equalsIgnoreCase("D")) {
+                    int checkView = sc.nextInt();
+                    if (checkView == 1) {
                         System.out.println("Teams are from South Africa");
                         String defaultCountry = "South Africa";
                         SportsDataUtils.searchCountry(defaultCountry);
-                    }  if (checkView.equalsIgnoreCase("S")) {
+                        programTrack = 2;
+                    }  else if (checkView == 2) {
                         System.out.print("From which country would you like to receive teams : ");
-                        String country = sc.nextLine();
+                        String country = sc.next();
                         SportsDataUtils.searchCountry(country);
+                        programTrack = 2;
 
-                    } else {
+                    } else if (checkView == 0) {
                         programTrack = 0;
                         break;
                     }
@@ -77,24 +79,26 @@ public class SportsDataApp {
                 case 3:
                     System.out.println(" How would you like to view leagues? select character." +
                             "\n" +
-                            "\n D. for Default country " +
-                            "\n S. for Searching by country" +
+                            "\n 1. for Default country " +
+                            "\n 2. for Searching by country" +
                             "\n " +
                             "\n press Zero(0) to exit menu" +
                             "\n");
-                    String checkLeagues = sc.nextLine();
-                    if(checkLeagues.equalsIgnoreCase("D"))
+                    int checkLeagues = sc.nextInt();
+                    if(checkLeagues == 1)
                     {
                         System.out.println("Leagues are from South Africa");
                         String defaultLCountry = "South Africa";
                         SportsDataUtils.searchLeagues(defaultLCountry);
+                        programTrack = 3;
                     }
-                    if(checkLeagues.equalsIgnoreCase("S")) {
+                    else if(checkLeagues == 2) {
                         System.out.print("Enter name of country for leagues you want to receive: ");
-                        String leagueCountry = sc.nextLine();
+                        String leagueCountry = sc.next();
                         SportsDataUtils.searchLeagues(leagueCountry);
+                        programTrack = 3;
                     }
-                    else {
+                    else if (programTrack == 0) {
                         programTrack = 0;
                         break;
                     }
@@ -103,23 +107,25 @@ public class SportsDataApp {
                 case 4:
                     System.out.println(" How would you like to view players? select character." +
                             "\n" +
-                            "\n D. for Default country " +
-                            "\n S. for Searching by country" +
+                            "\n 1. for Default country " +
+                            "\n 2. for Searching by country" +
                             "\n " +
                             "\n press Zero(0) to exit menu" +
                             "\n");
-                    String checkPlayers = sc.nextLine();
-                    if(checkPlayers.equalsIgnoreCase("D")) {
+                    int checkPlayers = sc.nextInt();
+                    if(checkPlayers == 1) {
                         System.out.println("Players are from South Africa");
                         String defaultPCountry = "South Africa";
                         SportsDataUtils.searchPlayers(defaultPCountry);
+                        programTrack = 4;
                     }
-                    if(checkPlayers.equalsIgnoreCase("S")) {
+                    else if(checkPlayers == 2) {
                         System.out.print("From which country would you like to view players : ");
-                        String countryPlayer = sc.nextLine();
+                        String countryPlayer = sc.next();
                         SportsDataUtils.searchPlayers(countryPlayer);
+                        programTrack = 4;
                     }
-                    else {
+                    else if(checkPlayers == 0) {
                         programTrack = 0;
                         break;
                     }
@@ -170,50 +176,55 @@ public class SportsDataApp {
                     break;
 
                 case 10:
-                    System.out.println(" How would you like to view venues? select character." +
+                    System.out.println(" How would you like to view venues? select number." +
+                            "\n 1. for Default country " +
+                            "\n 2. for Searching by country" +
                             "\n" +
-                            "\n D. for Default country " +
-                            "\n S. for Searching by country" +
-                            "\n " +
-                            "\n press Zero(0) to exit menu" +
-                            "\n");
-                    String checkVenues = sc.nextLine();
-                    if(checkVenues.equalsIgnoreCase("D")) {
+                            "\n Enter zero(0) to exit menu"
+                            );
+                    int checkVenues = Integer.parseInt(sc.next());
+                    if(checkVenues == 1) {
                         System.out.println("Venues are from South Africa");
                         String defaultVCountry = "South Africa";
                         SportsDataUtils.searchVenuesCountry(defaultVCountry);
+                        programTrack = 10;
+
                     }
-                    if(checkVenues.equalsIgnoreCase("S")) {
-                        System.out.print("From which country would you like to view venues(Stadiums) : ");
-                        String countryVenue = sc.nextLine();
+                     if(checkVenues == 2) {
+                        System.out.print("From which country would you like to view venues(Stadiums) :");
+                        String countryVenue = sc.next();
                         SportsDataUtils.searchVenuesCountry(countryVenue);
+                        programTrack = 10;
                     }
-                    else {
+                     if(checkVenues == 0) {
                         programTrack = 0;
                         break;
                     }
+
                     break;
 
                 case 11:
                     System.out.println(" How would you like to view referees? select character." +
                             "\n" +
-                            "\n D. for Default country " +
-                            "\n S. for Searching by country" +
+                            "\n 1. for Default country " +
+                            "\n 2. for Searching by country" +
                             "\n " +
                             "\n press Zero(0) to exit menu" +
                             "\n");
-                    String checkReferees = sc.nextLine();
-                    if(checkReferees.equalsIgnoreCase("D")){
+                    int checkReferees = sc.nextInt();
+                    if(checkReferees == 1){
                         System.out.println("Referees are from South Africa");
                         String defaultRCountry = "South Africa";
                         SportsDataUtils.searchCountryReferee(defaultRCountry);
+                        programTrack = 11;
                     }
-                    if(checkReferees.equalsIgnoreCase("S")) {
+                   else if(checkReferees == 2) {
                         System.out.print("From which country referees would you like to view : ");
-                        String countryRef = sc.nextLine();
+                        String countryRef = sc.next();
                         SportsDataUtils.searchCountryReferee(countryRef);
+                        programTrack = 11;
                     }
-                    else {
+                    else if(checkReferees == 0) {
                         programTrack = 0;
                         break;
                     }
@@ -221,7 +232,7 @@ public class SportsDataApp {
 
                 case 12:
                     System.out.print("From which league you want to view the seasons : ");
-                    String leagueName = sc.nextLine();
+                    String leagueName = sc.next();
                     SportsDataUtils.specificLeagueSeason(leagueName);
 
                     System.out.print("Would you also like to view, Select : " +
@@ -236,20 +247,20 @@ public class SportsDataApp {
                         System.out.print("Enter the season for the stages (See season's above(Season_ID)) : ");
                         int season = sc.nextInt();
                         SportsDataUtils.stagesSeason(season);
-                        break;
+                        programTrack = 12;
                     } else if (viewStage == 1) {
                         System.out.print("For which season would you like to view matches (See season's above(Season_ID)) ? : ");
                         int seasonM = sc.nextInt();
                         System.out.print("Write the date of the matches you want view? (YYYY-MM-DD) (See dates above) : ");
-                        String dateMatch = sc.nextLine();
+                        String dateMatch = sc.next();
                         SportsDataUtils.specificMatches(seasonM, dateMatch);
-                        break;
+                        programTrack = 12;
                     } else if (viewStage == 3) {
                         System.out.print("Enter the season you would like to view top scorers (See season's above(Season_ID)) : ");
                         int seasonS = sc.nextInt();
                         SportsDataUtils.topScorers(seasonS);
-                        break;
-                    } else {
+                        programTrack = 12;
+                    } else if (viewStage == 0) {
                         programTrack = 0;
                         break;
                     }
