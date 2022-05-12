@@ -52,28 +52,30 @@ public class SportsDataApp {
                 case 2:
                     System.out.println(" How would you like to view teams? Select number" +
                             "\n" +
-                            "\n 1. Default country" +
-                            "\n 2. Search by country" +
+                            "\n D. for Default country " +
+                            "\n S. for Searching by country" +
                             "\n " +
                             "\n press Zero(0) to exit menu" +
                             "\n");
-                    int checkView = sc.nextInt();
-
-                    if (checkView == 1) {
+                    String checkView = sc.nextLine();
+                    if (checkView.equalsIgnoreCase("D")) {
                         System.out.println("Teams are from South Africa");
                         String defaultCountry = "South Africa";
                         SportsDataUtils.searchCountry(defaultCountry);
-                        break;
+                        programTrack = 0;
 
-                    } else if (checkView == 2) {
+
+                    }  if (checkView.equalsIgnoreCase("S")) {
                         System.out.print("From which country would you like to receive teams : ");
                         String country = sc.nextLine();
                         SportsDataUtils.searchCountry(country);
-                        break;
+                        programTrack = 0;
 
                     } else {
+                        programTrack = 0;
                         break;
                     }
+                    break;
 
                 case 3:
                     System.out.print("Enter name of country for leagues you want to receive: ");
