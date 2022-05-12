@@ -229,7 +229,7 @@ public class SportsDataUtils {
                         "\n Minutes played: " + minutesPlayed +
                         "\n Substituted times: " + substituted +
                         "\n Goals scored: " + goals +
-                        " Penalties taken: " + penalty
+                        "\n Penalties taken: " + penalty
                         );
             }
 

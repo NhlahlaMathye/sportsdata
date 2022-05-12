@@ -12,7 +12,7 @@ public class Goals {
     @Override
     public String toString()
     {
-        return "" + overall + "" + home + ""+away+ "";
+        return " Overall:" + overall + " Home:" + home + " Away:"+away+ "";
     }
 
     public int getOverall() {

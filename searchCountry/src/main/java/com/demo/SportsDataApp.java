@@ -142,6 +142,7 @@ public class SportsDataApp {
                     System.out.print("Enter date of the matches you want to view (See dates above) : ");
                     String matchDate = sc.nextLine();
                     SportsDataUtils.specificMatches(matchSeason, matchDate);
+                    programTrack = 0;
                     break;
 
                 case 7:
@@ -151,6 +152,7 @@ public class SportsDataApp {
                     System.out.print("Enter the season for top scorers (See above Season_ID) : ");
                     int scoreSeason = sc.nextInt();
                     SportsDataUtils.topScorers(scoreSeason);
+                    programTrack=0;
                     break;
 
                 case 8:
