@@ -26,6 +26,7 @@ import java.io.IOException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SportsDataUtils {
@@ -60,6 +61,8 @@ public class SportsDataUtils {
                 .build();
         OkHttpClient client = new OkHttpClient();
 
+
+
         try {
             Response response = client.newCall(request).execute();
             if(!response.isSuccessful()){
@@ -73,6 +76,7 @@ public class SportsDataUtils {
 
         } catch (IOException e) {
             logger.info("Request Exception : " + e.getMessage());
+            Logger.getLogger(OkHttpClient.class.getName()).setLevel(Level.FINE);
             e.printStackTrace();
             return null;
         }
@@ -108,7 +112,7 @@ public class SportsDataUtils {
             for (Map.Entry<String, RequestLeague> responseMap : leagueResponse.getData().entrySet()) {
 
                String leagueName = responseMap.getValue().getName();
-                System.out.println("\n League Name: " + leagueName);
+                System.out.println("League Name: " + leagueName + "\n");
             }
             
         } catch (IOException e) {
@@ -166,7 +170,8 @@ public class SportsDataUtils {
                             "\n birthdate:" + birthdate+
                             "\n age:" + age+
                             "\n weight:" + weight+
-                            "\n height:" + height
+                            "\n height:" + height  +
+                            "\n"
                             );
                 }
 
@@ -234,7 +239,7 @@ public class SportsDataUtils {
             }
 
         } catch (IOException e) {
-            System.out.println("Enter a valid season");
+            System.out.println("No records were found for the entered season.");
         }
     }
 
@@ -299,7 +304,7 @@ public class SportsDataUtils {
             {
                 String name = requestStages1.getName();
                 requestStages = requestStages1;
-                System.out.println("\n Stage Name: " + name);
+                System.out.println("Stage Name: " + name + "\n");
             }
             if (requestStages == null)
             {
